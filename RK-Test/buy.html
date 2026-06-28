@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Catalog | RK Auto Mobiles</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Manrope:wght@400;500;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#eefff3",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-secondary-container": "#2d2a8d",
+                        "on-tertiary-fixed": "#002113",
+                        "surface-container-low": "#f3f4f6",
+                        "on-surface": "#191c1e",
+                        "surface-tint": "#c00014",
+                        "secondary-container": "#9999ff",
+                        "on-primary-container": "#fffafa",
+                        "surface-container-highest": "#e1e2e4",
+                        "inverse-surface": "#2e3132",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3b399b",
+                        "tertiary": "#006847",
+                        "primary-container": "#e31e24",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#ffb4ab",
+                        "secondary": "#5353b4",
+                        "on-secondary-fixed": "#0b006b",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#00845a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#93000d",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-surface-variant": "#5d3f3c",
+                        "outline-variant": "#e7bdb8",
+                        "surface-container-high": "#e7e8ea",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-background": "#191c1e",
+                        "background": "#f8f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#410002",
+                        "surface-variant": "#e1e2e4",
+                        "surface-dim": "#d9dadc",
+                        "secondary-fixed-dim": "#c2c1ff",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "on-error": "#ffffff",
+                        "surface": "#f8f9fb",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f8f9fb",
+                        "inverse-on-surface": "#f0f1f3",
+                        "surface-container": "#edeef0",
+                        "secondary-fixed": "#e2dfff",
+                        "primary": "#ba0013",
+                        "outline": "#926f6b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "4rem",
+                        "margin-mobile": "1rem",
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-md": ["Manrope"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface min-h-screen">
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-container-max">
+        <div
+            class="bg-surface/80 backdrop-blur-md border border-outline-variant rounded-full px-6 py-3 flex items-center justify-between shadow-lg">
+            <div class="flex items-center gap-8">
+                <a class="flex items-center gap-2" href="/">
+                    <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+                        <span class="material-symbols-outlined">directions_car</span>
+                    </div>
+                    <span class="font-headline-md text-on-surface tracking-tight">RK Auto</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6">
+                    <a class="text-body-md font-medium text-on-surface-variant hover:text-primary transition-colors"
+                        href="#">Buy</a>
+                    <a class="text-body-md font-medium text-on-surface-variant hover:text-primary transition-colors"
+                        href="#">Sell</a>
+                    <a class="text-body-md font-medium text-on-surface-variant hover:text-primary transition-colors"
+                        href="#">Compare</a>
+                    <a class="text-body-md font-medium text-on-surface-variant hover:text-primary transition-colors"
+                        href="#">About</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+                <button
+                    class="bg-primary text-on-primary px-6 py-2 rounded-full text-body-md font-semibold hover:bg-primary/90 transition-colors">
+                    Login
+                </button>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32 pb-section-gap px-4 md:px-8 max-w-container-max mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+            <div>
+                <h1 class="text-display-lg font-headline-lg text-on-surface mb-2">Our Collection</h1>
+                <p class="text-body-lg text-on-surface-variant">Explore our premium selection of vehicles.</p>
+            </div>
+            <div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto hide-scrollbar pb-2 md:pb-0">
+                <button
+                    class="flex-shrink-0 flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-full text-body-md font-medium text-on-surface hover:bg-surface-container transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">filter_list</span>
+                    Filters
+                </button>
+                <button
+                    class="flex-shrink-0 flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-full text-body-md font-medium text-on-surface hover:bg-surface-container transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">sort</span>
+                    Sort: Recommended
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div
+                class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden hover:shadow-lg transition-shadow group">
+                <div
+                    class="aspect-[16/10] bg-surface-container flex items-center justify-center overflow-hidden relative">
+                    <span
+                        class="material-symbols-outlined text-6xl text-on-surface-variant opacity-20 group-hover:scale-110 transition-transform duration-500">directions_car</span>
+                    <div
+                        class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1 rounded-full text-label-sm uppercase tracking-wider font-bold">
+                        New</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-headline-md font-headline-md text-on-surface mb-1">2024 Porsche 911</h3>
+                    <p class="text-body-md text-on-surface-variant mb-6">Carrera S Coupe</p>
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">50 mi</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Automatic</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">local_gas_station</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Petrol</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-outline-variant pt-6">
+                        <span class="text-headline-md font-headline-md text-on-surface">$145,000</span>
+                        <button
+                            class="text-primary text-body-md font-bold hover:text-primary/80 transition-colors flex items-center gap-1">
+                            View Details
+                            <span
+                                class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div
+                class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden hover:shadow-lg transition-shadow group">
+                <div class="aspect-[16/10] bg-surface-container flex items-center justify-center overflow-hidden">
+                    <span
+                        class="material-symbols-outlined text-6xl text-on-surface-variant opacity-20 group-hover:scale-110 transition-transform duration-500">directions_car</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-headline-md font-headline-md text-on-surface mb-1">2023 Range Rover</h3>
+                    <p class="text-body-md text-on-surface-variant mb-6">Autobiography LWB</p>
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">4,200 mi</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Automatic</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">bolt</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Hybrid</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-outline-variant pt-6">
+                        <span class="text-headline-md font-headline-md text-on-surface">$162,500</span>
+                        <button
+                            class="text-primary text-body-md font-bold hover:text-primary/80 transition-colors flex items-center gap-1">
+                            View Details
+                            <span
+                                class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div
+                class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden hover:shadow-lg transition-shadow group">
+                <div class="aspect-[16/10] bg-surface-container flex items-center justify-center overflow-hidden">
+                    <span
+                        class="material-symbols-outlined text-6xl text-on-surface-variant opacity-20 group-hover:scale-110 transition-transform duration-500">directions_car</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-headline-md font-headline-md text-on-surface mb-1">2022 Audi e-tron GT</h3>
+                    <p class="text-body-md text-on-surface-variant mb-6">RS quattro</p>
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">12,500 mi</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Automatic</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">electric_car</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Electric</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-outline-variant pt-6">
+                        <span class="text-headline-md font-headline-md text-on-surface">$105,900</span>
+                        <button
+                            class="text-primary text-body-md font-bold hover:text-primary/80 transition-colors flex items-center gap-1">
+                            View Details
+                            <span
+                                class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div
+                class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden hover:shadow-lg transition-shadow group">
+                <div
+                    class="aspect-[16/10] bg-surface-container flex items-center justify-center overflow-hidden relative">
+                    <span
+                        class="material-symbols-outlined text-6xl text-on-surface-variant opacity-20 group-hover:scale-110 transition-transform duration-500">directions_car</span>
+                    <div
+                        class="absolute top-4 right-4 bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-label-sm uppercase tracking-wider font-bold">
+                        Featured</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-headline-md font-headline-md text-on-surface mb-1">2024 Mercedes-Benz G-Class</h3>
+                    <p class="text-body-md text-on-surface-variant mb-6">G 63 AMG</p>
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">150 mi</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Automatic</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">local_gas_station</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Petrol</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-outline-variant pt-6">
+                        <span class="text-headline-md font-headline-md text-on-surface">$189,500</span>
+                        <button
+                            class="text-primary text-body-md font-bold hover:text-primary/80 transition-colors flex items-center gap-1">
+                            View Details
+                            <span
+                                class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div
+                class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden hover:shadow-lg transition-shadow group">
+                <div class="aspect-[16/10] bg-surface-container flex items-center justify-center overflow-hidden">
+                    <span
+                        class="material-symbols-outlined text-6xl text-on-surface-variant opacity-20 group-hover:scale-110 transition-transform duration-500">directions_car</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-headline-md font-headline-md text-on-surface mb-1">2021 BMW M5</h3>
+                    <p class="text-body-md text-on-surface-variant mb-6">Competition Sedan</p>
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">22,400 mi</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Automatic</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">local_gas_station</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Petrol</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-outline-variant pt-6">
+                        <span class="text-headline-md font-headline-md text-on-surface">$92,000</span>
+                        <button
+                            class="text-primary text-body-md font-bold hover:text-primary/80 transition-colors flex items-center gap-1">
+                            View Details
+                            <span
+                                class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 6 -->
+            <div
+                class="bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden hover:shadow-lg transition-shadow group">
+                <div class="aspect-[16/10] bg-surface-container flex items-center justify-center overflow-hidden">
+                    <span
+                        class="material-symbols-outlined text-6xl text-on-surface-variant opacity-20 group-hover:scale-110 transition-transform duration-500">directions_car</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-headline-md font-headline-md text-on-surface mb-1">2023 Lexus LC 500</h3>
+                    <p class="text-body-md text-on-surface-variant mb-6">Base Coupe</p>
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">3,800 mi</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">settings</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Automatic</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">local_gas_station</span>
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Petrol</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-outline-variant pt-6">
+                        <span class="text-headline-md font-headline-md text-on-surface">$98,500</span>
+                        <button
+                            class="text-primary text-body-md font-bold hover:text-primary/80 transition-colors flex items-center gap-1">
+                            View Details
+                            <span
+                                class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 flex justify-center">
+            <button
+                class="bg-surface-container border border-outline-variant text-on-surface px-8 py-3 rounded-full text-body-md font-semibold hover:bg-surface-container-high transition-colors">
+                Load More Vehicles
+            </button>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>MINI Cooper S | RK Auto Mobiles</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&amp;family=Manrope:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191c1e",
+                        "surface-container": "#edeef0",
+                        "on-primary-fixed": "#410002",
+                        "on-primary-container": "#fffafa",
+                        "outline": "#926f6b",
+                        "on-surface-variant": "#5d3f3c",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "outline-variant": "#e7bdb8",
+                        "surface-container-high": "#e7e8ea",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9fb",
+                        "surface-variant": "#e1e2e4",
+                        "surface-dim": "#d9dadc",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-tertiary-container": "#eefff3",
+                        "on-primary-fixed-variant": "#93000d",
+                        "surface-tint": "#c00014",
+                        "tertiary-container": "#00845a",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "secondary-container": "#9999ff",
+                        "on-secondary-fixed-variant": "#3b399b",
+                        "tertiary": "#006847",
+                        "surface-container-highest": "#e1e2e4",
+                        "primary-fixed": "#ffdad6",
+                        "on-secondary-fixed": "#0b006b",
+                        "primary-container": "#e31e24",
+                        "secondary-fixed": "#e2dfff",
+                        "primary": "#ba0013",
+                        "inverse-on-surface": "#f0f1f3",
+                        "inverse-primary": "#ffb4ab",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "secondary-fixed-dim": "#c2c1ff",
+                        "surface": "#f8f9fb",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9fb",
+                        "surface-container-low": "#f3f4f6",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed": "#002113",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#5353b4",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-secondary-container": "#2d2a8d",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "container-max": "1280px",
+                        "stack-md": "1rem",
+                        "margin-mobile": "1rem",
+                        "section-gap": "4rem",
+                        "stack-sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab-border {
+            border-bottom: 2px solid #e31e24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e1e2e4;
+            border-radius: 10px;
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/20">
+  <div class="max-w-container-max mx-auto px-gutter py-4 flex items-center justify-between">
+    <div class="flex items-center gap-8">
+      <span class="text-headline-md font-headline-md font-extrabold text-primary">RK Auto Mobiles</span>
+      <div class="hidden md:flex items-center bg-surface-container px-2 py-1 rounded-full border border-outline-variant/30">
+        <a href="#" class="px-4 py-1.5 rounded-full text-body-md font-bold bg-primary text-on-primary transition-all">Buy</a>
+        <a href="#" class="px-4 py-1.5 rounded-full text-body-md font-bold text-on-surface-variant hover:bg-surface-container-high transition-all">Sell</a>
+        <a href="#" class="px-4 py-1.5 rounded-full text-body-md font-bold text-on-surface-variant hover:bg-surface-container-high transition-all">Compare</a>
+        <a href="#" class="px-4 py-1.5 rounded-full text-body-md font-bold text-on-surface-variant hover:bg-surface-container-high transition-all">About</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="p-2 rounded-full hover:bg-surface-container transition-colors">
+        <span class="material-symbols-outlined text-on-surface-variant">search</span>
+      </button>
+      <div class="h-6 w-px bg-outline-variant/30"></div>
+      <button class="flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant hover:bg-surface-container transition-all">
+        <span class="material-symbols-outlined text-[20px]">account_circle</span>
+        <span class="font-bold text-body-md">Login</span>
+      </button>
+    </div>
+  </div>
+</nav>
+<main class="max-w-container-max mx-auto px-gutter py-8">
+<!-- Breadcrumbs & Title -->
+<div class="flex flex-col gap-2 mb-6">
+<nav class="flex text-label-sm font-label-sm text-on-surface-variant opacity-60">
+<a class="hover:underline" href="#">European car sales</a>
+<span class="mx-2">/</span>
+<a class="hover:underline" href="#">MINI Cooper</a>
+<span class="mx-2">/</span>
+<span class="text-on-surface">MINI Cooper S</span>
+</nav>
+<div class="flex justify-between items-end">
+<h1 class="text-headline-lg font-headline-lg text-on-background">MINI Cooper S</h1>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-secondary">favorite</span></button>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-secondary">link</span></button>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-secondary">more_horiz</span></button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Gallery & Similar -->
+<div class="lg:col-span-8 flex flex-col gap-section-gap">
+<!-- Hero Gallery -->
+<div class="flex flex-col gap-4">
+<div class="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-surface-container group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A professional studio photograph of a matte forest green MINI Cooper S with black racing rims and a sleek, sporty profile. The car is positioned in a modern, brightly lit automotive showroom with polished concrete floors and minimalist industrial architecture. Soft overhead spotlights highlight the metallic texture of the paint and the iconic rounded headlights of the vehicle. The overall mood is premium, clean, and high-performance, fitting a corporate automotive marketplace aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcQbEIkViZHqzOykb9BNRTaKv6-7TMzWNlEWerinze_lwDJ1WD_it5BJ-Rc0N4cZXZtquz6HSzCjIN4glWChJnc2_l6MuovltG-C1AA2M9Q2Xynt4C86y-s0t16nb5Lx1BhXhz86jgoqV47_xfSK3m2UjGWQ2seIHzhBkhPUJ0vvw4-1C-4nSSqTFgUSYUcT4UdHubXEzvaCTiF4GZB8B_7Ar_dTim6hxm4TNxSNAttsOkFL_UyoEexOZXlwCBRJsEthE47k2FCrRT">
+<div class="absolute bottom-4 right-4 bg-on-background/80 backdrop-blur-md text-on-primary px-3 py-1 rounded-full text-label-sm">
+                            1 / 12 Photos
+                        </div>
+</div>
+<div class="grid grid-cols-4 md:grid-cols-5 gap-3">
+<div class="aspect-square rounded-lg overflow-hidden border-2 border-primary-container ring-4 ring-primary-container/10">
+<img class="w-full h-full object-cover" data-alt="A detailed close-up shot of the rear quarter of a green MINI Cooper S, focusing on the signature Union Jack LED taillight and the dual chrome exhaust pipes. The lighting is crisp, emphasizing the car's curves and the high-quality finish of the paint. Professional automotive photography style with shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnJSrAsfO2X61sThtpuCHUVvvrAx9AT3QYIrsS8uBIoBAh1n5sWWvrTiLihNILoMWSky9E66-_Lx6NtDVoYATfvhCpeyOH5XdjdARZ3mZkXeG4y8o-8Tbog7F_w2a4XymFe29pKjj_hBG1L-QG9sqXvl_Yhp2InFe1aoN0yUbHWlBAhAcxnUNsKJ4qVl24SxNi_S1of5fwsYH028KdK7zmB-VArjNZNrkTOfzEgULoB4qiBSs5Iw3XFZa6cQBcZsDkP7h3lIDdAmat">
+</div>
+<div class="aspect-square rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="Close-up of the front grille and circular LED daytime running lights of a MINI Cooper S. The matte green paint contrasts beautifully with the glossy black accents. High-resolution automotive detail photography with a modern, high-key lighting setup." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtCH7-wSiD3Q8n8FssRYxCAp5EP2leZw9N8lr6ZYzsT8OZ0cOl3S3TLpxZLUFofNOObkj5OUQrCl_-8qqyqQo0OUGWgo3O6ZphURJryhaqWMDfWQ57PgIu0MSGmdSW2R-KGPaqMtbK2JKkAJxTWmAKXIgY1yH3qUFz_mc287Esp5vNL5IUhPVML-EVV0aLrlLDzzlxzuPOzubfEK2zdyCMplDjj2tR_hBG2r8GIAj540_L80yrrApEiYnN569iGQK2HpIpR9qoLSVg">
+</div>
+<div class="aspect-square rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+<img class="w-full h-full object-cover" data-alt="Interior view of a modern MINI Cooper S dashboard, featuring the large circular central infotainment display and toggle switches. The premium leather upholstery and ambient lighting create a sophisticated atmosphere. Clean, minimalist composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKPuc74jVioQvMXS81JCc1nIQsdM89M1XAx4A9i1crdYdT3Be6yvK8o6c1UuWrCwfIR3aMCjDXXvlbWkWBzwNhuw7lV4dSQwbdIumsTImKJYPFAO92WkP2qUpKKkYvysCe64YzPbaub73R3mQQDFZOkJaQbul0lDNd6AkRr2OqIfcGXV4CuYvbg123LsNF_SinSYfaaGNNkCPRztDL9KKkAyhJPy1fJOgbDJ7EjhIAFzvDl08oY69TOSI1P9HUTo9foh8aara45vAA">
+</div>
+<div class="relative aspect-square rounded-lg overflow-hidden cursor-pointer group">
+<img class="w-full h-full object-cover" data-alt="Close-up of the digital instrument cluster behind the steering wheel of a MINI Cooper S, showing technical data and a vibrant interface. The design is modern and high-tech, with crisp graphics and deep contrast. Soft interior light highlights the premium materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA91I6iRGb8jA_LVWVKz4GUJ5G3ebiR7oP0baf6e6sJDRt8Dh0PTvTwcxV8IEAXWZc-PxL7S5ORgv9IP8cRR9boNPb59f3dLPYbNY2_YBInv7iaOiyXxia3Ih4ai86ZgVqxaQBuavbn5UGohb1rvywz8dvb27GTkSkwl3qlWa4i9pwVpQ4zsc1cnG1NkZc3PJ3K5dPG8rQtbBivoY8_2RDI1IObxPQQrKOY_a-Albv6AWXtgEZBWOidMRiszZJI64bQ-ZP9bFGuW99P">
+<div class="absolute inset-0 bg-on-background/40 flex items-center justify-center text-on-primary font-headline-md">+8</div>
+</div>
+<div class="hidden md:flex flex-col justify-center items-center gap-2 p-4 bg-surface-container rounded-lg border border-outline-variant/30 text-center">
+<span class="material-symbols-outlined text-secondary scale-125">forum</span>
+<p class="text-label-sm font-label-sm">56 short reviews</p>
+</div>
+</div>
+</div>
+<!-- Similar Cars -->
+<div class="flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<h2 class="text-headline-md font-headline-md">Similar cars</h2>
+<a class="text-secondary font-bold flex items-center gap-1 hover:underline" href="#">View all <span class="material-symbols-outlined text-[18px]">chevron_right</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Car Card 1 -->
+<div class="bento-card flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/20">
+<div class="h-40 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A bright orange 2019 MINI Cooper S parked on a clean urban street during the golden hour. The warm sunlight reflects off the polished hood and chrome details, creating a vibrant and energetic mood. Modern automotive lifestyle photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9B0nrl8bBOpmxYTuJuq6GVoelIU8sIozULLxMkV-EGvxDKFmp0E4pdSJ_XFZS1J0s-oM4z5Caqb0PL-VppnE0HcdmZ4G3pwnCFvKwL_ptcBqZohgOxAvKX8gpUXeFqA0a59613ziOHCKOBNewZ-tRRJTqOTR7h3QhG-RUr2zuU2Y2lVPOCE04jYgy393KepNcfH3oCvdNvGolPcddJQ9N57f3rMyisAG58G7SRmYygGWStoyJL8HD_Erkrq2r-P5kgijwKjvUIm84">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<h3 class="text-body-md font-bold">MINI Cooper S 2019</h3>
+<p class="text-headline-md font-headline-md text-secondary">6 500 €</p>
+</div>
+</div>
+<!-- Car Card 2 -->
+<div class="bento-card flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/20">
+<div class="h-40 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A white MINI Cooper SE electric car charging at a sleek, modern charging station in a contemporary European city center. The clean, white paint and neon yellow accents of the SE model stand out against the architectural background. Soft, diffused daylight lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxysKqo_Y9PexB7lllYo-pvhynA-zrAn6QdOQLjTq82MyFeQtKNrv1orZMKssbY5YX_IOvFB1cIoxJW7EMQwFNx08EHktr4lvMcnO9xm3bvRlCeqcFEXRe3Cnxnp5EqNMGWSgqd09l3eX5SM8u0137MPJajYdHglXJyaDJn4sPWfCwuxqjCIJwlNmvTlMzGlnFkFO2D94c9B7-5KPQ5k6B-pNfv4ips1w4OA8gXeiwr-0_6m0oOS832DS86M-NCguLWwPgNeWho4o3">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<h3 class="text-body-md font-bold">MINI Cooper SE</h3>
+<p class="text-headline-md font-headline-md text-secondary">12 350 €</p>
+</div>
+</div>
+<!-- Car Card 3 -->
+<div class="bento-card flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/20">
+<div class="h-40 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A white MINI Cooper Clubman 2019 with red roof and racing stripes driving through a scenic coastal road. The long wheelbase of the Clubman is showcased against the blue ocean backdrop. Dynamic, high-action automotive photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8mITxHCoUioV9APMI4uiZRbHbbPYg4DiK20AAAHxMNpFU2wa9bgsAr9iOD8u7Lyfog_IVR1r7gdx9mxVYuG19Uczt5Y2IH06-3h6fLnf7ZDlZuhFlhEK6vLISofkJ1ssenqYoUixzrxkaLL-Y3aa4rn3oc15U04Nq_64OCIa0aIAHJIffu7vibjLIU-A5oNSLY5-lEb46s1zqo_5wWpNbUaJbXrGEQIlgQa64iC9rDoxUI1pZUEViZlgmNocdGCZFKDQzScq5nQ3P">
+</div>
+<div class="p-4 flex flex-col gap-2">
+<h3 class="text-body-md font-bold">MINI Cooper Clubman 2019</h3>
+<p class="text-headline-md font-headline-md text-secondary">7 350 €</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions & Data -->
+<div class="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-24 h-fit">
+<!-- PRO Banner -->
+<div class="bg-on-background text-on-primary p-4 rounded-xl flex justify-between items-center relative overflow-hidden">
+
+<div class="relative z-10 flex flex-col">
+<span class="text-body-md font-bold">Purchase a PRO account</span>
+<span class="text-label-sm opacity-80">Get greater access and expert insights</span>
+</div>
+<span class="material-symbols-outlined relative z-10 cursor-pointer hover:scale-110 transition-transform">close</span>
+</div>
+<!-- Price Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 flex flex-col gap-4 shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<span class="text-display-lg font-display-lg text-on-background">6 000 €</span>
+<span class="bg-tertiary-container/10 text-tertiary px-2 py-0.5 rounded text-label-sm font-bold">Above estimate by 8%</span>
+</div>
+<p class="text-body-md text-on-surface-variant opacity-70">5 890 € with discounts</p>
+</div>
+<div class="flex items-center gap-2 text-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                        344 views today
+                    </div>
+<button class="w-full bg-secondary-container/20 text-secondary py-3 rounded-lg font-bold hover:bg-secondary-container/30 transition-colors">
+                        On credit from 800 € a month
+                    </button>
+<hr class="border-outline-variant/30">
+<!-- VIN Report -->
+<div class="flex flex-col gap-4">
+<h4 class="text-body-lg font-bold">VIN report</h4>
+<div class="grid grid-cols-1 gap-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check_circle</span>
+</div>
+<span class="text-body-md">Characteristics match the TPC</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check_circle</span>
+</div>
+<span class="text-body-md">2 registration records</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[18px]">lock</span>
+</div>
+<span class="text-body-md">1 previous announcement</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[18px]">history</span>
+</div>
+<span class="text-body-md">1 entry in the mileage history</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-secondary text-on-primary py-4 rounded-xl font-bold text-body-lg hover:shadow-lg hover:shadow-secondary/20 transition-all active:scale-95">
+                        Get the full report
+                    </button>
+</div>
+<!-- Price Statistics -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 flex flex-col gap-6 shadow-sm">
+<div class="flex justify-between items-center">
+<h4 class="text-body-lg font-bold">Price statistics</h4>
+<div class="flex gap-1">
+<button class="p-1 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="p-1 rounded-full bg-surface-container hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+<div class="relative h-48 w-full">
+<!-- Chart Mockup -->
+<div class="absolute bottom-0 left-0 w-full h-full flex items-end justify-between px-2">
+<div class="w-px h-full bg-outline-variant/20 absolute left-0 bottom-0"></div>
+<div class="w-full h-px bg-outline-variant/20 absolute bottom-0 left-0"></div>
+<!-- Simplified Path for Chart -->
+<svg class="w-full h-full fill-none" viewBox="0 0 400 150">
+<defs>
+<linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="rgba(83, 83, 180, 0.2)"></stop>
+<stop offset="100%" stop-color="rgba(83, 83, 180, 0)"></stop>
+</linearGradient>
+</defs>
+<path d="M0 120 Q 50 140 100 100 T 200 80 T 300 40 T 400 60" fill="url(#chartGradient)"></path>
+<path d="M0 120 Q 50 140 100 100 T 200 80 T 300 40 T 400 60" stroke="#5353b4" stroke-linecap="round" stroke-width="3"></path>
+<!-- Active Point -->
+<circle cx="200" cy="80" fill="#191c1e" r="5"></circle>
+<line stroke="#191c1e" stroke-dasharray="4" x1="200" x2="200" y1="80" y2="150"></line>
+</svg>
+<!-- Tooltip -->
+<div class="absolute top-4 left-[45%] bg-on-background text-on-primary px-3 py-1 rounded text-label-sm font-bold shadow-xl">
+                                6 000 €<br><span class="text-[10px] text-tertiary-fixed-dim">+€400 ⬈</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between text-label-sm opacity-50 px-2">
+<span class="">Jan</span>
+<span class="">Mar</span>
+<span class="">May</span>
+<span class="">Jul</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="w-full py-section-gap px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+<div class="flex flex-col gap-4">
+<span class="text-headline-md font-headline-md font-bold text-on-background">RK Auto Mobiles</span>
+<p class="text-body-md text-on-surface-variant max-w-xs">Premium automotive marketplace for high-quality vehicles and certified history reports.</p>
+</div>
+<div class="flex flex-wrap gap-x-12 gap-y-6">
+<div class="flex flex-col gap-3">
+<span class="font-bold text-on-background">Platform</span>
+<a class="text-on-surface-variant hover:text-secondary underline transition-opacity" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-opacity" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-bold text-on-background">Support</span>
+<a class="text-on-surface-variant hover:text-secondary underline transition-opacity" href="#">Contact Support</a>
+<a class="text-on-surface-variant hover:text-secondary underline transition-opacity" href="#">Vehicle Disclosure</a>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-8 border-t border-outline-variant/20 text-center md:text-left">
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-60">© 2024 RK Auto Mobiles. All rights reserved.</p>
+</div>
+</footer>
+<script>
+        // Simple micro-interactions for the gallery
+        const thumbnails = document.querySelectorAll('.gallery-thumb');
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('mouseenter', () => {
+                thumb.style.transform = 'scale(1.05)';
+            });
+            thumb.addEventListener('mouseleave', () => {
+                thumb.style.transform = 'scale(1)';
+            });
+        });
+
+        // Toggle favorite state
+        const favBtn = document.querySelector('button .text-secondary');
+        let isFav = false;
+        if(favBtn) {
+            favBtn.parentElement.addEventListener('click', () => {
+                isFav = !isFav;
+                favBtn.style.fontVariationSettings = isFav ? "'FILL' 1" : "'FILL' 0";
+                favBtn.classList.toggle('text-primary', isFav);
+            });
+        }
+    </script>
+
+
+</body></html>
