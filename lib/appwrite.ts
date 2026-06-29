@@ -1,5 +1,3 @@
-"use client";
-
 import { Client, Account, Databases, Storage } from "appwrite";
 import {
     APPWRITE_ENDPOINT,

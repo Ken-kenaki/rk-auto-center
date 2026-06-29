@@ -20,7 +20,7 @@ export default function CountingNumber({
 }: CountingNumberProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once, margin });
+  const isInView = useInView(ref, { once, margin: margin as any });
 
   useEffect(() => {
     if (!isInView) return;

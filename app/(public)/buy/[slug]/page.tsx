@@ -1,100 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CarGallery from "@/components/CarGallery";
+import CompareButton from "@/components/CompareButton";
+
+import { fetchCarBySlugFromAppwrite } from "@/lib/cars";
 
 export const metadata: Metadata = {
   title: "Car Details | RK Auto Mobiles",
 };
 
-const MOCK_CARS: Record<string, {
-  name: string; variant: string; price: number; mileage: string;
-  transmission: string; fuel: string; engine: string; year: number;
-  description: string; videoUrl: string | null;
-  images: string[];
-}> = {
-  "2024-porsche-911": {
-    name: "2024 Porsche 911", variant: "Carrera S Coupe", price: 145000,
-    mileage: "50 mi", transmission: "Automatic", fuel: "Petrol",
-    engine: "3.0L Twin-Turbo Flat-6", year: 2024,
-    description: "The iconic 911 Carrera S delivers breathtaking performance with its 443-hp twin-turbo flat-six. This pristine example features Sport Chrono Package, PASM suspension, and carbon fiber sport seats.",
-    videoUrl: null,
-    images: [
-      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1611245801314-e0a5dbf97b31?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=600"
-    ]
-  },
-  "2023-range-rover": {
-    name: "2023 Range Rover", variant: "Autobiography LWB", price: 162500,
-    mileage: "4,200 mi", transmission: "Automatic", fuel: "Hybrid",
-    engine: "3.0L P400e PHEV Inline-6", year: 2023,
-    description: "The pinnacle of luxury SUVs. This Autobiography LWB in Santorini Black features 23-inch wheels, Meridian Signature sound system, and massage seating for all four rear occupants.",
-    videoUrl: "https://www.facebook.com/watch/?v=example123",
-    images: [
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600"
-    ]
-  },
-  "2022-audi-etron-gt": {
-    name: "2022 Audi e-tron GT", variant: "RS quattro", price: 105900,
-    mileage: "12,500 mi", transmission: "Automatic", fuel: "Electric",
-    engine: "Dual synchronous electric motors", year: 2022,
-    description: "Experience electric performance at its finest. The RS e-tron GT produces up to 637 horsepower in boost mode, rocket starting you to 60 mph in 3.1 seconds. Full carbon roof and premium Audi virtual cockpit.",
-    videoUrl: null,
-    images: [
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600"
-    ]
-  },
-  "2024-mercedes-g-class": {
-    name: "2024 Mercedes-Benz G-Class", variant: "G 63 AMG", price: 189500,
-    mileage: "150 mi", transmission: "Automatic", fuel: "Petrol",
-    engine: "4.0L V8 Twin-Turbo AMG", year: 2024,
-    description: "The G 63 is the legendary luxury off-roader. Equipped with a handcrafted AMG 4.0L V8 twin-turbo engine delivering 577 hp. Exquisite designo interior and active multi-contour seats.",
-    videoUrl: null,
-    images: [
-      "https://images.unsplash.com/photo-1520050206274-a1ae446cb3cc?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
-    ]
-  },
-  "2021-bmw-m5": {
-    name: "2021 BMW M5", variant: "Competition Sedan", price: 92000,
-    mileage: "22,400 mi", transmission: "Automatic", fuel: "Petrol",
-    engine: "4.4L Twin-Power Turbo V8", year: 2021,
-    description: "A super sedan in every sense. The Competition Package boosts the twin-turbo V8 to 617 horsepower. Finished in Marina Bay Blue metallic with Silverstone full Merino leather interior.",
-    videoUrl: null,
-    images: [
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=600"
-    ]
-  },
-  "2023-lexus-lc500": {
-    name: "2023 Lexus LC 500", variant: "Base Coupe", price: 98500,
-    mileage: "3,800 mi", transmission: "Automatic", fuel: "Petrol",
-    engine: "5.0L Naturally Aspirated V8", year: 2023,
-    description: "One of the most beautiful modern coupes. Powered by a high-revving, naturally aspirated 5.0L V8 with an unforgettable exhaust note. Handcrafted Alcantara door panels and Mark Levinson sound system.",
-    videoUrl: null,
-    images: [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1611245801314-e0a5dbf97b31?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=600"
-    ]
-  }
-};
-
 export default async function CarDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const car = MOCK_CARS[slug] || null;
+  const car = await fetchCarBySlugFromAppwrite(slug);
 
   if (!car) {
     return (
@@ -130,7 +47,9 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
         {/* Left: Gallery + Description */}
         <div className="lg:col-span-8 space-y-8">
           {/* Gallery */}
-          <CarGallery images={car.images} name={car.name} />
+          <div>
+            <CarGallery images={car.images} name={car.name} />
+          </div>
 
           {/* Description */}
           <div className="p-8 rounded-3xl bg-white shadow-md">
@@ -199,7 +118,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
                 <p className="text-sm text-gray-500">{car.variant}</p>
               </div>
               <p className="text-4xl font-extrabold mt-4 mb-6 text-gray-900" style={{ fontFamily: "Hanken Grotesk" }}>
-                ${car.price.toLocaleString()}
+                Rs. {car.price.toLocaleString()}
               </p>
 
               <div className="space-y-3">
@@ -222,10 +141,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
                 </a>
               </div>
 
-              <div className="mt-5 flex items-center gap-2 text-xs text-gray-500">
-                <span className="material-symbols-outlined text-[14px]">visibility</span>
-                344 people viewed this today
-              </div>
+
             </div>
 
             {/* Compare CTA */}
@@ -234,13 +150,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
               <p className="text-xs text-gray-500 mb-4 leading-relaxed">
                 Add it to the comparison table to evaluate against other listings.
               </p>
-              <Link
-                href="/compare"
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl font-bold text-sm bg-white text-blue-600 hover:text-blue-700 transition-colors shadow-sm"
-              >
-                <span className="material-symbols-outlined text-[18px]">compare_arrows</span>
-                Compare Now
-              </Link>
+              <CompareButton carId={car.id} carName={car.name} heroImage={car.images[0]} />
             </div>
           </div>
         </div>

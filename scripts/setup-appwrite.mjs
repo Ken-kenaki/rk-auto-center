@@ -92,6 +92,10 @@ async function main() {
         () => databases.createBooleanAttribute(DB_ID, CARS_ID, "featured", false, false),
         () => databases.createStringAttribute(DB_ID, CARS_ID, "image_ids", 255, false, null, true),
         () => databases.createStringAttribute(DB_ID, CARS_ID, "video_url", 1000, false),
+        () => databases.createStringAttribute(DB_ID, CARS_ID, "variant", 255, false),
+        () => databases.createStringAttribute(DB_ID, CARS_ID, "fuel", 100, false),
+        () => databases.createStringAttribute(DB_ID, CARS_ID, "type", 100, false),
+        () => databases.createStringAttribute(DB_ID, CARS_ID, "badge", 100, false),
     ];
 
     for (const attr of carAttrs) {

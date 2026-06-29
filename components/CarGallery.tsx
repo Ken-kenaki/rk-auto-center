@@ -25,6 +25,7 @@ export default function CarGallery({ images, name }: { images: string[]; name: s
           src={activeImg}
           alt={`${name} - View ${activeIdx + 1}`}
           className="w-full h-full object-cover transition-all duration-500"
+          data-compare-hero
         />
         <div className="absolute bottom-4 right-4 px-3 py-1 rounded-full text-xs font-bold text-white bg-black/60 backdrop-blur-sm shadow">
           {activeIdx + 1} / {images.length} Photos
