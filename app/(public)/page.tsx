@@ -6,6 +6,7 @@ import FeaturedVehicles from "@/components/FeaturedVehicles";
 import BrandMarquee from "@/components/BrandMarquee";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import HomeCTA from "@/components/HomeCTA";
+import { fetchCarsFromAppwrite } from "@/lib/cars";
 
 export const metadata: Metadata = {
   title: "RK Auto Mobiles — Premium Automotive Marketplace",
@@ -21,6 +22,14 @@ const stats = [
 ];
 
 export default async function HomePage() {
+  const allCars = await fetchCarsFromAppwrite();
+  
+  // Get all cars that are explicitly marked as featured
+  const featured = allCars.filter(car => car.featured === true || car.badge === "Featured");
+  // Get other cars
+  const nonFeatured = allCars.filter(car => !(car.featured === true || car.badge === "Featured"));
+  // Combine prioritizing featured, up to 4 cars
+  const featuredCars = [...featured, ...nonFeatured].slice(0, 4);
 
   return (
     <>
@@ -46,7 +55,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── FEATURED VEHICLES ─────────────────────────────────────── */}
-      <FeaturedVehicles />
+      <FeaturedVehicles cars={featuredCars} />
 
       {/* ── BRAND MARQUEE ─────────────────────────────────────────── */}
       <BrandMarquee />

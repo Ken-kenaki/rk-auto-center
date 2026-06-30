@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { MOCK_CARS } from "@/lib/cars";
+import { Car, fetchCarsFromAppwrite } from "@/lib/cars";
 import CountingNumber from "@/components/CountingNumber";
 
 /* ─── Filter Data (mirrors buy/page.tsx) ─── */
@@ -90,9 +90,14 @@ export default function HeroSection() {
 
   /* — Search state (like Navbar) — */
   const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<typeof MOCK_CARS>([]);
+  const [cars, setCars] = useState<Car[]>([]);
+  const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [searchFocused, setSearchFocused] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetchCarsFromAppwrite().then(setCars).catch(console.error);
+  }, []);
 
   /* — Filter state (mirrors buy page) — */
   const [brand, setBrand] = useState("");
@@ -109,7 +114,7 @@ export default function HeroSection() {
     const q = e.target.value;
     setQuery(q);
     if (q.trim()) {
-      const filtered = MOCK_CARS.filter(
+      const filtered = cars.filter(
         (car) =>
           car.name.toLowerCase().includes(q.toLowerCase()) ||
           car.variant.toLowerCase().includes(q.toLowerCase()) ||

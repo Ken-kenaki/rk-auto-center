@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCompare } from "@/context/CompareContext";
 import { useContact } from "@/context/ContactContext";
 
-import { MOCK_CARS } from "@/lib/cars";
+import { Car, fetchCarsFromAppwrite } from "@/lib/cars";
 
 export default function Navbar() {
   const { isOpen, openContactModal } = useContact();
@@ -21,11 +21,16 @@ export default function Navbar() {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<typeof MOCK_CARS>([]);
+  const [cars, setCars] = useState<Car[]>([]);
+  const [searchResults, setSearchResults] = useState<Car[]>([]);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    fetchCarsFromAppwrite().then(setCars).catch(console.error);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,7 +57,7 @@ export default function Navbar() {
     const q = e.target.value;
     setSearchQuery(q);
     if (q.trim()) {
-      const filtered = MOCK_CARS.filter(
+      const filtered = cars.filter(
         (car) =>
           car.name.toLowerCase().includes(q.toLowerCase()) ||
           car.variant.toLowerCase().includes(q.toLowerCase()) ||

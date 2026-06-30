@@ -2,55 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-
-const FEATURED = [
-  {
-    name: "2024 Porsche 911",
-    variant: "Carrera S Coupe",
-    price: 14500000,
-    mileage: "50 km",
-    transmission: "Automatic",
-    fuel: "Petrol",
-    badge: "New",
-    slug: "2024-porsche-911",
-    images: [
-      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&q=80&w=800",
-    ],
-  },
-  {
-    name: "2023 Range Rover",
-    variant: "Autobiography LWB",
-    price: 16250000,
-    mileage: "4,200 km",
-    transmission: "Automatic",
-    fuel: "Hybrid",
-    badge: "Featured",
-    slug: "2023-range-rover",
-    images: [
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=800",
-    ],
-  },
-  {
-    name: "2022 Audi e-tron GT",
-    variant: "RS quattro",
-    price: 10590000,
-    mileage: "12,500 km",
-    transmission: "Automatic",
-    fuel: "Electric",
-    badge: null,
-    slug: "2022-audi-etron-gt",
-    images: [
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800",
-      "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=800",
-    ],
-  },
-];
+import { Car, MOCK_CARS } from "@/lib/cars";
 
 const fuelIcon: Record<string, string> = {
   Petrol: "local_gas_station",
@@ -59,7 +13,8 @@ const fuelIcon: Record<string, string> = {
   Hybrid: "bolt",
 };
 
-function FeaturedCard({ car, index }: { car: (typeof FEATURED)[0]; index: number }) {
+function FeaturedCard({ car, index }: { car: Car; index: number }) {
+  const router = useRouter();
   const [imgIdx, setImgIdx] = useState(0);
 
   const prev = (e: React.MouseEvent) => {
@@ -79,7 +34,8 @@ function FeaturedCard({ car, index }: { car: (typeof FEATURED)[0]; index: number
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+      onClick={() => router.push(`/buy/${car.slug}`)}
+      className="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
     >
       {/* Image carousel area */}
       <div className="aspect-[16/10] relative overflow-hidden bg-gray-100">
@@ -199,6 +155,7 @@ function FeaturedCard({ car, index }: { car: (typeof FEATURED)[0]; index: number
           </span>
           <Link
             href={`/buy/${car.slug}`}
+            onClick={(e) => e.stopPropagation()}
             className="inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700 transition-colors group/link"
           >
             View
@@ -212,7 +169,9 @@ function FeaturedCard({ car, index }: { car: (typeof FEATURED)[0]; index: number
   );
 }
 
-export default function FeaturedVehicles() {
+export default function FeaturedVehicles({ cars }: { cars?: Car[] }) {
+  const displayCars = (cars && cars.length > 0 ? cars : MOCK_CARS).slice(0, 4);
+
   return (
     <section className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
@@ -251,9 +210,9 @@ export default function FeaturedVehicles() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURED.map((car, i) => (
-            <FeaturedCard key={car.name} car={car} index={i} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {displayCars.map((car, i) => (
+            <FeaturedCard key={car.id || car.slug || car.name} car={car} index={i} />
           ))}
         </div>
       </div>

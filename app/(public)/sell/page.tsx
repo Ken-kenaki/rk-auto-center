@@ -71,6 +71,7 @@ export default function SellPage() {
     city: "Kathmandu, Nepal",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Search/Dropdown overlay states
   const [makeSearch, setMakeSearch] = useState("");
@@ -159,7 +160,7 @@ export default function SellPage() {
         setSubmitted(true);
       } catch (err: any) {
         console.error("Appwrite submit error:", err);
-        alert(`Listing submission failed: ${err.message || "Unknown error"}. Please check your connection and try again.`);
+        setError(err.message || "Submission failed. Please check your connection and try again.");
       } finally {
         setLoading(false);
       }
@@ -234,6 +235,28 @@ export default function SellPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
+      {/* ── Inline Error Banner ────────────────────────────────────── */}
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          className="mb-6 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm"
+        >
+          <span className="material-symbols-outlined text-[20px] mt-0.5 shrink-0 text-red-500">error</span>
+          <div className="flex-1">
+            <p className="font-bold mb-0.5">Submission failed</p>
+            <p className="text-red-600/80">{error}</p>
+          </div>
+          <button
+            onClick={() => setError(null)}
+            className="ml-2 shrink-0 rounded-full p-1 hover:bg-red-100 transition-colors cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </motion.div>
+      )}
+
       {/* Hero */}
       <div className="text-center mb-12">
         <h1 className="text-5xl font-black tracking-tight mb-3 text-gray-900" style={{ fontFamily: "Hanken Grotesk" }}>

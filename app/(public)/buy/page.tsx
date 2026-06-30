@@ -690,7 +690,8 @@ function BuyPageContent() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.18 }}
-                  className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 border border-gray-100"
+                  onClick={() => router.push(`/buy/${car.slug}`)}
+                  className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 border border-gray-100 cursor-pointer"
                 >
                   <div className="aspect-[16/10] relative overflow-hidden bg-gray-100">
                     {car.image ? (
@@ -724,7 +725,10 @@ function BuyPageContent() {
 
                     {/* Wishlist Button */}
                     <button
-                      onClick={() => toggleWishlist(car.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleWishlist(car.id);
+                      }}
                       className="absolute top-3 left-3 w-9 h-9 rounded-full flex items-center justify-center shadow-md btn-press transition-all hover:scale-105"
                       style={{
                         background: "rgba(255,255,255,0.95)",
@@ -770,7 +774,10 @@ function BuyPageContent() {
                       <div className="flex items-center gap-2">
                         {/* Compare Button */}
                         <button
-                          onClick={() => triggerFlyToCompare(car.id, car.image)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            triggerFlyToCompare(car.id, car.image);
+                          }}
                           title={isAddedToCompare ? "Remove from compare" : "Compare this car"}
                           className={`w-8 h-8 rounded-full flex items-center justify-center btn-press transition-all hover:scale-105 shadow-sm ${
                             isAddedToCompare ? "text-white" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
@@ -783,6 +790,7 @@ function BuyPageContent() {
                         </button>
                         <Link
                           href={`/buy/${car.slug}`}
+                          onClick={(e) => e.stopPropagation()}
                           className="flex items-center gap-1 text-xs font-bold btn-press text-red-600 hover:text-red-700 transition-colors"
                         >
                           Details
