@@ -34,9 +34,13 @@ export default function Footer() {
           {/* ─ Brand Info ─ */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-red-600 text-white shadow-lg shadow-red-600/20">
-                <span className="material-symbols-outlined text-[20px]">directions_car</span>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="RK Auto Mobiles Logo"
+                width={44}
+                height={44}
+                className="rounded-xl"
+              />
               <span
                 className="font-bold text-lg tracking-tight text-white"
                 style={{ fontFamily: "Hanken Grotesk" }}
@@ -50,10 +54,10 @@ export default function Footer() {
             </p>
             <div className="flex space-x-3 pt-2">
               <a
-                href="#"
+                href="https://www.facebook.com/rkautocenter1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-red-600 hover:text-white flex items-center justify-center transition-all duration-200 shadow-sm"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-all duration-200 shadow-sm"
                 aria-label="Facebook"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -61,25 +65,14 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://wa.me/9779847699255"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-red-600 hover:text-white flex items-center justify-center transition-all duration-200 shadow-sm"
-                aria-label="Instagram"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition-all duration-200 shadow-sm"
+                aria-label="WhatsApp"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                </svg>
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-red-600 hover:text-white flex items-center justify-center transition-all duration-200 shadow-sm"
-                aria-label="YouTube"
-              >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.115-2.903-6.99C16.564 1.87 14.098.835 11.465.835c-5.437 0-9.86 4.423-9.865 9.865-.001 1.743.486 3.447 1.411 4.951L1.936 21.68l6.102-1.602c1.479.807 3.122 1.233 4.792 1.234h.001zM17.51 14.88c-.3-.15-1.775-.875-2.05-1.001-.275-.125-.475-.188-.675.112-.2.3-.775.975-.95 1.175-.175.2-.35.225-.65.075-.3-.15-1.267-.467-2.413-1.49-1.002-.894-1.74-2.004-1.938-2.34-.198-.337-.021-.52.128-.688.135-.15.3-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.675-1.625-.925-2.225-.244-.589-.493-.508-.675-.518-.175-.008-.375-.01-.575-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.11 3.224 5.112 4.525.714.31 1.27.495 1.702.633.717.227 1.37.195 1.887.118.577-.087 1.774-.725 2.025-1.425.25-.7.25-1.3 1.75-1.425-.075-.125-.275-.225-.575-.375z" />
                 </svg>
               </a>
             </div>
@@ -149,8 +142,14 @@ export default function Footer() {
                   phone
                 </span>
                 <div className="flex flex-col text-sm text-gray-300">
-                  <a href="tel:+9779800000000" className="hover:text-white transition-colors font-semibold">
-                    +977 9800000000
+                  <a href="tel:+9779847699255" className="hover:text-white transition-colors font-semibold">
+                    +977 9847699255
+                  </a>
+                  <a href="tel:+9779802008796" className="hover:text-white transition-colors font-semibold">
+                    +977 9802008796
+                  </a>
+                  <a href="tel:+9779802008797" className="hover:text-white transition-colors font-semibold">
+                    +977 9802008797
                   </a>
                 </div>
               </li>

@@ -6,33 +6,33 @@ import { motion } from "framer-motion";
 const features = [
   {
     icon: "verified",
-    title: "Certified Listings",
+    title: "Genuine, Verified Vehicles",
     description:
-      "Every vehicle undergoes a thorough multi-point inspection before being listed on our platform.",
+      "Every car in our lot is physically inspected, RC-verified, and carries a transparent service history — no hidden surprises, ever.",
     color: "from-red-600 to-red-500",
     glassColor: "text-red-500",
   },
   {
     icon: "price_check",
-    title: "Best Market Price",
+    title: "Fair & Honest Pricing",
     description:
-      "We use real-time market data to ensure competitive and transparent pricing for all listings.",
+      "We price every vehicle based on actual market rates in Nepal. No inflated tags, no back-and-forth — what you see is what you pay.",
     color: "from-amber-500 to-yellow-500",
     glassColor: "text-amber-500",
   },
   {
     icon: "compare_arrows",
-    title: "Smart Comparison",
+    title: "Smart Side-by-Side Compare",
     description:
-      "Compare up to three vehicles side-by-side with detailed spec sheets and live analytics.",
+      "Can't decide between two models? Line them up side-by-side with full specs so you can make a confident, informed decision.",
     color: "from-emerald-500 to-green-500",
     glassColor: "text-emerald-500",
   },
   {
-    icon: "support_agent",
-    title: "Expert Support",
+    icon: "handshake",
+    title: "After-Sale Support",
     description:
-      "Our dedicated team is available around the clock to guide your every purchase decision.",
+      "Our relationship doesn't end at the sale. We're here for documentation, registration guidance, and any concerns that come up after you drive off.",
     color: "from-blue-600 to-indigo-500",
     glassColor: "text-blue-500",
   },
@@ -78,7 +78,7 @@ export default function WhyChooseUs() {
             className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4"
             style={{ fontFamily: "Hanken Grotesk" }}
           >
-            Your Trusted Automotive Partner
+            Why Buyers Trust RK Auto Center
           </motion.h2>
 
           <motion.p
@@ -88,8 +88,8 @@ export default function WhyChooseUs() {
             transition={{ delay: 0.15 }}
             className="text-sm sm:text-base text-white/60 leading-relaxed max-w-xl mx-auto"
           >
-            We combine technology, expertise, and transparency to deliver the
-            best car-buying experience possible.
+            From Kathmandu to your driveway — we make buying a used car simple,
+            transparent, and stress-free.
           </motion.p>
         </div>
 

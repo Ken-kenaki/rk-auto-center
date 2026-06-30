@@ -2,13 +2,15 @@ import {
     APPWRITE_ENDPOINT,
     APPWRITE_PROJECT_ID,
     CAR_IMAGES_BUCKET_ID,
+    TESTIMONIALS_BUCKET_ID,
 } from "./constants";
 
 /**
- * Get public URL for a file in the car images bucket
+ * Get public URL for a file in a storage bucket
  */
 export function getFilePreviewUrl(
     fileId: string,
+    bucketId: string = CAR_IMAGES_BUCKET_ID,
     width?: number,
     height?: number,
     quality?: number
@@ -21,7 +23,7 @@ export function getFilePreviewUrl(
     params.set("output", "webp");
 
     const queryString = params.toString();
-    return `${APPWRITE_ENDPOINT}/storage/buckets/${CAR_IMAGES_BUCKET_ID}/files/${fileId}/preview?project=${APPWRITE_PROJECT_ID}${queryString ? `&${queryString}` : ""}`;
+    return `${APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/preview?project=${APPWRITE_PROJECT_ID}${queryString ? `&${queryString}` : ""}`;
 }
 
 /**

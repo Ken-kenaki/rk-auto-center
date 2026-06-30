@@ -21,753 +21,184 @@ export interface Car {
 }
 
 export const MOCK_CARS: Car[] = [
-  // Volkswagen (2) - Tiguan (2)
   {
-    id: "vw-tiguan-1",
-    slug: "2018-volkswagen-tiguan",
-    name: "2018 Volkswagen Tiguan",
-    variant: "Highline 2.0 TDI",
-    price: 8500000,
-    mileage: "45,000 km",
-    mileageVal: 45000,
-    transmission: "Automatic",
-    fuel: "Diesel",
-    make: "Volkswagen",
-    model: "Tiguan",
-    year: 2018,
-    type: "SUV (5 Seater)",
-    badge: "Featured",
-    image: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Premium German engineering with the high-torque 2.0 TDI engine. This Tiguan Highline comes with keyless entry, panoramic sunroof, and full leather interior.",
-    engine: "2.0L TDI Turbo Diesel",
-    videoUrl: null
-  },
-  {
-    id: "vw-tiguan-2",
-    slug: "2020-volkswagen-tiguan",
-    name: "2020 Volkswagen Tiguan",
-    variant: "Comfortline TSI",
-    price: 9200000,
-    mileage: "22,000 km",
-    mileageVal: 22000,
-    transmission: "Automatic",
-    fuel: "Petrol",
-    make: "Volkswagen",
-    model: "Tiguan",
-    year: 2020,
-    type: "SUV (5 Seater)",
-    badge: "New",
-    image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "A refined drive powered by the responsive TSI turbo petrol engine. Features App-Connect, active cruise control, and modern 3-zone climate control.",
-    engine: "1.4L TSI Turbo Petrol",
-    videoUrl: null
-  },
-
-  // Hyundai (9) - Santro (1), Tucson (1), Grand i10 (2), Creta (4), i20 Active (1)
-  {
-    id: "hyundai-santro",
-    slug: "2019-hyundai-santro",
-    name: "2019 Hyundai Santro",
-    variant: "Magna Petrol",
-    price: 1850000,
-    mileage: "55,000 km",
-    mileageVal: 55000,
+    id: "rk-creta-sx-real",
+    slug: "hyundai-creta-sx-white",
+    name: "Hyundai Creta SX",
+    variant: "SX 1.6 Petrol MT",
+    price: 3300000,
+    mileage: "38,000 km",
+    mileageVal: 38000,
     transmission: "Manual",
     fuel: "Petrol",
     make: "Hyundai",
-    model: "Santro",
-    year: 2019,
-    type: "Hatchback",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "The classic family hatchback, easy to drive and maintain. Offers excellent fuel economy and a compact footprint perfect for city traffic.",
-    engine: "1.1L Epsilon Multi-Point Petrol",
-    videoUrl: null
-  },
-  {
-    id: "hyundai-tucson",
-    slug: "2021-hyundai-tucson",
-    name: "2021 Hyundai Tucson",
-    variant: "GLS AWD Diesel",
-    price: 7800000,
-    mileage: "35,000 km",
-    mileageVal: 35000,
-    transmission: "Automatic",
-    fuel: "Diesel",
-    make: "Hyundai",
-    model: "Tucson",
-    year: 2021,
-    type: "SUV (5 Seater)",
-    badge: "Featured",
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600",
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Dynamic styling meets high-end comfort. Equipped with HTRAC All-Wheel Drive, smart power tailgate, and an advanced 8-inch infotainment display.",
-    engine: "2.0L CRDi Turbo Diesel",
-    videoUrl: "https://www.facebook.com/watch/?v=example_tucson"
-  },
-  {
-    id: "hyundai-grandi10-1",
-    slug: "2017-hyundai-grand-i10-asta",
-    name: "2017 Hyundai Grand i10",
-    variant: "Asta Premium",
-    price: 2300000,
-    mileage: "62,000 km",
-    mileageVal: 62000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Hyundai",
-    model: "Grand i10",
-    year: 2017,
-    type: "Hatchback",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Top-end Asta trim featuring keyless start/stop, rear parking camera, diamond cut alloy wheels, and a spacious cabin with rear AC vents.",
-    engine: "1.2L Kappa VTVT Petrol",
-    videoUrl: null
-  },
-  {
-    id: "hyundai-grandi10-2",
-    slug: "2016-hyundai-grand-i10-sportz",
-    name: "2016 Hyundai Grand i10",
-    variant: "Sportz Edition",
-    price: 2100000,
-    mileage: "80,000 km",
-    mileageVal: 80000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Hyundai",
-    model: "Grand i10",
+    model: "Creta",
     year: 2016,
-    type: "Hatchback",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Practical and reliable city hatchback with dual tone interior, steering-mounted controls, and electrically adjustable side mirrors.",
-    engine: "1.2L Kappa Petrol",
-    videoUrl: null
-  },
-  {
-    id: "hyundai-creta-1",
-    slug: "2020-hyundai-creta-sx",
-    name: "2020 Hyundai Creta",
-    variant: "SX Executive",
-    price: 4200000,
-    mileage: "48,000 km",
-    mileageVal: 48000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Hyundai",
-    model: "Creta",
-    year: 2020,
-    type: "SUV (5 Seater)",
-    badge: "New",
-    image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "The segment leader with a striking bold design. The SX trim comes with a massive panoramic sunroof, wireless charger, and LED headlights.",
-    engine: "1.5L MPi Petrol",
-    videoUrl: null
-  },
-  {
-    id: "hyundai-creta-2",
-    slug: "2021-hyundai-creta-sxo",
-    name: "2021 Hyundai Creta",
-    variant: "SX(O) DSL Automatic",
-    price: 4800000,
-    mileage: "28,000 km",
-    mileageVal: 28000,
-    transmission: "Automatic",
-    fuel: "Diesel",
-    make: "Hyundai",
-    model: "Creta",
-    year: 2021,
     type: "SUV (5 Seater)",
     badge: "Featured",
-    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=600",
+    image: "/Car-1/732018601_1468031992032074_7688535599390273029_n.jpg",
     images: [
-      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=600"
+      "/Car-1/732018601_1468031992032074_7688535599390273029_n.jpg",
+      "/Car-1/732179062_1468031868698753_1758612669228635993_n.jpg",
+      "/Car-1/734685109_1468031942032079_178337502128978600_n.jpg",
+      "/Car-1/734685267_1468031952032078_1005234941820478278_n.jpg",
+      "/Car-1/735577570_1468031892032084_6195903220576319017_n.jpg",
+      "/Car-1/736054193_1468031885365418_5346863268004991929_n.jpg",
+      "/Car-1/736574720_1468031862032087_8784055223523196171_n.jpg"
     ],
-    description: "Top-of-the-line luxury diesel automatic with ventilated front seats, Bose premium speaker system, and 6 airbags for complete safety.",
-    engine: "1.5L CRDi Turbo Diesel",
-    videoUrl: null
+    description: "2016 model Hyundai Creta SX 1.6 well maintained, not any defect and maintenance cost in reasonable price is for sale/exchange. Features include push button start, projected headlight, airbag, ABS braking, auto AC, alloy wheels, steering mounted controls, fog lights, touchscreen, rear view camera, and back sensor.",
+    engine: "1.6L Petrol",
+    videoUrl: "https://www.facebook.com/share/r/1FofMckNaT/"
   },
   {
-    id: "hyundai-creta-3",
-    slug: "2018-hyundai-creta-s",
-    name: "2018 Hyundai Creta",
-    variant: "S Edition",
-    price: 3500000,
+    id: "rk-i20-grey-real",
+    slug: "hyundai-i20-grey",
+    name: "Hyundai i20",
+    variant: "Magna Petrol MT",
+    price: 1200000,
     mileage: "72,000 km",
     mileageVal: 72000,
     transmission: "Manual",
     fuel: "Petrol",
     make: "Hyundai",
-    model: "Creta",
-    year: 2018,
-    type: "SUV (5 Seater)",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Extremely popular first-gen facelift model. Offers smooth power delivery, robust build quality, and great highway stability.",
-    engine: "1.6L VTVT Petrol",
-    videoUrl: null
-  },
-  {
-    id: "hyundai-creta-4",
-    slug: "2017-hyundai-creta-e",
-    name: "2017 Hyundai Creta",
-    variant: "E Diesel MT",
-    price: 3100000,
-    mileage: "95,000 km",
-    mileageVal: 95000,
-    transmission: "Manual",
-    fuel: "Diesel",
-    make: "Hyundai",
-    model: "Creta",
-    year: 2017,
-    type: "SUV (5 Seater)",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Highly efficient diesel engine, spacious interior, and reliable mechanical setup. Excellent choice for daily long commutes.",
-    engine: "1.4L CRDi Diesel",
-    videoUrl: null
-  },
-  {
-    id: "hyundai-i20-active",
-    slug: "2016-hyundai-i20-active",
-    name: "2016 Hyundai i20 Active",
-    variant: "SX Dual Tone",
-    price: 2600000,
-    mileage: "67,000 km",
-    mileageVal: 67000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Hyundai",
-    model: "i20 Active",
-    year: 2016,
+    model: "i20",
+    year: 2010,
     type: "Hatchback",
     badge: null,
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600",
+    image: "/Car-2/731787293_1466507515517855_4138498442264167890_n.jpg",
     images: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
+      "/Car-2/731787293_1466507515517855_4138498442264167890_n.jpg",
+      "/Car-2/731787298_1466507598851180_8648630081151183434_n.jpg",
+      "/Car-2/731843469_1466507638851176_1922731772481424130_n.jpg",
+      "/Car-2/731843471_1466507542184519_2239212290321430044_n.jpg",
+      "/Car-2/731916805_1466507498851190_8035926731259177215_n.jpg",
+      "/Car-2/734685153_1466507492184524_2289914062379041402_n.jpg",
+      "/Car-2/734747367_1466507578851182_2208614945813390205_n.jpg"
     ],
-    description: "Cross-hatch with rugged body cladding, higher ground clearance, project headlamps, and sporty aluminum pedals.",
-    engine: "1.2L Kappa Dual VTVT",
-    videoUrl: null
-  },
-
-  // Toyota (5) - Rav4 (1), Hilux (1), Prado (1), Etios Cross (1), Etios Liva (1)
-  {
-    id: "toyota-rav4",
-    slug: "2022-toyota-rav4",
-    name: "2022 Toyota Rav4",
-    variant: "Hybrid AWD Limited",
-    price: 13500000,
-    mileage: "18,000 km",
-    mileageVal: 18000,
-    transmission: "Automatic",
-    fuel: "Hybrid",
-    make: "Toyota",
-    model: "Rav4",
-    year: 2022,
-    type: "SUV (5 Seater)",
-    badge: "Featured",
-    image: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Highly efficient hybrid luxury SUV. Packed with Toyota Safety Sense, premium soft-touch materials, and an electric on-demand AWD system.",
-    engine: "2.5L 4-Cylinder Hybrid",
-    videoUrl: null
-  },
-  {
-    id: "toyota-hilux",
-    slug: "2019-toyota-hilux",
-    name: "2019 Toyota Hilux",
-    variant: "D-Cab 4x4 MT",
-    price: 9500000,
-    mileage: "52,000 km",
-    mileageVal: 52000,
-    transmission: "Manual",
-    fuel: "Diesel",
-    make: "Toyota",
-    model: "Hilux",
-    year: 2019,
-    type: "Pik Up Truck",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "The indestructible pick-up truck. Ready for the toughest terrains with manual 4x4 transfer case, diff lock, and robust suspension.",
-    engine: "2.4L 2GD-FTV Turbo Diesel",
-    videoUrl: null
-  },
-  {
-    id: "toyota-prado",
-    slug: "2014-toyota-prado",
-    name: "2014 Toyota Prado",
-    variant: "TX-L Diesel",
-    price: 14500000,
-    mileage: "110,000 km",
-    mileageVal: 110000,
-    transmission: "Automatic",
-    fuel: "Diesel",
-    make: "Toyota",
-    model: "Prado",
-    year: 2014,
-    type: "SUV (7 Seater)",
-    badge: "Featured",
-    image: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Luxurious 7-seater cruiser with legendary off-road reliability. Features dual-zone climate control, cool box, and air suspension adjustment.",
-    engine: "3.0L D-4D Turbo Diesel",
-    videoUrl: null
-  },
-  {
-    id: "toyota-etios-cross",
-    slug: "2015-toyota-etios-cross",
-    name: "2015 Toyota Etios Cross",
-    variant: "1.2V Luxury",
-    price: 2150000,
-    mileage: "78,000 km",
-    mileageVal: 78000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Toyota",
-    model: "Etios Cross",
-    year: 2015,
-    type: "Hatchback",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Sporty cross-hatchback styling with Toyota's ultra-reliable engine. Offers low cost of maintenance and great ground clearance.",
-    engine: "1.2L DOHC Petrol",
-    videoUrl: null
-  },
-  {
-    id: "toyota-etios-liva",
-    slug: "2014-toyota-etios-liva",
-    name: "2014 Toyota Etios Liva",
-    variant: "GD Diesel MT",
-    price: 1950000,
-    mileage: "89,000 km",
-    mileageVal: 89000,
-    transmission: "Manual",
-    fuel: "Diesel",
-    make: "Toyota",
-    model: "Etios Liva",
-    year: 2014,
-    type: "Hatchback",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Highly practical hatchback, known for excellent cabin space, rear comfort, and highly fuel-efficient diesel engine.",
-    engine: "1.4L D-4D Diesel",
-    videoUrl: null
-  },
-
-  // Honda (1) - City (1)
-  {
-    id: "honda-city",
-    slug: "2018-honda-city",
-    name: "2018 Honda City",
-    variant: "SV MT Petrol",
-    price: 3400000,
-    mileage: "46,000 km",
-    mileageVal: 46000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Honda",
-    model: "City",
-    year: 2018,
-    type: "Sedan",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Sophisticated styling with Honda's legendary i-VTEC engine. Delivers exceptional highway comfort and a premium cabin.",
-    engine: "1.5L i-VTEC Petrol",
-    videoUrl: null
-  },
-
-  // Daihatsu (1) - Terios (1)
-  {
-    id: "daihatsu-terios",
-    slug: "2012-daihatsu-terios",
-    name: "2012 Daihatsu Terios",
-    variant: "TX 7-Seater 4x4",
-    price: 3850000,
-    mileage: "95,000 km",
-    mileageVal: 95000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Daihatsu",
-    model: "Terios",
-    year: 2012,
-    type: "SUV (7 Seater)",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Compact 7-seater SUV with true 4WD capabilities. Extremely practical for rough Nepalese highway terrain.",
-    engine: "1.5L 4-Cylinder Petrol",
-    videoUrl: null
-  },
-
-  // Skoda (1) - Rapid (1)
-  {
-    id: "skoda-rapid",
-    slug: "2017-skoda-rapid",
-    name: "2017 Škoda Rapid",
-    variant: "Style 1.6 MPI",
-    price: 2950000,
-    mileage: "64,000 km",
-    mileageVal: 64000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Škoda",
-    model: "Rapid",
-    year: 2017,
-    type: "Sedan",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Solid build quality, sharp European styling, and precise handling. Excellent highway cruiser with large boot space.",
-    engine: "1.6L MPI Petrol",
-    videoUrl: null
-  },
-
-  // Mahindra (1) - Scorpio (1)
-  {
-    id: "mahindra-scorpio",
-    slug: "2019-mahindra-scorpio",
-    name: "2019 Mahindra Scorpio",
-    variant: "S11 4WD Luxury",
-    price: 5400000,
-    mileage: "58,000 km",
-    mileageVal: 58000,
-    transmission: "Manual",
-    fuel: "Diesel",
-    make: "Mahindra",
-    model: "Scorpio",
-    year: 2019,
-    type: "SUV (7 Seater)",
-    badge: "New",
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "The king of off-road family cruisers in Nepal. S11 top variant equipped with a powerful mHawk diesel engine and 4WD selector.",
-    engine: "2.2L mHawk Turbo Diesel",
-    videoUrl: null
-  },
-
-  // Kia (3) - Picanto (1), Sportage (1), Sonet (1)
-  {
-    id: "kia-picanto",
-    slug: "2018-kia-picanto",
-    name: "2018 Kia Picanto",
-    variant: "EX Manual",
-    price: 2450000,
-    mileage: "38,000 km",
-    mileageVal: 38000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Kia",
-    model: "Picanto",
-    year: 2018,
-    type: "Hatchback",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Sporty, premium European-designed hatchback. Highly agile and fuel-efficient, ideal for daily city navigation.",
+    description: "2010 model i20 Magna is for sale/exchange, well maintained with no defects and maintenance cost in reasonable price. Features include power windows, power steering, AC, central lock, fog lights, music system, touchscreen, and back camera.",
     engine: "1.2L Kappa Petrol",
     videoUrl: null
   },
   {
-    id: "kia-sportage",
-    slug: "2020-kia-sportage",
-    name: "2020 Kia Sportage",
-    variant: "EX AWD Premium",
-    price: 8200000,
-    mileage: "42,000 km",
-    mileageVal: 42000,
-    transmission: "Automatic",
-    fuel: "Petrol",
-    make: "Kia",
-    model: "Sportage",
-    year: 2020,
-    type: "SUV (5 Seater)",
-    badge: "Featured",
-    image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Striking crossover with leather upholstery, panoramic dual sunroof, premium infotainment system, and All-Wheel Drive safety.",
-    engine: "2.0L Nu MPI Petrol",
-    videoUrl: null
-  },
-  {
-    id: "kia-sonet",
-    slug: "2021-kia-sonet",
-    name: "2021 Kia Sonet",
-    variant: "HTX DCT Turbo",
-    price: 3950000,
-    mileage: "24,000 km",
-    mileageVal: 24000,
-    transmission: "Automatic",
+    id: "rk-sonet-real",
+    slug: "kia-sonet-mt",
+    name: "Kia Sonet",
+    variant: "Petrol MT",
+    price: 3075000,
+    mileage: "28,000 km",
+    mileageVal: 28000,
+    transmission: "Manual",
     fuel: "Petrol",
     make: "Kia",
     model: "Sonet",
     year: 2021,
     type: "SUV (5 Seater)",
     badge: "New",
-    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=600",
+    image: "/car-3/730223081_1463889442446329_3020546882032525045_n.jpg",
     images: [
-      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=600"
+      "/car-3/730223081_1463889442446329_3020546882032525045_n.jpg",
+      "/car-3/731323102_1463889435779663_3914665466126757941_n.jpg",
+      "/car-3/731357009_1463889562446317_8094176896024092519_n.jpg",
+      "/car-3/731357282_1463889489112991_4641342253893420871_n.jpg",
+      "/car-3/731397840_1463889475779659_4493867549668194367_n.jpg",
+      "/car-3/731479225_1463889585779648_8701783088817533461_n.jpg"
     ],
-    description: "Compact SUV packed with premium tech. Features electric sunroof, ventilated seats, and lightning-fast 7-speed dual clutch transmission.",
-    engine: "1.0L Turbo GDI Petrol",
-    videoUrl: null
-  },
-
-  // Ford (2) - Ecosport (2)
-  {
-    id: "ford-ecosport-1",
-    slug: "2018-ford-ecosport-titanium",
-    name: "2018 Ford Ecosport",
-    variant: "Titanium+ EcoBoost",
-    price: 3450000,
-    mileage: "56,000 km",
-    mileageVal: 56000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Ford",
-    model: "Ecosport",
-    year: 2018,
-    type: "SUV (5 Seater)",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Award-winning 1.0L EcoBoost engine with legendary driving dynamics. Rigid body structure and excellent safety scores.",
-    engine: "1.0L EcoBoost Turbo Petrol",
-    videoUrl: null
+    description: "2021 model Kia Sonet is for sale & exchange, well maintained with no defects and accidental records in reasonable price. Features include alloy wheels, power windows, power steering, airbag, AC, touchscreen, back camera, music system, central lock, and tubeless tyres.",
+    engine: "1.2L 1197cc Petrol",
+    videoUrl: "https://www.facebook.com/share/r/1D2Ldd8Xm1/"
   },
   {
-    id: "ford-ecosport-2",
-    slug: "2016-ford-ecosport-trend",
-    name: "2016 Ford Ecosport",
-    variant: "Trend Diesel MT",
-    price: 2950000,
-    mileage: "78,000 km",
-    mileageVal: 78000,
-    transmission: "Manual",
-    fuel: "Diesel",
-    make: "Ford",
-    model: "Ecosport",
-    year: 2016,
-    type: "SUV (5 Seater)",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Torque-rich TDCi diesel engine offering superior fuel economy and solid build quality for family road trips.",
-    engine: "1.5L TDCi Diesel",
-    videoUrl: null
-  },
-
-  // Mitsubishi (1) - Pajero (1)
-  {
-    id: "mitsubishi-pajero",
-    slug: "2013-mitsubishi-pajero",
-    name: "2013 Mitsubishi Pajero",
-    variant: "GLS 3.2 DI-D Automatic",
-    price: 14500000,
-    mileage: "115,000 km",
-    mileageVal: 115000,
-    transmission: "Automatic",
-    fuel: "Diesel",
-    make: "Mitsubishi",
-    model: "Pajero",
-    year: 2013,
-    type: "SUV (7 Seater)",
-    badge: "Featured",
-    image: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "The legend of Dakar Rally. Ultimate heavy-duty SUV with Super Select 4WD-II system, rock solid build, and full leather luxury cabin.",
-    engine: "3.2L DI-D Common Rail Diesel",
-    videoUrl: null
-  },
-
-  // Suzuki (4) - Swift Dzire (1), Ignis (1), Celerio (2)
-  {
-    id: "suzuki-swift-dzire",
-    slug: "2018-suzuki-swift-dzire",
-    name: "2018 Suzuki Swift Dzire",
+    id: "rk-dzire-vxi-real",
+    slug: "suzuki-swift-dzire-vxi-white",
+    name: "Maruti Suzuki Swift Dzire",
     variant: "VXI Petrol MT",
-    price: 2550000,
-    mileage: "48,000 km",
-    mileageVal: 48000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Suzuki",
-    model: "Swift Dzire",
-    year: 2018,
-    type: "Sedan",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Highly comfortable compact family sedan. Extremely practical with huge fuel mileage and great resale value.",
-    engine: "1.2L K-Series Petrol",
-    videoUrl: null
-  },
-  {
-    id: "suzuki-ignis",
-    slug: "2019-suzuki-ignis",
-    name: "2019 Suzuki Ignis",
-    variant: "Delta MT Petrol",
-    price: 2150000,
-    mileage: "32,000 km",
-    mileageVal: 32000,
-    transmission: "Manual",
-    fuel: "Petrol",
-    make: "Suzuki",
-    model: "Ignis",
-    year: 2019,
-    type: "Hatchback",
-    badge: null,
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600",
-    images: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
-    ],
-    description: "Tough design language for a hatchback. Offers high seating position, great visibility, and smart city footprint.",
-    engine: "1.2L VVT Petrol",
-    videoUrl: null
-  },
-  {
-    id: "suzuki-celerio-1",
-    slug: "2017-suzuki-celerio-zxi",
-    name: "2017 Suzuki Celerio",
-    variant: "ZXI Top Model",
-    price: 1850000,
+    price: 1175000,
     mileage: "54,000 km",
     mileageVal: 54000,
     transmission: "Manual",
     fuel: "Petrol",
     make: "Suzuki",
-    model: "Celerio",
-    year: 2017,
-    type: "Hatchback",
+    model: "Swift Dzire",
+    year: 2009,
+    type: "Sedan",
     badge: null,
-    image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600",
+    image: "/Car-4/727276655_1462201555948451_6614710949757889571_n.jpg",
     images: [
-      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=600"
+      "/Car-4/727276655_1462201555948451_6614710949757889571_n.jpg",
+      "/Car-4/729747111_1462201062615167_935702276624109530_n.jpg",
+      "/Car-4/729828968_1462201522615121_3862144601766699847_n.jpg",
+      "/Car-4/730244968_1462201695948437_8372005664985460689_n.jpg",
+      "/Car-4/730259058_1462201042615169_7695668459140517486_n.jpg"
     ],
-    description: "Spacious compact hatchback with Suzuki's EZ-drive setup. Offers best-in-class mileage and steering controls.",
-    engine: "1.0L K10B Petrol",
-    videoUrl: null
+    description: "2009 model Swift Dzire VXI is for sale & exchange, well maintained with no defects and accidental records in reasonable price. Features include power windows, power steering, AC, music system, central lock, tubeless tyres, fog lights, touchscreen, and back camera.",
+    engine: "1.3L 1298cc Petrol",
+    videoUrl: "https://www.facebook.com/share/r/1JajGcoDJX/"
   },
   {
-    id: "suzuki-celerio-2",
-    slug: "2015-suzuki-celerio-lxi",
-    name: "2015 Suzuki Celerio",
-    variant: "LXI Base Model",
-    price: 1650000,
-    mileage: "85,000 km",
-    mileageVal: 85000,
+    id: "rk-aveo-red-real",
+    slug: "chevrolet-aveo-red",
+    name: "Chevrolet Aveo",
+    variant: "1.4 Petrol MT",
+    price: 800000,
+    mileage: "64,000 km",
+    mileageVal: 64000,
     transmission: "Manual",
     fuel: "Petrol",
-    make: "Suzuki",
-    model: "Celerio",
-    year: 2015,
-    type: "Hatchback",
+    make: "Chevrolet",
+    model: "Aveo",
+    year: 2009,
+    type: "Sedan",
     badge: null,
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600",
+    image: "/car-5/722181994_1455988606569746_1313033400422645974_n.jpg",
     images: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600"
+      "/car-5/722181994_1455988606569746_1313033400422645974_n.jpg",
+      "/car-5/722994725_1455988599903080_2796563389459687366_n.jpg",
+      "/car-5/724526824_1455988629903077_3388813322108024880_n.jpg",
+      "/car-5/725025342_1455988509903089_1294948972158063211_n.jpg",
+      "/car-5/725213806_1455988549903085_4281347019059520144_n.jpg",
+      "/car-5/725599125_1455988566569750_3007128623800821355_n.jpg",
+      "/car-5/725611423_1455988503236423_7125910718787657222_n.jpg"
     ],
-    description: "Highly budget-friendly entry hatchback. Superb city drive with minimal fuel consumption and easy parking.",
-    engine: "1.0L K-Series Petrol",
-    videoUrl: null
+    description: "2009 model Chevrolet Aveo 1.4 is for sale/exchange, well maintained with no defects and maintenance cost in reasonable price. Running 64,000 km. Features include alloy wheels, power windows, power steering, AC, central lock, touchscreen, and back camera.",
+    engine: "1.4L 1400cc Petrol",
+    videoUrl: "https://www.facebook.com/share/r/1C5Z28wthk/"
   },
-
-  // Tata (1) - Nexon (1)
   {
-    id: "tata-nexon",
-    slug: "2019-tata-nexon",
-    name: "2019 Tata Nexon",
-    variant: "XM MT Petrol",
-    price: 3250000,
-    mileage: "39,000 km",
-    mileageVal: 39000,
+    id: "rk-creta-2023-real",
+    slug: "hyundai-creta-2023-interior",
+    name: "Hyundai Creta 2023",
+    variant: "SX Petrol MT",
+    price: 5175000,
+    mileage: "35,000 km",
+    mileageVal: 35000,
     transmission: "Manual",
     fuel: "Petrol",
-    make: "Tata",
-    model: "Nexon",
-    year: 2019,
+    make: "Hyundai",
+    model: "Creta",
+    year: 2021,
     type: "SUV (5 Seater)",
     badge: "Featured",
-    image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600",
+    image: "/car-6/721516921_1455241893311084_1453235107490393245_n.jpg",
     images: [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&q=80&w=600"
+      "/car-6/721516921_1455241893311084_1453235107490393245_n.jpg",
+      "/car-6/721575522_1455241846644422_4369481958912154451_n.jpg",
+      "/car-6/724504648_1455241763311097_168414109588232099_n.jpg",
+      "/car-6/724660297_1455241756644431_3863600280576494836_n.jpg",
+      "/car-6/724937308_1455241796644427_4322401193772174562_n.jpg",
+      "/car-6/725033677_1455241883311085_7193378403800727239_n.jpg",
+      "/car-6/725198314_1455241833311090_8565315765081785547_n.jpg",
+      "/car-6/725584488_1455241779977762_3997950810387578011_n.jpg"
     ],
-    description: "5-star Global NCAP safety rated crossover. Features high-ground clearance, multi-drive modes (Eco, City, Sport), and muscular design.",
-    engine: "1.2L Revotron Turbo Petrol",
-    videoUrl: null
+    description: "2021 model Hyundai Creta SX well maintained with no defects and maintenance cost in reasonable price is for sale/exchange. Running 35,000 km. Features include panoramic sunroof, push button start, projected headlights, airbag, ABS braking, auto AC, alloy wheels, steering mounted controls, fog lights, touchscreen, rear view camera, and back sensor.",
+    engine: "1.5L 1497cc Petrol",
+    videoUrl: "https://www.facebook.com/share/r/18m16rT5bR/"
   }
 ];
 
 import { databases } from "./appwrite";
 import { DB_ID, CARS_COLLECTION_ID } from "./constants";
 import { Query } from "appwrite";
+import { getFilePreviewUrl } from "./utils";
 
 export async function fetchCarsFromAppwrite(): Promise<Car[]> {
   try {
@@ -776,27 +207,32 @@ export async function fetchCarsFromAppwrite(): Promise<Car[]> {
       CARS_COLLECTION_ID,
       [Query.limit(100)]
     );
-    return response.documents.map((doc: any) => ({
-      id: doc.$id,
-      slug: doc.slug,
-      name: doc.name,
-      variant: doc.variant || "",
-      price: doc.price,
-      mileageVal: doc.mileage,
-      mileage: `${doc.mileage.toLocaleString()} km`,
-      transmission: doc.transmission || "Automatic",
-      fuel: doc.fuel || "Petrol",
-      make: doc.make,
-      model: doc.model,
-      year: doc.year,
-      type: doc.type || "SUV (5 Seater)",
-      badge: doc.badge || null,
-      image: doc.image_ids?.[0] || "",
-      images: doc.image_ids || [],
-      description: doc.description,
-      engine: doc.engine || "",
-      videoUrl: doc.video_url || null,
-    }));
+    return response.documents.map((doc: any) => {
+      const mappedImages = (doc.image_ids || []).map((imgId: string) => 
+        imgId.startsWith("http") ? imgId : getFilePreviewUrl(imgId)
+      );
+      return {
+        id: doc.$id,
+        slug: doc.slug,
+        name: doc.name,
+        variant: doc.variant || "",
+        price: doc.price,
+        mileageVal: doc.mileage,
+        mileage: `${doc.mileage.toLocaleString()} km`,
+        transmission: doc.transmission || "Automatic",
+        fuel: doc.fuel || "Petrol",
+        make: doc.make,
+        model: doc.model,
+        year: doc.year,
+        type: doc.type || "SUV (5 Seater)",
+        badge: doc.badge || null,
+        image: mappedImages[0] || "",
+        images: mappedImages,
+        description: doc.description,
+        engine: doc.engine || "",
+        videoUrl: doc.video_url || null,
+      };
+    });
   } catch (error) {
     console.error("Failed to fetch cars from Appwrite:", error);
     return MOCK_CARS;
@@ -812,6 +248,9 @@ export async function fetchCarBySlugFromAppwrite(slug: string): Promise<Car | nu
     );
     if (response.documents.length === 0) return null;
     const doc = response.documents[0];
+    const mappedImages = (doc.image_ids || []).map((imgId: string) => 
+      imgId.startsWith("http") ? imgId : getFilePreviewUrl(imgId)
+    );
     return {
       id: doc.$id,
       slug: doc.slug,
@@ -827,8 +266,8 @@ export async function fetchCarBySlugFromAppwrite(slug: string): Promise<Car | nu
       year: doc.year,
       type: doc.type || "SUV (5 Seater)",
       badge: doc.badge || null,
-      image: doc.image_ids?.[0] || "",
-      images: doc.image_ids || [],
+      image: mappedImages[0] || "",
+      images: mappedImages,
       description: doc.description,
       engine: doc.engine || "",
       videoUrl: doc.video_url || null,

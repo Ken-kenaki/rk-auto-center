@@ -14,6 +14,10 @@ export const LEADS_COLLECTION_ID =
     process.env.NEXT_PUBLIC_LEADS_COLLECTION_ID || "leads";
 export const CAR_IMAGES_BUCKET_ID =
     process.env.NEXT_PUBLIC_CAR_IMAGES_BUCKET_ID || "car_images";
+export const TESTIMONIALS_COLLECTION_ID =
+    process.env.NEXT_PUBLIC_TESTIMONIALS_COLLECTION_ID || "testimonials";
+export const TESTIMONIALS_BUCKET_ID =
+    process.env.NEXT_PUBLIC_TESTIMONIALS_BUCKET_ID || "client_testimonials";
 
 export const CAR_MAKES = [
     "Porsche",

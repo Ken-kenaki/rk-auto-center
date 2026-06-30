@@ -4,6 +4,8 @@ import { ScrollRevealText } from "@/components/scroll-reveal-text";
 import { ScrollRevealSection } from "@/components/scroll-reveal-section";
 import { FadeImage } from "@/components/fade-image";
 import AboutCTA from "@/components/AboutCTA";
+import { ClientGallerySection } from "@/components/ClientGallerySection";
+import { GoogleReviewsEmbed } from "@/components/GoogleReviewsEmbed";
 
 export const metadata: Metadata = {
   title: "About Us — RK Auto Center",
@@ -12,37 +14,38 @@ export const metadata: Metadata = {
 
 const aboutSideImages = [
   {
-    src: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000",
-    alt: "Luxury Porsche interior details",
+    src: "/about-hero-1.jpg",
+    alt: "Happy client with their new car",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1000",
-    alt: "Classic sports car beauty shot",
+    src: "/about-hero-2.jpg",
+    alt: "Client receiving car keys",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1000",
-    alt: "Red Ferrari tail design",
+    src: "/about-hero-3.jpg",
+    alt: "Client posing with their vehicle",
     position: "right",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1000",
-    alt: "Sleek automotive design engineering",
+    src: "/about-hero-4.jpg",
+    alt: "Satisfied customer at RK Auto Center",
     position: "right",
     span: 1,
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+
   return (
     <main className="min-h-screen bg-background pb-16">
       <AboutHeroSection
-        word="LEGACY"
-        mainImageSrc="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1000"
+        word="RK AUTO CENTER"
+        mainImageSrc="/about-1.jpg"
         sideImages={aboutSideImages}
         tagline={
           <>
@@ -150,9 +153,9 @@ export default function AboutPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-10 md:pt-12 border-t border-gray-100">
             {[
-              { value: "10+",  label: "Years Experience" },
+              { value: "10+", label: "Years Experience" },
               { value: "500+", label: "Premium Cars Sold" },
-              { value: "98%",  label: "Customer Satisfaction" },
+              { value: "98%", label: "Customer Satisfaction" },
               { value: "100%", label: "Inspected Inventory" },
             ].map((stat, idx) => (
               <ScrollRevealSection
@@ -174,78 +177,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ────────────────────────────────────────────── */}
-      <section id="testimonials" className="py-16 md:py-28 px-6 md:px-12 max-w-7xl mx-auto scroll-mt-24">
-        <ScrollRevealSection direction="up" className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
-          <p className="text-xs font-bold uppercase tracking-widest mb-3 md:mb-4" style={{ color: "var(--color-primary)" }}>
-            Client Testimonials
-          </p>
-          <h2
-            className="text-3xl sm:text-4xl font-extrabold mb-3 md:mb-4"
-            style={{ fontFamily: "Hanken Grotesk", color: "var(--color-on-background)" }}
-          >
-            Trusted by the Discerning
-          </h2>
-          <p className="text-sm md:text-base text-gray-600">
-            Read what elite car collectors, everyday luxury drivers, and performance enthusiasts say about
-            their RK Auto transactions.
-          </p>
-        </ScrollRevealSection>
+      {/* ── CLIENT GALLERY ───────────────────────────────────────────── */}
+      <ClientGallerySection />
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
-          {[
-            {
-              quote:
-                "The acquisition of my 911 Carrera S was completely transparent. The 150-point inspection gave me total peace of mind, and the car arrived in showroom condition.",
-              author: "Marcus Vance",
-              role: "Private Collector",
-              avatar: "MV",
-            },
-            {
-              quote:
-                "I sold my Range Rover in less than a week using RK Auto's seller platform. They handled the paperwork, logistics, and verification seamlessly. Stellar service.",
-              author: "Elena Rostova",
-              role: "Tech Entrepreneur",
-              avatar: "ER",
-            },
-            {
-              quote:
-                "Their side-by-side comparison engine helped me weigh the telemetry specs between the e-tron GT and Taycan. Outstanding UI and unparalleled staff support.",
-              author: "Dr. Aris Thorne",
-              role: "Performance Enthusiast",
-              avatar: "AT",
-            },
-          ].map((item, idx) => (
-            <ScrollRevealSection
-              key={idx}
-              direction="up"
-              delay={idx * 150}
-              className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <span className="material-symbols-outlined text-[40px] md:text-[48px] text-red-100 block mb-4 md:mb-6">
-                  format_quote
-                </span>
-                <p className="text-gray-700 italic leading-relaxed text-sm mb-6 md:mb-8">
-                  &ldquo;{item.quote}&rdquo;
-                </p>
-              </div>
-              <div className="flex items-center gap-3 md:gap-4 pt-5 md:pt-6 border-t border-gray-50">
-                <div
-                  className="w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white text-xs font-bold font-mono flex-shrink-0"
-                  style={{ background: "var(--color-secondary)" }}
-                >
-                  {item.avatar}
-                </div>
-                <div>
-                  <h5 className="font-bold text-sm text-gray-900 leading-tight">{item.author}</h5>
-                  <p className="text-xs text-gray-500">{item.role}</p>
-                </div>
-              </div>
-            </ScrollRevealSection>
-          ))}
-        </div>
-      </section>
+      {/* ── GOOGLE REVIEWS ──────────────────────────────────────────── */}
+      <GoogleReviewsEmbed />
 
       {/* ── LUXURY CTA ────────────────────────────────────────────── */}
       <AboutCTA />

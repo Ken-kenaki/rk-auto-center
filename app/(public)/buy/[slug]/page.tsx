@@ -51,6 +51,74 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
             <CarGallery images={car.images} name={car.name} />
           </div>
 
+          {/* Video / Facebook Reel embed — shown first if available */}
+          {car.videoUrl && (() => {
+            const isFacebook = car.videoUrl.includes("facebook.com") || car.videoUrl.includes("fb.watch");
+            const embedUrl = isFacebook
+              ? `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(car.videoUrl)}&show_text=false&width=560&appId`
+              : null;
+
+            return (
+              <div className="rounded-3xl bg-white shadow-md overflow-hidden">
+                <div className="px-8 pt-8 pb-4">
+                  <h2 className="font-extrabold text-xl text-gray-900 flex items-center gap-2" style={{ fontFamily: "Hanken Grotesk" }}>
+                    <span className="material-symbols-outlined text-[22px] text-red-600">videocam</span>
+                    Vehicle Walkthrough
+                  </h2>
+                  <p className="text-xs text-gray-400 mt-1">See this vehicle in action before you visit.</p>
+                </div>
+
+                {embedUrl ? (
+                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+                    <iframe
+                      src={embedUrl}
+                      className="absolute inset-0 w-full h-full"
+                      style={{ border: "none", overflow: "hidden" }}
+                      scrolling="no"
+                      frameBorder="0"
+                      allowFullScreen
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                      title={`${car.name} Facebook video`}
+                    />
+                  </div>
+                ) : (
+                  <div className="px-8 pb-8">
+                    <a
+                      href={car.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100/60 transition-all group"
+                    >
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center bg-red-600 shadow group-hover:scale-105 transition-transform flex-shrink-0">
+                        <span className="material-symbols-outlined text-white text-[24px]">play_circle</span>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="font-bold text-sm text-gray-900">Watch Vehicle Video</p>
+                        <p className="text-xs text-gray-500 truncate">{car.videoUrl}</p>
+                      </div>
+                      <span className="material-symbols-outlined ml-auto text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0">open_in_new</span>
+                    </a>
+                  </div>
+                )}
+
+                {/* Always show "open on Facebook" link for FB URLs */}
+                {isFacebook && (
+                  <div className="px-8 pb-6 text-right">
+                    <a
+                      href={car.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:underline"
+                    >
+                      <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                      Open on Facebook
+                    </a>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
           {/* Description */}
           <div className="p-8 rounded-3xl bg-white shadow-md">
             <h2 className="font-extrabold text-xl mb-3 text-gray-900" style={{ fontFamily: "Hanken Grotesk" }}>
@@ -58,32 +126,6 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
             </h2>
             <p className="text-base text-gray-600 leading-relaxed">{car.description}</p>
           </div>
-
-          {/* Video embed */}
-          {car.videoUrl && (
-            <div className="p-8 rounded-3xl bg-white shadow-md">
-              <h2 className="font-extrabold text-xl mb-4 text-gray-900" style={{ fontFamily: "Hanken Grotesk" }}>
-                Vehicle Video
-              </h2>
-              <a
-                href={car.videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100/50 transition-all group"
-              >
-                <div className="w-12 h-12 rounded-full flex items-center justify-center bg-red-600 shadow group-hover:scale-105 transition-transform">
-                  <span className="material-symbols-outlined text-white text-[24px]">play_circle</span>
-                </div>
-                <div>
-                  <p className="font-bold text-sm text-gray-900">Watch Vehicle Video</p>
-                  <p className="text-xs text-gray-500 truncate max-w-xs">{car.videoUrl}</p>
-                </div>
-                <span className="material-symbols-outlined ml-auto text-gray-400 group-hover:translate-x-1 transition-transform">
-                  open_in_new
-                </span>
-              </a>
-            </div>
-          )}
 
           {/* Specs grid */}
           <div className="p-8 rounded-3xl bg-white shadow-md">

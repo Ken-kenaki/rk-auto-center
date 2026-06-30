@@ -19,33 +19,33 @@ interface HeroSectionProps {
 
 const defaultSideImages: SideImage[] = [
   {
-    src: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000",
-    alt: "Luxury sports car interior",
+    src: "/about-hero-1.jpg",
+    alt: "Happy client with their new car",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1000",
-    alt: "Classic sports car side view",
+    src: "/about-hero-2.jpg",
+    alt: "Client receiving car keys",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1000",
-    alt: "Sleek red modern supercar tail light",
+    src: "/about-hero-3.jpg",
+    alt: "Client posing with their vehicle",
     position: "right",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1000",
-    alt: "High-performance sports car detail",
+    src: "/about-hero-4.jpg",
+    alt: "Satisfied customer at RK Auto Center",
     position: "right",
     span: 1,
   },
 ];
 
 export function AboutHeroSection({
-  word = "LEGACY",
+  word = "RK AUTO CENTER",
   mainImageSrc = "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1000",
   sideImages = defaultSideImages,
   tagline = (
@@ -87,27 +87,25 @@ export function AboutHeroSection({
   // Image transforms start after text fades (0.2 to 1)
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
 
-  // ── EXACT ORIGINAL DESKTOP VALUES ──────────────────────────────────
-  // On mobile the side columns need to be a bit wider (28% instead of 22%)
-  // so they're actually visible on a narrow screen — center shrinks accordingly.
+  // side columns need to be slightly wider on mobile (28% vs 22%)
   const sideMaxWidth = isMobile ? 28 : 22;
 
-  const centerWidth  = isMobile
+  const centerWidth = isMobile
     ? 100 - imageProgress * 64          // 100% → 36% on mobile (leaves 28% each side)
-    : 100 - imageProgress * 58;         // 100% → 42% on desktop (ORIGINAL)
+    : 100 - imageProgress * 58;         // 100% → 42% on desktop
 
-  const centerHeight = 100 - imageProgress * 30; // 100% → 70% — same on both (ORIGINAL)
-  const sideWidth    = imageProgress * sideMaxWidth;
-  const sideOpacity  = imageProgress;
-  const sideTranslateLeft  = -100 + imageProgress * 100; // -100% → 0% (ORIGINAL)
-  const sideTranslateRight =  100 - imageProgress * 100; // 100% → 0%  (ORIGINAL)
-  const borderRadius = imageProgress * 24;               // 0px → 24px  (ORIGINAL)
-  const gap          = imageProgress * (isMobile ? 8 : 16); // slightly tighter on mobile
-  const sideTranslateY = -(imageProgress * 15);           // (ORIGINAL)
+  const centerHeight = 100 - imageProgress * 30; // 100% → 70%
+  const sideWidth = imageProgress * sideMaxWidth;
+  const sideOpacity = imageProgress;
+  const sideTranslateLeft = -100 + imageProgress * 100;
+  const sideTranslateRight = 100 - imageProgress * 100;
+  const borderRadius = imageProgress * 24;
+  const gap = imageProgress * (isMobile ? 8 : 16);
+  const sideTranslateY = -(imageProgress * 15);
 
   return (
     <section ref={sectionRef} className="relative bg-background">
-      {/* Sticky container for scroll animation */}
+      {/* Animated Hero Section (Unified layout for all viewports) */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
@@ -115,7 +113,7 @@ export function AboutHeroSection({
             className="relative flex h-full w-full items-stretch justify-center"
             style={{
               gap: `${gap}px`,
-              padding: `${imageProgress * (isMobile ? 8 : 16)}px`,
+              padding: `${imageProgress * 16}px`,
               paddingBottom: `${60 + imageProgress * 40}px`,
             }}
           >
@@ -135,7 +133,7 @@ export function AboutHeroSection({
                   className="relative overflow-hidden will-change-transform"
                   style={{ flex: img.span, borderRadius: `${borderRadius}px` }}
                 >
-                  <Image src={img.src || "/placeholder.svg"} alt={img.alt} fill className="object-cover" />
+                  <Image src={img.src || "/placeholder.svg"} alt={img.alt} fill sizes="(max-width: 768px) 50vw, 22vw" className="object-cover" />
                 </div>
               ))}
             </div>
@@ -150,14 +148,14 @@ export function AboutHeroSection({
                 borderRadius: `${borderRadius}px`,
               }}
             >
-              <Image src={mainImageSrc} alt="Main hero display" fill className="object-cover" priority />
+              <Image src={mainImageSrc} alt="Main hero display" fill sizes="100vw" className="object-cover" priority />
 
               {/* Overlay text — fades out on scroll */}
               <div
                 className="absolute inset-0 flex items-end overflow-hidden"
                 style={{ opacity: textOpacity }}
               >
-                <h1 className="w-full text-[16vw] font-black leading-[0.8] tracking-tighter text-white uppercase text-center md:text-left md:pl-8 pb-12">
+                <h1 className="w-full text-[9vw] sm:text-[8vw] font-black leading-[0.85] tracking-tighter text-white uppercase text-center md:text-left md:pl-8 pb-12 whitespace-nowrap">
                   {word.split("").map((letter, index) => (
                     <span
                       key={index}
@@ -191,7 +189,7 @@ export function AboutHeroSection({
                   className="relative overflow-hidden will-change-transform"
                   style={{ flex: img.span, borderRadius: `${borderRadius}px` }}
                 >
-                  <Image src={img.src || "/placeholder.svg"} alt={img.alt} fill className="object-cover" />
+                  <Image src={img.src || "/placeholder.svg"} alt={img.alt} fill sizes="(max-width: 768px) 50vw, 22vw" className="object-cover" />
                 </div>
               ))}
             </div>
@@ -205,7 +203,7 @@ export function AboutHeroSection({
       {/* Tagline Section */}
       <div className="px-6 pt-32 pb-28 md:pt-48 md:px-12 md:pb-36 lg:px-20 lg:pt-56 lg:pb-44">
         <p
-          className="mx-auto max-w-2xl text-center text-2xl leading-relaxed md:text-3xl lg:text-[2.5rem] lg:leading-snug"
+          className="mx-auto max-w-2xl text-center text-xl sm:text-2xl leading-relaxed md:text-3xl lg:text-[2.5rem] lg:leading-snug font-medium"
           style={{ color: "var(--color-on-background)" }}
         >
           {tagline}

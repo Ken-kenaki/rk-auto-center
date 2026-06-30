@@ -20,7 +20,8 @@ const stats = [
   { value: 24, suffix: "/7", label: "Support Available" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+
   return (
     <>
       <HeroSection />
