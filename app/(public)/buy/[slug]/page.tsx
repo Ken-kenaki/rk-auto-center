@@ -51,12 +51,28 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
             <CarGallery images={car.images} name={car.name} />
           </div>
 
-          {/* Video / Facebook Reel embed — shown first if available */}
+          {/* Video / Facebook / YouTube Walkthrough */}
           {car.videoUrl && (() => {
             const isFacebook = car.videoUrl.includes("facebook.com") || car.videoUrl.includes("fb.watch");
-            const embedUrl = isFacebook
-              ? `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(car.videoUrl)}&show_text=false&width=560&appId`
-              : null;
+            const isYouTube = car.videoUrl.includes("youtube.com") || car.videoUrl.includes("youtu.be");
+            const isReel = isFacebook && (car.videoUrl.includes("/share/r/") || car.videoUrl.includes("/reel/") || car.videoUrl.includes("/reels/"));
+            
+            let embedUrl = null;
+            if (isYouTube) {
+              let videoId = "";
+              if (car.videoUrl.includes("youtu.be/")) {
+                videoId = car.videoUrl.split("youtu.be/")[1]?.split("?")[0] || "";
+              } else if (car.videoUrl.includes("v=")) {
+                videoId = car.videoUrl.split("v=")[1]?.split("&")[0] || "";
+              } else if (car.videoUrl.includes("embed/")) {
+                videoId = car.videoUrl.split("embed/")[1]?.split("?")[0] || "";
+              }
+              if (videoId) {
+                embedUrl = `https://www.youtube.com/embed/${videoId}`;
+              }
+            } else if (isFacebook && !isReel) {
+              embedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(car.videoUrl)}&show_text=false&width=560&appId`;
+            }
 
             return (
               <div className="rounded-3xl bg-white shadow-md overflow-hidden">
@@ -78,7 +94,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
                       frameBorder="0"
                       allowFullScreen
                       allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                      title={`${car.name} Facebook video`}
+                      title={`${car.name} walkthrough video`}
                     />
                   </div>
                 ) : (
@@ -87,22 +103,28 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
                       href={car.videoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100/60 transition-all group"
+                      className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 hover:bg-gray-100/60 transition-all group border border-gray-100"
                     >
                       <div className="w-12 h-12 rounded-full flex items-center justify-center bg-red-600 shadow group-hover:scale-105 transition-transform flex-shrink-0">
                         <span className="material-symbols-outlined text-white text-[24px]">play_circle</span>
                       </div>
-                      <div className="min-w-0">
-                        <p className="font-bold text-sm text-gray-900">Watch Vehicle Video</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-bold text-sm text-gray-900">
+                          {isReel ? "Watch Walkaround Reel on Facebook" : "Watch Walkaround Video"}
+                        </p>
                         <p className="text-xs text-gray-500 truncate">{car.videoUrl}</p>
                       </div>
                       <span className="material-symbols-outlined ml-auto text-gray-400 group-hover:translate-x-1 transition-transform flex-shrink-0">open_in_new</span>
                     </a>
+                    {isReel && (
+                      <p className="text-[10px] text-gray-400 mt-2 text-center">
+                        Note: Facebook Reels are secure public media and must be viewed directly on Facebook.
+                      </p>
+                    )}
                   </div>
                 )}
 
-                {/* Always show "open on Facebook" link for FB URLs */}
-                {isFacebook && (
+                {isFacebook && !isReel && (
                   <div className="px-8 pb-6 text-right">
                     <a
                       href={car.videoUrl}

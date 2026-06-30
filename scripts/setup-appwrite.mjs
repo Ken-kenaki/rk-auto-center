@@ -67,7 +67,7 @@ async function main() {
     await safeCreate(`Collection: ${CARS_ID}`, () =>
         databases.createCollection(DB_ID, CARARS_COLLECTION_SETUP(), "Cars", [
             Permission.read(Role.any()),
-            Permission.create(Role.users()),
+            Permission.create(Role.any()), // Allow anyone to submit a car to sell
             Permission.update(Role.users()),
             Permission.delete(Role.users()),
         ])

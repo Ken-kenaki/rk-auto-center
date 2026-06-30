@@ -337,14 +337,14 @@ export default function Navbar() {
                       layoutId="navbar-contact-card"
                       className="absolute inset-0 bg-[#ba0013] transform-gpu will-change-transform"
                     />
-                    <motion.button
+                    <motion.a
+                      href="tel:+9779847699255"
                       layout={false}
-                      onClick={openContactModal}
                       className="relative z-10 flex items-center gap-1.5 px-6 py-2.5 rounded-full font-bold text-sm text-white hover:scale-105 active:scale-95 transition-all text-center cursor-pointer"
                     >
-                      <span className="material-symbols-outlined text-[18px]">contact_support</span>
-                      Contact Now
-                    </motion.button>
+                      <span className="material-symbols-outlined text-[18px]">call</span>
+                      Call Now
+                    </motion.a>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -640,16 +640,16 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="p-3.5 border-t border-red-50/50 bg-red-50/20">
-                <button
+                <a
+                  href="tel:+9779847699255"
                   onClick={() => {
                     setMobileOpen(false);
-                    openContactModal();
                   }}
-                  className="flex items-center justify-center gap-2 py-3 px-6 rounded-full font-bold text-sm text-white w-full bg-[#ba0013] hover:bg-[#a0000f] active:scale-98 transition-all cursor-pointer shadow-md shadow-red-900/10"
+                  className="flex items-center justify-center gap-2 py-3 px-6 rounded-full font-bold text-sm text-white w-full bg-[#ba0013] hover:bg-[#a0000f] active:scale-98 transition-all cursor-pointer shadow-md shadow-red-900/10 text-center"
                 >
-                  <span className="material-symbols-outlined text-[18px]">contact_support</span>
-                  Contact Now
-                </button>
+                  <span className="material-symbols-outlined text-[18px]">call</span>
+                  Call Now
+                </a>
               </div>
             </motion.div>
           )}
