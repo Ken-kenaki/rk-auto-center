@@ -64,7 +64,7 @@ const aboutData = {
       tag: "Company Profile",
       title: "The Pinnacle of Automotive Integrity",
       text: "Founded on the principles of absolute transparency and visual majesty, RK Auto has been the premier destination for serious automotive enthusiasts. We specialize in curating, verifying, and matching world-class supercars and luxury daily drivers with those who appreciate excellence.",
-      image: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?q=80&w=1000",
+      image: "/rk-des.jpg",
     },
     whyUs: {
       tag: "Why Choose Us",
@@ -74,12 +74,12 @@ const aboutData = {
         {
           title: "Meticulous Inspection",
           text: "Every vehicle on our platform undergoes a rigorous 150-point diagnostic check by certified mechanics, verifying everything from telemetry logs to paint depth.",
-          image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000",
+          image: "/rk-des.jpg",
         },
         {
           title: "Bespoke Acquisition",
           text: "If the specific build you want is not in our inventory, our sourcing division connects with private collectors worldwide to secure and ship it directly to you.",
-          image: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1000",
+          image: "/about-1.jpg",
         },
       ],
       stats: [

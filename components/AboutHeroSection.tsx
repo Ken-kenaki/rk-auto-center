@@ -109,7 +109,7 @@ export function AboutHeroSection({
   const sideTranslateRight = 100 - imageProgress * 100;
   const borderRadius = imageProgress * 24;
   const gap = isMobile 
-    ? 8 - imageProgress * 4            // gap shrinks from 8px to 4px on mobile
+    ? imageProgress * 4            // gap grows from 0px to 4px on mobile as side columns appear
     : imageProgress * 16;
   const sideTranslateY = isMobile ? 0 : -(imageProgress * 15);
 
@@ -121,7 +121,7 @@ export function AboutHeroSection({
           <div className="flex h-full w-full items-center justify-center">
             {/* Bento Grid Container */}
             <div
-              className="relative flex h-full w-full items-stretch justify-center"
+              className="relative flex h-full w-full items-stretch justify-center overflow-hidden"
               style={{
                 gap: `${gap}px`,
                 padding: isMobile ? "0px" : `${imageProgress * 16}px`,
@@ -131,9 +131,10 @@ export function AboutHeroSection({
             >
               {/* Left Column */}
               <div
-                className="flex flex-col will-change-transform animate-fade-in"
+                className="flex flex-col overflow-hidden will-change-transform animate-fade-in"
                 style={{
                   width: `${sideWidth}%`,
+                  minWidth: 0,
                   gap: `${gap}px`,
                   transform: `translateX(${sideTranslateLeft}%) translateY(${sideTranslateY}%)`,
                   opacity: sideOpacity,
@@ -189,9 +190,10 @@ export function AboutHeroSection({
 
               {/* Right Column */}
               <div
-                className="flex flex-col will-change-transform animate-fade-in"
+                className="flex flex-col overflow-hidden will-change-transform animate-fade-in"
                 style={{
                   width: `${sideWidth}%`,
+                  minWidth: 0,
                   gap: `${gap}px`,
                   transform: `translateX(${sideTranslateRight}%) translateY(${sideTranslateY}%)`,
                   opacity: sideOpacity,

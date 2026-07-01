@@ -28,7 +28,7 @@ export default async function AboutPage() {
       />
 
       {/* ── COMPANY PROFILE ─────────────────────────────────────────── */}
-      <section id="company-profile" className="py-16 md:py-28 px-6 md:px-12 max-w-7xl mx-auto scroll-mt-24">
+      <section id="company-profile" className="py-16 md:py-28 px-6 md:px-12 max-w-7xl mx-auto scroll-mt-24 overflow-hidden">
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <ScrollRevealSection direction="left">
             <p className="text-xs font-bold uppercase tracking-widest mb-3 md:mb-4" style={{ color: "var(--color-primary)" }}>
