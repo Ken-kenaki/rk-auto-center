@@ -444,31 +444,33 @@ export default function Navbar() {
               </div>
 
               {/* Column 3: Blog/Featured on the right */}
-              <div className="md:col-span-4 bg-gray-50 rounded-2xl p-4 flex flex-col justify-between hover:bg-gray-100/80 transition-colors">
-                <div className="flex flex-col gap-3">
+              <Link
+                href="/guides/inspect-used-car"
+                className="md:col-span-4 bg-gray-50 rounded-2xl p-4 flex flex-col justify-between hover:bg-gray-100/80 transition-colors group/guide"
+              >
+                <div className="flex flex-col gap-3 text-left">
                   <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-gray-200">
                     <img
                       src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=400"
                       alt="Featured Buying Guide"
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full transition-transform duration-300 group-hover/guide:scale-105"
                     />
                   </div>
                   <span className="text-[10px] uppercase font-bold tracking-widest text-red-600 font-mono">Featured Guide</span>
-                  <h5 className="font-extrabold text-base text-gray-900 leading-snug">
+                  <h5 className="font-extrabold text-base text-gray-900 leading-snug group-hover/guide:text-red-600 transition-colors">
                     How to Inspect a Used Car Before Buying
                   </h5>
                   <p className="text-xs text-gray-600">
                     A comprehensive checklist to avoid costly surprises before signing the title.
                   </p>
                 </div>
-                <Link
-                  href="/buy"
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-red-600 hover:gap-2.5 transition-all"
+                <div
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-red-600 group-hover/guide:gap-2.5 transition-all"
                 >
-                  Explore Inventory
+                  Read Guide
                   <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </Link>
-              </div>
+                </div>
+              </Link>
             </motion.div>
           )}
 
@@ -488,7 +490,7 @@ export default function Navbar() {
                   {[
                     { label: "Sell Your Car", desc: "Create a listings card and list your vehicle on our marketplace.", href: "/sell" },
                     { label: "Track Your Car's Value", desc: "Understand real-time valuation for high-performance cars.", href: "/sell" },
-                    { label: "How to Sell Your Car", desc: "A guide detailing transfer documents and transaction support.", href: "/sell" },
+                    { label: "How to Sell Your Car", desc: "A guide detailing transfer documents and transaction support.", href: "/guides/sell-your-car" },
                   ].map((item) => (
                     <Link
                       key={item.label}
@@ -508,31 +510,33 @@ export default function Navbar() {
               </div>
 
               {/* Column 2: Featured Guide */}
-              <div className="md:col-span-4 bg-gray-50 rounded-2xl p-4 flex flex-col justify-between hover:bg-gray-100/80 transition-colors">
-                <div className="flex flex-col gap-3">
+              <Link
+                href="/guides/sell-your-car"
+                className="md:col-span-4 bg-gray-50 rounded-2xl p-4 flex flex-col justify-between hover:bg-gray-100/80 transition-colors group/guide"
+              >
+                <div className="flex flex-col gap-3 text-left">
                   <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-gray-200">
                     <img
                       src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400"
                       alt="Featured Selling Guide"
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full transition-transform duration-300 group-hover/guide:scale-105"
                     />
                   </div>
                   <span className="text-[10px] uppercase font-bold tracking-widest text-red-600 font-mono">Featured Guide</span>
-                  <h5 className="font-extrabold text-base text-gray-900 leading-snug">
+                  <h5 className="font-extrabold text-base text-gray-900 leading-snug group-hover/guide:text-red-600 transition-colors">
                     How to Sell Your Used Car
                   </h5>
                   <p className="text-xs text-gray-600">
                     Get the maximum value for your vehicle with our step-by-step listing checklist.
                   </p>
                 </div>
-                <Link
-                  href="/sell"
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-red-600 hover:gap-2.5 transition-all"
+                <div
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-red-600 group-hover/guide:gap-2.5 transition-all"
                 >
-                  Create Listing
+                  Read Guide
                   <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </Link>
-              </div>
+                </div>
+              </Link>
             </motion.div>
           )}
 
@@ -553,6 +557,7 @@ export default function Navbar() {
                     { label: "Company Profile", desc: "Discover our story, mission, and the legacy of RK Auto Center.", href: "/about#company-profile" },
                     { label: "Why Us", desc: "Understand our 150-point inspection and bespoke concierge services.", href: "/about#why-us" },
                     { label: "Clients Testimonials", desc: "Read honest feedback and reviews from our luxury car buyers.", href: "/about#testimonials" },
+                    { label: "Visit Our Showroom", desc: "Get directions, business hours, maps, and pre-visit details.", href: "/visit" },
                   ].map((item) => (
                     <Link
                       key={item.label}
@@ -572,31 +577,33 @@ export default function Navbar() {
               </div>
 
               {/* Column 2: Showroom image on the right */}
-              <div className="md:col-span-4 bg-gray-50 rounded-2xl p-4 flex flex-col justify-between hover:bg-gray-100/80 transition-colors">
-                <div className="flex flex-col gap-3">
+              <Link
+                href="/visit"
+                className="md:col-span-4 bg-gray-50 rounded-2xl p-4 flex flex-col justify-between hover:bg-gray-100/80 transition-colors group/showroom"
+              >
+                <div className="flex flex-col gap-3 text-left">
                   <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-gray-200">
                     <img
                       src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=400"
                       alt="Featured Showroom"
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full transition-transform duration-300 group-hover/showroom:scale-105"
                     />
                   </div>
                   <span className="text-[10px] uppercase font-bold tracking-widest text-red-600 font-mono">Our Showroom</span>
-                  <h5 className="font-extrabold text-base text-gray-900 leading-snug">
+                  <h5 className="font-extrabold text-base text-gray-900 leading-snug group-hover/showroom:text-red-600 transition-colors">
                     Visit RK Auto Center
                   </h5>
                   <p className="text-xs text-gray-600">
                     Experience our handpicked selection of supercars and luxury SUVs in person.
                   </p>
                 </div>
-                <Link
-                  href="/about"
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-red-600 hover:gap-2.5 transition-all"
+                <div
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-red-600 group-hover/showroom:gap-2.5 transition-all"
                 >
-                  Learn More About Us
+                  Location & Hours
                   <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </Link>
-              </div>
+                </div>
+              </Link>
             </motion.div>
           )}
         </AnimatePresence>

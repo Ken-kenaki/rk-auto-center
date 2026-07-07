@@ -13,6 +13,7 @@ export interface Car {
   year: number;
   type: string;
   badge?: string | null;
+  condition?: string | null;
   featured?: boolean;
   image: string;
   images: string[];
@@ -227,6 +228,7 @@ export async function fetchCarsFromAppwrite(): Promise<Car[]> {
         year: doc.year,
         type: doc.type || "SUV (5 Seater)",
         badge: doc.badge || null,
+        condition: doc.condition || null,
         featured: doc.featured || false,
         image: mappedImages[0] || "",
         images: mappedImages,
@@ -268,6 +270,7 @@ export async function fetchCarBySlugFromAppwrite(slug: string): Promise<Car | nu
       year: doc.year,
       type: doc.type || "SUV (5 Seater)",
       badge: doc.badge || null,
+      condition: doc.condition || null,
       featured: doc.featured || false,
       image: mappedImages[0] || "",
       images: mappedImages,

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -170,9 +171,9 @@ export default function LoginPage() {
 
           <p className="mt-6 text-center text-sm text-gray-500">
             Don't have an account?{" "}
-            <a href="#" className="font-extrabold text-red-600 hover:text-red-700 transition-colors">
+            <Link href="/signup" className="font-extrabold text-red-600 hover:text-red-700 transition-colors">
               Register as a Dealer
-            </a>
+            </Link>
           </p>
         </motion.div>
       </div>

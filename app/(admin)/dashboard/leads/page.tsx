@@ -1,131 +1,221 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { databases } from "@/lib/appwrite";
+import { DB_ID, LEADS_COLLECTION_ID } from "@/lib/constants";
+import { Query } from "appwrite";
 
-const MOCK_LEADS = [
-  { id: "1", name: "John Smith", email: "john@example.com", phone: "+1 555 0101", car: "2024 Porsche 911", message: "I'm interested in the Porsche. Can we schedule a test drive?", status: "New", date: "2024-01-15" },
-  { id: "2", name: "Emily Johnson", email: "emily@example.com", phone: "+1 555 0202", car: "2023 Range Rover", message: "Is the Range Rover still available? What's the best price?", status: "Contacted", date: "2024-01-14" },
-  { id: "3", name: "Michael Chang", email: "mchang@example.com", phone: "+1 555 0303", car: "2022 Audi e-tron GT", message: "Looking for electric vehicles. Is financing available?", status: "New", date: "2024-01-13" },
-  { id: "4", name: "Sarah Williams", email: "sarah@example.com", phone: "+1 555 0404", car: "2024 Mercedes G-Class", message: "Need full spec sheet and service history.", status: "Closed", date: "2024-01-10" },
-];
+interface Lead {
+  id: string; name: string; email: string; phone: string;
+  car: string; message: string; status: string; date: string;
+}
 
-const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
-  New: { bg: "var(--color-primary-fixed)", color: "var(--color-primary)" },
-  Contacted: { bg: "var(--color-secondary-fixed)", color: "var(--color-secondary)" },
-  Closed: { bg: "var(--color-surface-container-high)", color: "var(--color-on-surface-variant)" },
+const STATUS_CONFIG: Record<string, { label: string; dot: string; badge: string }> = {
+  New:       { label: "New",       dot: "#dc2626", badge: "bg-red-50 text-red-600" },
+  pending:   { label: "New",       dot: "#dc2626", badge: "bg-red-50 text-red-600" },
+  Contacted: { label: "Contacted", dot: "#2563eb", badge: "bg-blue-50 text-blue-600" },
+  Closed:    { label: "Closed",    dot: "#a1a1aa", badge: "bg-zinc-100 text-zinc-500" },
 };
 
-export default function LeadsPage() {
-  const [leads, setLeads] = useState(MOCK_LEADS);
-  const [selected, setSelected] = useState<string | null>(null);
+function statusCfg(s: string) {
+  return STATUS_CONFIG[s] || STATUS_CONFIG["New"];
+}
 
-  const setStatus = (id: string, status: string) => {
-    setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, status } : l)));
+export default function LeadsPage() {
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [selected, setSelected] = useState<string | null>(null);
+  const [filter, setFilter] = useState("All");
+
+  useEffect(() => {
+    databases.listDocuments(DB_ID, LEADS_COLLECTION_ID, [Query.orderDesc("$createdAt"), Query.limit(100)])
+      .then((res) => {
+        const mapped = res.documents.map((doc: any) => ({
+          id: doc.$id,
+          name: doc.name,
+          email: doc.email,
+          phone: doc.phone || "—",
+          car: doc.car_id || doc.subject || "General Inquiry",
+          message: doc.message,
+          status: doc.status || "New",
+          date: new Date(doc.$createdAt).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
+        }));
+        setLeads(mapped);
+        if (mapped.length > 0) setSelected(mapped[0].id);
+      })
+      .catch(() => setError("Failed to load leads from the database."))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const updateStatus = async (id: string, newStatus: string) => {
+    setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, status: newStatus } : l)));
+    await databases.updateDocument(DB_ID, LEADS_COLLECTION_ID, id, {
+      status: newStatus === "New" ? "pending" : newStatus,
+    }).catch(() => {});
   };
+
+  const counts = { All: leads.length, New: 0, Contacted: 0, Closed: 0 };
+  leads.forEach((l) => {
+    const s = l.status === "pending" ? "New" : l.status;
+    if (s in counts) counts[s as keyof typeof counts]++;
+  });
+
+  const display = leads.filter((l) => {
+    if (filter === "All") return true;
+    const s = l.status === "pending" ? "New" : l.status;
+    return s === filter;
+  });
 
   const selectedLead = leads.find((l) => l.id === selected);
 
   return (
-    <div className="flex gap-5 h-[calc(100vh-10rem)]">
-      {/* List */}
-      <div className="flex-1 min-w-0 rounded-2xl border overflow-hidden flex flex-col"
-        style={{ background: "var(--color-surface-container-lowest)", borderColor: "var(--color-outline-variant)" }}>
-        <div className="px-5 py-4 border-b flex items-center justify-between" style={{ borderColor: "var(--color-outline-variant)" }}>
-          <h2 className="font-bold" style={{ fontFamily: "Hanken Grotesk" }}>All Leads</h2>
-          <span className="px-3 py-1 rounded-full text-xs font-bold" style={{ background: "var(--color-primary-fixed)", color: "var(--color-primary)" }}>
-            {leads.filter((l) => l.status === "New").length} New
-          </span>
+    <div className="space-y-4 h-[calc(100vh-8rem)] flex flex-col">
+      {error && (
+        <div className="px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 bg-amber-50 text-amber-700 flex-shrink-0">
+          <span className="material-symbols-outlined text-[16px]">warning</span>
+          {error}
         </div>
-        <div className="overflow-y-auto divide-y flex-1" style={{ borderColor: "var(--color-outline-variant)" }}>
-          {leads.map((lead) => (
-            <button key={lead.id} onClick={() => setSelected(lead.id)}
-              className="w-full text-left px-5 py-4 transition-colors hover:bg-[var(--color-surface-container-low)]"
-              style={{ background: selected === lead.id ? "var(--color-surface-container-low)" : undefined }}>
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0"
-                    style={{ background: "var(--color-secondary)" }}>
-                    {lead.name[0]}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-semibold text-sm truncate" style={{ color: "var(--color-on-surface)" }}>{lead.name}</p>
-                    <p className="text-xs truncate" style={{ color: "var(--color-on-surface-variant)" }}>{lead.car}</p>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold"
-                    style={{ background: STATUS_COLORS[lead.status]?.bg, color: STATUS_COLORS[lead.status]?.color }}>
-                    {lead.status}
-                  </span>
-                  <p className="text-[10px]" style={{ color: "var(--color-on-surface-variant)", fontFamily: "JetBrains Mono" }}>{lead.date}</p>
-                </div>
-              </div>
-              <p className="text-xs mt-2 line-clamp-2" style={{ color: "var(--color-on-surface-variant)" }}>{lead.message}</p>
-            </button>
-          ))}
-        </div>
+      )}
+
+      {/* Filter tabs */}
+      <div className="flex items-center gap-1 bg-zinc-100 rounded-xl p-1 w-fit flex-shrink-0">
+        {(["All", "New", "Contacted", "Closed"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setFilter(tab)}
+            className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${filter === tab ? "bg-white shadow-sm text-zinc-800" : "text-zinc-500 hover:text-zinc-700"}`}
+          >
+            {tab}
+            <span className={`ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold ${filter === tab ? "bg-zinc-100 text-zinc-600" : "bg-zinc-200/50 text-zinc-400"}`}>
+              {counts[tab]}
+            </span>
+          </button>
+        ))}
       </div>
 
-      {/* Detail panel */}
-      <div className="w-80 flex-shrink-0 rounded-2xl border overflow-hidden"
-        style={{ background: "var(--color-surface-container-lowest)", borderColor: "var(--color-outline-variant)" }}>
-        {selectedLead ? (
-          <div className="flex flex-col h-full">
-            <div className="px-5 py-4 border-b" style={{ borderColor: "var(--color-outline-variant)" }}>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white"
-                  style={{ background: "var(--color-secondary)" }}>
-                  {selectedLead.name[0]}
-                </div>
-                <div>
-                  <p className="font-bold" style={{ fontFamily: "Hanken Grotesk" }}>{selectedLead.name}</p>
-                  <p className="text-xs" style={{ color: "var(--color-on-surface-variant)" }}>{selectedLead.date}</p>
-                </div>
-              </div>
-              <div className="space-y-2">
-                {[
-                  { icon: "mail", val: selectedLead.email },
-                  { icon: "call", val: selectedLead.phone },
-                  { icon: "directions_car", val: selectedLead.car },
-                ].map((item) => (
-                  <div key={item.icon} className="flex items-center gap-2 text-sm" style={{ color: "var(--color-on-surface-variant)" }}>
-                    <span className="material-symbols-outlined text-[16px]">{item.icon}</span>
-                    <span className="truncate">{item.val}</span>
+      {/* Content */}
+      <div className="flex gap-5 flex-1 min-h-0">
+        {/* List */}
+        <div className="flex-1 min-w-0 bg-white rounded-2xl border border-zinc-100 shadow-sm flex flex-col overflow-hidden">
+          <div className="overflow-y-auto flex-1 divide-y divide-zinc-50">
+            {loading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="p-5 animate-pulse">
+                  <div className="flex gap-3 items-center">
+                    <div className="w-9 h-9 rounded-full bg-zinc-100 flex-shrink-0" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-zinc-100 rounded w-1/3" />
+                      <div className="h-3 bg-zinc-100 rounded w-2/3" />
+                    </div>
                   </div>
-                ))}
+                </div>
+              ))
+            ) : display.length === 0 ? (
+              <div className="py-16 text-center text-sm text-zinc-400">
+                <span className="material-symbols-outlined text-[40px] block mb-2 opacity-20">forum</span>
+                No {filter !== "All" ? filter.toLowerCase() : ""} leads.
               </div>
-            </div>
-            <div className="px-5 py-4 flex-1 overflow-y-auto">
-              <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "var(--color-on-surface-variant)", fontFamily: "JetBrains Mono" }}>Message</p>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--color-on-surface)" }}>{selectedLead.message}</p>
-            </div>
-            <div className="px-5 py-4 border-t space-y-2" style={{ borderColor: "var(--color-outline-variant)" }}>
-              <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: "var(--color-on-surface-variant)", fontFamily: "JetBrains Mono" }}>Update Status</p>
-              <div className="flex gap-2">
-                {["New", "Contacted", "Closed"].map((s) => (
-                  <button key={s} onClick={() => setStatus(selectedLead.id, s)}
-                    className="flex-1 py-2 rounded-lg text-xs font-bold btn-press transition-all"
-                    style={selectedLead.status === s
-                      ? { background: "var(--color-primary)", color: "white" }
-                      : { background: "var(--color-surface-container)", color: "var(--color-on-surface-variant)" }}>
-                    {s}
+            ) : (
+              display.map((lead) => {
+                const cfg = statusCfg(lead.status);
+                return (
+                  <button
+                    key={lead.id}
+                    onClick={() => setSelected(lead.id)}
+                    className={`w-full text-left px-5 py-4 transition-colors hover:bg-zinc-50 ${selected === lead.id ? "bg-zinc-50" : ""}`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm text-white flex-shrink-0" style={{ background: "#18181b" }}>
+                        {lead.name[0]}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="font-semibold text-sm text-zinc-800 truncate">{lead.name}</p>
+                          <span className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold flex-shrink-0 ${cfg.badge}`}>
+                            {cfg.label}
+                          </span>
+                        </div>
+                        <p className="text-xs text-zinc-400 truncate">{lead.car}</p>
+                        <p className="text-xs text-zinc-300 line-clamp-1 mt-0.5">{lead.message}</p>
+                      </div>
+                    </div>
                   </button>
-                ))}
+                );
+              })
+            )}
+          </div>
+        </div>
+
+        {/* Detail */}
+        <div className="w-80 flex-shrink-0 bg-white rounded-2xl border border-zinc-100 shadow-sm flex flex-col overflow-hidden">
+          {selectedLead ? (
+            <>
+              {/* Header */}
+              <div className="px-5 py-5 border-b border-zinc-50">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center font-bold text-lg text-white flex-shrink-0" style={{ background: "#18181b" }}>
+                    {selectedLead.name[0]}
+                  </div>
+                  <div>
+                    <p className="font-bold text-zinc-800" style={{ fontFamily: "Hanken Grotesk" }}>{selectedLead.name}</p>
+                    <p className="text-xs text-zinc-400">{selectedLead.date}</p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  {[
+                    { icon: "mail", val: selectedLead.email },
+                    { icon: "call", val: selectedLead.phone },
+                    { icon: "directions_car", val: selectedLead.car },
+                  ].map((item) => (
+                    <div key={item.icon} className="flex items-center gap-2 text-xs text-zinc-500">
+                      <span className="material-symbols-outlined text-[14px] text-zinc-300">{item.icon}</span>
+                      <span className="truncate">{item.val}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <a href={`mailto:${selectedLead.email}`}
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-bold text-white btn-press mt-2"
-                style={{ background: "var(--color-secondary)" }}>
-                <span className="material-symbols-outlined text-[16px]">mail</span>
-                Reply via Email
-              </a>
+
+              {/* Message */}
+              <div className="px-5 py-4 flex-1 overflow-y-auto">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-300 mb-2" style={{ fontFamily: "JetBrains Mono" }}>Message</p>
+                <p className="text-sm leading-relaxed text-zinc-600">{selectedLead.message}</p>
+              </div>
+
+              {/* Actions */}
+              <div className="px-5 py-4 border-t border-zinc-50 space-y-3">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-300 mb-2" style={{ fontFamily: "JetBrains Mono" }}>Update Status</p>
+                <div className="flex gap-2">
+                  {["New", "Contacted", "Closed"].map((s) => {
+                    const isActive = (selectedLead.status === "pending" ? "New" : selectedLead.status) === s;
+                    return (
+                      <button
+                        key={s}
+                        onClick={() => updateStatus(selectedLead.id, s)}
+                        className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${isActive ? "text-white" : "bg-zinc-100 text-zinc-500 hover:bg-zinc-200"}`}
+                        style={isActive ? { background: "linear-gradient(135deg,#dc2626,#b91c1c)" } : {}}
+                      >
+                        {s}
+                      </button>
+                    );
+                  })}
+                </div>
+                <a
+                  href={`mailto:${selectedLead.email}?subject=Re: ${encodeURIComponent(selectedLead.car)}`}
+                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-bold text-zinc-700 bg-zinc-100 hover:bg-zinc-200 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[16px]">mail</span>
+                  Reply via Email
+                </a>
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full text-zinc-300">
+              <span className="material-symbols-outlined text-[48px] mb-3">forum</span>
+              <p className="text-sm">Select a lead</p>
             </div>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center h-full opacity-40">
-            <span className="material-symbols-outlined text-[48px] mb-3">forum</span>
-            <p className="text-sm font-medium">Select a lead to view details</p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

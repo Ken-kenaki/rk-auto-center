@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import ImageUploader from "@/components/dashboard/ImageUploader";
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { databases } from "@/lib/appwrite";
+import { DB_ID, CARS_COLLECTION_ID } from "@/lib/constants";
 // Mutations go through the server API to bypass client-side permission restrictions
+import ImageUploader from "@/components/dashboard/ImageUploader";
 
 const MAKES = ["BMW", "Mercedes-Benz", "Audi", "Porsche", "Range Rover", "Lexus", "Ferrari", "MINI", "Toyota", "Honda", "Hyundai", "Kia", "Suzuki", "Chevrolet"];
 const FUEL_TYPES = ["Petrol", "Diesel", "Electric", "Hybrid"];
@@ -11,8 +13,12 @@ const BODY_TYPES = ["SUV (5 Seater)", "SUV (7 Seater)", "Hatchback", "Sedan", "C
 const BADGES = ["", "Featured", "New", "Hot Deal", "Popular", "Sold"];
 const CONDITIONS = ["New", "Used", "Reconditioned"];
 
-export default function NewCarPage() {
+export default function EditCarPage() {
   const router = useRouter();
+  const params = useParams();
+  const id = params?.id as string;
+
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [imageIds, setImageIds] = useState<string[]>([]);
@@ -21,6 +27,27 @@ export default function NewCarPage() {
     year: "", mileage: "", engine: "", transmission: "Automatic", drivetrain: "AWD",
     featured: false, video_url: "", variant: "", fuel: "Petrol", type: "SUV (5 Seater)", badge: "", condition: "Used",
   });
+
+  useEffect(() => {
+    if (!id) return;
+    databases.getDocument(DB_ID, CARS_COLLECTION_ID, id)
+      .then((doc: any) => {
+        setImageIds(doc.image_ids || []);
+        setForm({
+          name: doc.name || "", slug: doc.slug || "",
+          description: doc.description || "", price: String(doc.price || ""),
+          make: doc.make || "", model: doc.model || "",
+          year: String(doc.year || ""), mileage: String(doc.mileage || ""),
+          engine: doc.engine || "", transmission: doc.transmission || "Automatic",
+          drivetrain: doc.drivetrain || "AWD", featured: doc.featured || false,
+          video_url: doc.video_url || "", variant: doc.variant || "",
+          fuel: doc.fuel || "Petrol", type: doc.type || "SUV (5 Seater)",
+          badge: doc.badge || "", condition: doc.condition || "Used",
+        });
+      })
+      .catch(() => setError("Failed to load vehicle from database."))
+      .finally(() => setLoading(false));
+  }, [id]);
 
   const set = (k: string, v: string | boolean) => {
     setForm((f) => {
@@ -39,10 +66,9 @@ export default function NewCarPage() {
       const year = parseInt(form.year, 10);
       const mileage = parseInt(form.mileage, 10);
       if (isNaN(price) || isNaN(year) || isNaN(mileage)) throw new Error("Price, Year, and Mileage must be valid numbers.");
-      if (!form.make) throw new Error("Please select a make.");
 
-      const res = await fetch("/api/cars", {
-        method: "POST",
+      const res = await fetch(`/api/cars/${id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name, slug: form.slug, description: form.description,
@@ -56,10 +82,10 @@ export default function NewCarPage() {
         }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Failed to create listing.");
+      if (!res.ok) throw new Error(json.error || "Failed to save changes.");
       router.push("/dashboard/cars");
     } catch (err: any) {
-      setError(err.message || "Failed to create listing.");
+      setError(err.message || "Failed to save changes.");
     } finally {
       setSaving(false);
     }
@@ -77,6 +103,15 @@ export default function NewCarPage() {
   const inp = "w-full px-4 py-3 rounded-xl bg-zinc-50 border border-zinc-200 text-sm text-zinc-800 outline-none focus:border-zinc-400 transition-colors placeholder-zinc-300";
   const sel = `${inp} cursor-pointer`;
 
+  if (loading) {
+    return (
+      <div className="max-w-3xl space-y-6 animate-pulse">
+        <div className="h-52 bg-white rounded-2xl border border-zinc-100" />
+        <div className="h-96 bg-white rounded-2xl border border-zinc-100" />
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
       {error && (
@@ -88,20 +123,18 @@ export default function NewCarPage() {
 
       {/* Photos */}
       <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm p-6">
-        <h2 className="font-bold text-zinc-800 mb-1" style={{ fontFamily: "Hanken Grotesk" }}>
-          Photos
-        </h2>
-        <p className="text-xs text-zinc-400 mb-4">Upload vehicle photos — the first image becomes the cover.</p>
+        <h2 className="font-bold text-zinc-800 mb-1" style={{ fontFamily: "Hanken Grotesk" }}>Photos</h2>
+        <p className="text-xs text-zinc-400 mb-4">
+          {imageIds.length > 0 ? `${imageIds.length} photo(s) already uploaded. Add more or remove existing ones.` : "Upload vehicle photos — the first image becomes the cover."}
+        </p>
         <ImageUploader uploadedIds={imageIds} onChange={setImageIds} />
       </div>
 
       {/* Basic Info */}
       <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm p-6">
-        <h2 className="font-bold text-zinc-800 mb-5" style={{ fontFamily: "Hanken Grotesk" }}>
-          Vehicle Details
-        </h2>
+        <h2 className="font-bold text-zinc-800 mb-5" style={{ fontFamily: "Hanken Grotesk" }}>Vehicle Details</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <Field label="Listing Title" span2><input value={form.name} onChange={(e)=>set("name",e.target.value)} required placeholder="e.g. 2024 Hyundai Creta SX" className={inp} /></Field>
+          <Field label="Listing Title" span2><input value={form.name} onChange={(e)=>set("name",e.target.value)} required className={inp} /></Field>
           <Field label="URL Slug"><input value={form.slug} onChange={(e)=>set("slug",e.target.value)} required className={`${inp} font-mono text-xs`} /></Field>
           <Field label="Make">
             <select value={form.make} onChange={(e)=>set("make",e.target.value)} required className={sel}>
@@ -109,11 +142,11 @@ export default function NewCarPage() {
               {MAKES.map((m) => <option key={m}>{m}</option>)}
             </select>
           </Field>
-          <Field label="Model"><input value={form.model} onChange={(e)=>set("model",e.target.value)} required placeholder="e.g. Creta" className={inp} /></Field>
-          <Field label="Year"><input type="number" value={form.year} onChange={(e)=>set("year",e.target.value)} required placeholder="2024" className={inp} /></Field>
-          <Field label="Price (NPR)"><input type="number" value={form.price} onChange={(e)=>set("price",e.target.value)} required placeholder="e.g. 4500000" className={inp} /></Field>
-          <Field label="Mileage (km)"><input type="number" value={form.mileage} onChange={(e)=>set("mileage",e.target.value)} required placeholder="e.g. 15000" className={inp} /></Field>
-          <Field label="Engine"><input value={form.engine} onChange={(e)=>set("engine",e.target.value)} placeholder="e.g. 1.5L Petrol" className={inp} /></Field>
+          <Field label="Model"><input value={form.model} onChange={(e)=>set("model",e.target.value)} required className={inp} /></Field>
+          <Field label="Year"><input type="number" value={form.year} onChange={(e)=>set("year",e.target.value)} required className={inp} /></Field>
+          <Field label="Price (NPR)"><input type="number" value={form.price} onChange={(e)=>set("price",e.target.value)} required className={inp} /></Field>
+          <Field label="Mileage (km)"><input type="number" value={form.mileage} onChange={(e)=>set("mileage",e.target.value)} required className={inp} /></Field>
+          <Field label="Engine"><input value={form.engine} onChange={(e)=>set("engine",e.target.value)} className={inp} /></Field>
           <Field label="Transmission">
             <select value={form.transmission} onChange={(e)=>set("transmission",e.target.value)} className={sel}>
               <option>Automatic</option><option>Manual</option>
@@ -134,7 +167,7 @@ export default function NewCarPage() {
               {BODY_TYPES.map((t) => <option key={t}>{t}</option>)}
             </select>
           </Field>
-          <Field label="Variant Spec"><input value={form.variant} onChange={(e)=>set("variant",e.target.value)} placeholder="e.g. SX 1.6 Petrol MT" className={inp} /></Field>
+          <Field label="Variant Spec"><input value={form.variant} onChange={(e)=>set("variant",e.target.value)} className={inp} /></Field>
           <Field label="Badge">
             <select value={form.badge} onChange={(e)=>set("badge",e.target.value)} className={sel}>
               {BADGES.map((b) => <option key={b} value={b}>{b === "" ? "No Badge" : b}</option>)}
@@ -146,7 +179,7 @@ export default function NewCarPage() {
             </select>
           </Field>
           <Field label="Description" span2>
-            <textarea value={form.description} onChange={(e)=>set("description",e.target.value)} rows={4} required placeholder="Describe condition, history, features…" className={`${inp} resize-none`} />
+            <textarea value={form.description} onChange={(e)=>set("description",e.target.value)} rows={4} required className={`${inp} resize-none`} />
           </Field>
         </div>
       </div>
@@ -159,14 +192,14 @@ export default function NewCarPage() {
             <span className="absolute left-3.5 inset-y-0 flex items-center pointer-events-none text-zinc-400">
               <span className="material-symbols-outlined text-[17px]">play_circle</span>
             </span>
-            <input value={form.video_url} onChange={(e)=>set("video_url",e.target.value)} placeholder="https://youtube.com/… or facebook.com/…" className={`${inp} pl-10`} />
+            <input value={form.video_url} onChange={(e)=>set("video_url",e.target.value)} placeholder="https://youtube.com/…" className={`${inp} pl-10`} />
           </div>
         </Field>
 
         <label className="flex items-center gap-3 cursor-pointer select-none">
           <div
             onClick={() => set("featured", !form.featured)}
-            className="relative w-10 h-5.5 rounded-full transition-colors"
+            className="relative rounded-full transition-colors flex-shrink-0"
             style={{ background: form.featured ? "#dc2626" : "#e4e4e7", width: "42px", height: "22px" }}
           >
             <div
@@ -192,7 +225,7 @@ export default function NewCarPage() {
           className="flex items-center gap-2 px-8 py-2.5 rounded-xl font-bold text-sm text-white hover:opacity-90 transition-opacity disabled:opacity-60"
           style={{ background: "linear-gradient(135deg,#dc2626,#b91c1c)" }}
         >
-          {saving ? "Creating…" : "Create Listing"}
+          {saving ? "Saving…" : "Save Changes"}
           {!saving && <span className="material-symbols-outlined text-[17px]">check</span>}
         </button>
       </div>

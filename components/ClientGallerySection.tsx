@@ -5,8 +5,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { getFilePreviewUrl } from "@/lib/utils";
 import { TESTIMONIALS_BUCKET_ID } from "@/lib/constants";
 
-// File IDs from Appwrite client_testimonials bucket
-const GALLERY_FILE_IDS = [
+// File IDs from Appwrite client_testimonials bucket as fallback
+const FALLBACK_FILE_IDS = [
   "file-t-anish-shrestha",     // 1.jpeg
   "file-t-sujata-karki",       // 585947713...
   "file-t-dr--sandeep-pathak", // 597283581...
@@ -30,16 +30,6 @@ const GALLERY_FILE_IDS = [
   "file-t-yubaraj-magar",      // 722224095...
 ];
 
-const GALLERY_IMAGES = GALLERY_FILE_IDS.map((id, i) => ({
-  src: getFilePreviewUrl(id, TESTIMONIALS_BUCKET_ID, 800),
-  alt: `Client Moment ${i + 1}`,
-}));
-
-
-// Split images across two rows
-const ROW_1 = GALLERY_IMAGES.filter((_, i) => i % 2 === 0);
-const ROW_2 = GALLERY_IMAGES.filter((_, i) => i % 2 === 1);
-
 export function ClientGallerySection() {
   const parentRef = useRef<HTMLDivElement>(null);
   const row1Ref = useRef<HTMLDivElement>(null);
@@ -47,6 +37,39 @@ export function ClientGallerySection() {
   const [progress, setProgress] = useState(0);
   const [rowWidths, setRowWidths] = useState({ row1Max: 2000, row2Max: 2000 });
   const rafRef = useRef<number | null>(null);
+  const [images, setImages] = useState<{ src: string; alt: string }[]>([]);
+
+  useEffect(() => {
+    async function loadImages() {
+      try {
+        const res = await fetch("/api/testimonials");
+        if (res.ok) {
+          const data = await res.json();
+          const docs = data.documents || [];
+          const customIds = docs.map((d: any) => d.avatar_id).filter(Boolean);
+          const finalIds = customIds.length > 0 ? customIds : FALLBACK_FILE_IDS;
+
+          setImages(
+            finalIds.map((id: string, i: number) => ({
+              src: getFilePreviewUrl(id, TESTIMONIALS_BUCKET_ID, 800),
+              alt: `Client Moment ${i + 1}`,
+            }))
+          );
+        } else {
+          throw new Error("Failed response");
+        }
+      } catch (err) {
+        // Fallback
+        setImages(
+          FALLBACK_FILE_IDS.map((id, i) => ({
+            src: getFilePreviewUrl(id, TESTIMONIALS_BUCKET_ID, 800),
+            alt: `Client Moment ${i + 1}`,
+          }))
+        );
+      }
+    }
+    loadImages();
+  }, []);
 
   const updateProgress = useCallback(() => {
     if (!parentRef.current) return;
@@ -82,10 +105,15 @@ export function ClientGallerySection() {
       window.removeEventListener("resize", updateProgress);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [updateProgress]);
+  }, [updateProgress, images]); // Recalculate if images list changes
+
+  const ROW_1 = images.filter((_, i) => i % 2 === 0);
+  const ROW_2 = images.filter((_, i) => i % 2 === 1);
 
   const row1Translate = progress * -rowWidths.row1Max;
   const row2Translate = -rowWidths.row2Max + (progress * rowWidths.row2Max);
+
+  if (images.length === 0) return null;
 
   return (
     <section
