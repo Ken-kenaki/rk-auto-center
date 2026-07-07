@@ -165,23 +165,26 @@ export default function InspectUsedCarPage() {
     <main className="min-h-screen" style={{ background: "var(--color-background)" }}>
 
       {/* HERO */}
-      <section className="relative overflow-hidden py-20 md:py-28 px-6" style={{ background: "var(--color-inverse-surface)" }}>
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="g1" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#fff" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#g1)" />
-          </svg>
-        </div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden py-24 md:py-32 px-6" style={{ background: "var(--color-inverse-surface)" }}>
+        {/* Background Image with Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&q=80&w=1600')`,
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(circle at 50% 50%, rgba(186,0,19,0.25) 0%, rgba(15,15,15,0.9) 100%)",
+          }}
+        />
+
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-7 text-left">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold uppercase tracking-widest"
-                style={{ background: "rgba(186,0,19,0.15)", color: "var(--color-primary)" }}>
+                style={{ background: "rgba(186,0,19,0.25)", color: "var(--color-primary)", border: "1px solid rgba(186,0,19,0.4)" }}>
                 <span className="material-symbols-outlined text-[14px]">menu_book</span>
                 Buyer&apos;s Guide
               </div>
@@ -189,7 +192,7 @@ export default function InspectUsedCarPage() {
                 How to Inspect a<br />
                 <span style={{ color: "var(--color-primary)" }}>Used Car</span> Before Buying
               </h1>
-              <p className="text-lg text-white/60 max-w-2xl leading-relaxed">
+              <p className="text-lg text-white/70 max-w-2xl leading-relaxed">
                 A thorough inspection can save you from costly surprises. Follow this expert
                 checklist from RK Auto Center before you sign anything.
               </p>

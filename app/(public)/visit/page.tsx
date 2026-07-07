@@ -73,18 +73,19 @@ export default function VisitPage() {
 
       {/* ── HERO ───────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden py-24 md:py-32 px-6" style={{ background: "var(--color-inverse-surface)" }}>
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="vgrid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#fff" strokeWidth="0.5" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#vgrid)" />
-          </svg>
-        </div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+        {/* Background Image with Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=1600')`,
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(circle at 50% 50%, rgba(186,0,19,0.15) 0%, rgba(15,15,15,0.9) 100%)",
+          }}
+        />
 
         <div className="max-w-5xl mx-auto relative z-10">
           <motion.div
@@ -93,14 +94,14 @@ export default function VisitPage() {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold uppercase tracking-widest"
-              style={{ background: "rgba(186,0,19,0.15)", color: "var(--color-primary)" }}>
+              style={{ background: "rgba(186,0,19,0.25)", color: "var(--color-primary)", border: "1px solid rgba(186,0,19,0.4)" }}>
               <span className="material-symbols-outlined text-[14px]">location_on</span>
               Find Us
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 leading-tight" style={{ fontFamily: "Hanken Grotesk" }}>
               Visit RK Auto Center
             </h1>
-            <p className="text-lg text-white/60 max-w-2xl leading-relaxed mb-10">
+            <p className="text-lg text-white/70 max-w-2xl leading-relaxed mb-10">
               Come see our premium inventory in person, speak with our expert advisors,
               and experience Nepal&apos;s finest automotive showroom firsthand.
             </p>
@@ -108,8 +109,9 @@ export default function VisitPage() {
             {/* Status pill */}
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold"
               style={{
-                background: status.open ? "rgba(34,197,94,0.15)" : "rgba(239,68,68,0.15)",
+                background: status.open ? "rgba(34,197,94,0.2)" : "rgba(239,68,68,0.2)",
                 color: status.open ? "#22c55e" : "#ef4444",
+                border: status.open ? "1px solid rgba(34,197,94,0.3)" : "1px solid rgba(239,68,68,0.3)",
               }}>
               <span className={`w-2 h-2 rounded-full ${status.open ? "bg-green-400 animate-pulse" : "bg-red-400"}`} />
               {status.label}
