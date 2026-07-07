@@ -183,6 +183,20 @@ export default function VisitPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="lg:col-span-2 space-y-6"
           >
+            {/* Showroom Image Card */}
+            <div className="relative h-[200px] rounded-3xl overflow-hidden shadow-lg border border-gray-100 bg-zinc-100 group">
+              <img
+                src="/rk-des.jpg"
+                alt="RK Auto Center Showroom Kathmandu"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
+                <span className="text-white text-xs font-bold uppercase tracking-wider backdrop-blur-sm bg-black/30 px-3 py-1 rounded-full">
+                  Kathmandu Showroom Storefront
+                </span>
+              </div>
+            </div>
+
             {/* Address */}
             <div className="p-6 rounded-2xl bg-white border border-gray-100">
               <div className="flex items-center gap-2 mb-4">

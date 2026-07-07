@@ -163,8 +163,8 @@ export default function SellYourCarPage() {
     <main className="min-h-screen" style={{ background: "var(--color-background)" }}>
 
       {/* HERO */}
-      <section className="relative overflow-hidden py-24 md:py-36 px-6" style={{ background: "var(--color-inverse-surface)" }}>
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+      <section className="relative overflow-hidden py-20 md:py-28 px-6" style={{ background: "var(--color-inverse-surface)" }}>
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="g2" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -176,24 +176,41 @@ export default function SellYourCarPage() {
         </div>
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-4xl mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold uppercase tracking-widest"
-            style={{ background: "rgba(186,0,19,0.15)", color: "var(--color-primary)" }}>
-            <span className="material-symbols-outlined text-[14px]">sell</span>
-            Seller&apos;s Guide
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 leading-tight" style={{ fontFamily: "Hanken Grotesk" }}>
-            How to Sell Your<br />
-            <span style={{ color: "var(--color-primary)" }}>Used Car</span> the Right Way
-          </h1>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
-            Get the best price, avoid the pitfalls, and close quickly. This guide covers
-            everything from preparation to handing over the keys.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-white/40">
-            <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[16px]">schedule</span>12 min read</span>
-            <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[16px]">checklist</span>5 proven stages</span>
-            <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[16px]">verified</span>Expert-reviewed</span>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-7 text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 text-xs font-bold uppercase tracking-widest"
+                style={{ background: "rgba(186,0,19,0.15)", color: "var(--color-primary)" }}>
+                <span className="material-symbols-outlined text-[14px]">sell</span>
+                Seller&apos;s Guide
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 leading-tight" style={{ fontFamily: "Hanken Grotesk" }}>
+                How to Sell Your<br />
+                <span style={{ color: "var(--color-primary)" }}>Used Car</span> the Right Way
+              </h1>
+              <p className="text-lg text-white/60 max-w-2xl leading-relaxed">
+                Get the best price, avoid the pitfalls, and close quickly. This guide covers
+                everything from preparation to handing over the keys.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/40">
+                <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[16px]">schedule</span>12 min read</span>
+                <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[16px]">checklist</span>5 proven stages</span>
+                <span className="flex items-center gap-1.5"><span className="material-symbols-outlined text-[16px]">verified</span>Expert-reviewed</span>
+              </div>
+            </div>
+            <div className="md:col-span-5 relative h-[300px] md:h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+              <img
+                src="/about-hero-2.jpg"
+                alt="Selling Your Car"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end p-6">
+                <p className="text-white text-xs font-semibold uppercase tracking-wider bg-black/40 backdrop-blur-sm px-3.5 py-1.5 rounded-full flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[14px]">payments</span>
+                  Maximize Resale Value
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
