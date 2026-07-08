@@ -91,6 +91,9 @@ export default function Footer() {
                 { label: "Sell Your Car", href: "/sell" },
                 { label: "Compare Vehicles", href: "/compare" },
                 { label: "About Us", href: "/about" },
+                { label: "Admin Login", href: "/login" },
+                { label: "Admin Dashboard", href: "/dashboard" },
+
               ].map((link) => (
                 <li key={link.label}>
                   <Link
@@ -158,10 +161,10 @@ export default function Footer() {
                   mail
                 </span>
                 <a
-                  href="mailto:info@rkautomobiles.com"
+                  href="mailto:rk960511@gmail.com"
                   className="hover:text-white transition-colors text-gray-300"
                 >
-                  info@rkautomobiles.com
+                  rk960511@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -184,7 +187,7 @@ export default function Footer() {
             <p>
               Developed by{" "}
               <a
-                href="https://aesthera.tech/"
+                href="https://aestheraltd.tech/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-red-500 hover:text-white font-bold transition-colors hover:underline"
@@ -194,10 +197,10 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex space-x-6 mt-4 sm:mt-0">
-            <Link href="#" className="hover:text-white hover:underline transition-colors">
+            <Link href="/privacy-policy" className="hover:text-white hover:underline transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-white hover:underline transition-colors">
+            <Link href="/terms-of-service" className="hover:text-white hover:underline transition-colors">
               Terms of Service
             </Link>
           </div>

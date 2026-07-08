@@ -1,17 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  // Proxy sets ?callbackUrl=<original path> when redirecting unauthenticated users
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -25,7 +29,7 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
-      router.push("/dashboard");
+      router.push(callbackUrl);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -58,12 +62,16 @@ export default function LoginPage() {
             Experience the pinnacle of automotive performance. Log in to access your curated marketplace and exclusive dealer insights.
           </motion.p>
         </div>
-        <div className="absolute top-8 left-8 flex items-center gap-2.5 z-10">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "var(--color-primary)" }}>
-            <span className="material-symbols-outlined text-[18px] text-white">directions_car</span>
-          </div>
-          <span className="font-bold text-white text-lg" style={{ fontFamily: "Hanken Grotesk" }}>RK Auto Mobiles</span>
-        </div>
+        <Link href="/" className="absolute top-8 left-8 flex items-center gap-2.5 z-10 cursor-pointer">
+          <Image
+            src="/logo.png"
+            alt="RK Auto Center Logo"
+            width={32}
+            height={32}
+            className="h-8 w-auto object-contain flex-shrink-0"
+          />
+          <span className="font-bold text-white text-lg" style={{ fontFamily: "Hanken Grotesk" }}>RK Auto Center</span>
+        </Link>
       </div>
 
       {/* Right: form */}
@@ -75,12 +83,16 @@ export default function LoginPage() {
           className="w-full max-w-md mx-auto"
         >
           {/* Mobile brand */}
-          <div className="md:hidden flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center animate-pulse" style={{ background: "var(--color-primary)" }}>
-              <span className="material-symbols-outlined text-[18px] text-white">directions_car</span>
-            </div>
-            <span className="font-bold text-lg" style={{ color: "var(--color-primary)", fontFamily: "Hanken Grotesk" }}>RK Auto Mobiles</span>
-          </div>
+          <Link href="/" className="md:hidden flex items-center gap-2 mb-8 cursor-pointer">
+            <Image
+              src="/logo.png"
+              alt="RK Auto Center Logo"
+              width={32}
+              height={32}
+              className="h-8 w-auto object-contain flex-shrink-0"
+            />
+            <span className="font-bold text-lg" style={{ color: "var(--color-primary)", fontFamily: "Hanken Grotesk" }}>RK Auto Center</span>
+          </Link>
 
           <h1 className="font-black text-3xl mb-2 text-gray-900" style={{ fontFamily: "Hanken Grotesk" }}>
             Welcome Back
@@ -170,13 +182,30 @@ export default function LoginPage() {
           </div>
 
           <p className="mt-6 text-center text-sm text-gray-500">
-            Don't have an account?{" "}
-            <Link href="/signup" className="font-extrabold text-red-600 hover:text-red-700 transition-colors">
-              Register as a Dealer
+            Want to browse cars?{" "}
+            <Link href="/" className="font-extrabold text-red-600 hover:text-red-700 transition-colors">
+              Go to Home Page
             </Link>
           </p>
         </motion.div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "var(--color-background)" }}>
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: "var(--color-primary)" }}>
+            <span className="material-symbols-outlined text-[24px] text-white animate-spin">sync</span>
+          </div>
+          <p className="text-sm font-semibold text-gray-500">Loading secure sign-in...</p>
+        </div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
