@@ -16,14 +16,8 @@ export function getFilePreviewUrl(
     quality?: number
 ): string {
     if (!fileId) return "";
-    const params = new URLSearchParams();
-    if (width) params.set("width", width.toString());
-    if (height) params.set("height", height.toString());
-    if (quality) params.set("quality", quality.toString());
-    params.set("output", "webp");
-
-    const queryString = params.toString();
-    return `${APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/preview?project=${APPWRITE_PROJECT_ID}${queryString ? `&${queryString}` : ""}`;
+    // Bypassing Appwrite image transformation limits (HTTP 402 error) on free tier by using /view endpoint instead of /preview
+    return `${APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/view?project=${APPWRITE_PROJECT_ID}`;
 }
 
 /**
