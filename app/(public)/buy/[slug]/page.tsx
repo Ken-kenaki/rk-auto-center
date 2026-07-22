@@ -187,7 +187,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
 
               <div className="space-y-3">
                 <a
-                  href="tel:+1555000000"
+                  href="tel:+977-9802008795"
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-white btn-press transition-all shadow-lg shadow-red-500/20"
                   style={{ background: "var(--color-primary)" }}
                 >
@@ -195,7 +195,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ slug
                   Call Dealer
                 </a>
                 <a
-                  href={`https://wa.me/+1555000000?text=I%20am%20interested%20in%20the%20${encodeURIComponent(car.name)}`}
+                  href={`https://wa.me/+9779802008795?text=I%20am%20interested%20in%20the%20${encodeURIComponent(car.name)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold btn-press bg-gray-50 text-gray-800 transition-all hover:bg-gray-100/80 shadow-sm"
