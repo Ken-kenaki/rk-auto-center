@@ -5,6 +5,7 @@ import { storage } from "@/lib/appwrite";
 import { TESTIMONIALS_BUCKET_ID } from "@/lib/constants";
 import { ID } from "appwrite";
 import { getFilePreviewUrl } from "@/lib/utils";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 
 interface Testimonial {
   $id: string;
@@ -23,6 +24,8 @@ export default function TestimonialsPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [deleteTarget, setDeleteTarget] = useState<Testimonial | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -58,12 +61,17 @@ export default function TestimonialsPage() {
     setSuccess("");
 
     try {
-      // 1. Upload file directly to Appwrite storage
-      const uploadedFile = await storage.createFile(
-        TESTIMONIALS_BUCKET_ID,
-        ID.unique(),
-        file
-      );
+      // 1. Upload file via server storage API
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("bucketId", TESTIMONIALS_BUCKET_ID);
+
+      const uploadRes = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const uploadData = await uploadRes.json();
+      if (!uploadRes.ok) throw new Error(uploadData.error || "Image upload failed");
 
       // 2. Create the database record with default placeholder texts
       const res = await fetch("/api/testimonials", {
@@ -75,7 +83,7 @@ export default function TestimonialsPage() {
           quote: "RK Auto Center Client Moment",
           rating: 5,
           featured: true,
-          avatar_id: uploadedFile.$id,
+          avatar_id: uploadData.id,
         }),
       });
 
@@ -96,9 +104,10 @@ export default function TestimonialsPage() {
   };
 
   // Delete Testimonial & File
-  const handleDelete = async (t: Testimonial) => {
-    if (!confirm("Are you sure you want to delete this client image?")) return;
-
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    const t = deleteTarget;
+    setDeleteLoading(true);
     setError("");
     setSuccess("");
 
@@ -127,11 +136,25 @@ export default function TestimonialsPage() {
       setSuccess("Client image deleted successfully.");
     } catch (err: any) {
       setError(err.message || "Failed to delete client image.");
+    } finally {
+      setDeleteLoading(false);
+      setDeleteTarget(null);
     }
   };
 
   return (
     <div className="space-y-6">
+      {/* Confirm Delete Modal */}
+      <ConfirmModal
+        isOpen={!!deleteTarget}
+        onClose={() => !deleteLoading && setDeleteTarget(null)}
+        onConfirm={handleDelete}
+        title="Delete Client Photo"
+        message="Are you sure you want to permanently delete this client moment photo? This action cannot be undone."
+        confirmText="Delete Photo"
+        loading={deleteLoading}
+      />
+
       {/* Header card with Upload area */}
       <div className="bg-white border border-zinc-100 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
@@ -221,7 +244,7 @@ export default function TestimonialsPage() {
                 {/* Hover overlay with Delete button */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <button
-                    onClick={() => handleDelete(t)}
+                    onClick={() => setDeleteTarget(t)}
                     title="Delete image"
                     className="p-3 bg-red-600 hover:bg-red-700 text-white rounded-full transition-transform duration-200 hover:scale-110 shadow-lg flex items-center justify-center"
                   >

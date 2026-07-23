@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { storage } from "@/lib/appwrite";
 import { CAR_IMAGES_BUCKET_ID } from "@/lib/constants";
-import { ID } from "appwrite";
 import { getFilePreviewUrl } from "@/lib/utils";
 
 interface ImageItem {
@@ -54,13 +52,25 @@ export default function ImageUploader({ uploadedIds, onChange }: Props) {
       setItems((prev) => [...prev, { id: tempId, url: localUrl, isExisting: false }]);
 
       try {
-        const uploaded = await storage.createFile(CAR_IMAGES_BUCKET_ID, ID.unique(), file);
-        const previewUrl = getFilePreviewUrl(uploaded.$id, CAR_IMAGES_BUCKET_ID, 400, 300);
-        newItems.push({ id: uploaded.$id, url: previewUrl, isExisting: false });
-        newIds.push(uploaded.$id);
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("bucketId", CAR_IMAGES_BUCKET_ID);
+
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Upload failed");
+
+        const uploadedId = data.id;
+        const previewUrl = getFilePreviewUrl(uploadedId, CAR_IMAGES_BUCKET_ID, 400, 300);
+        newItems.push({ id: uploadedId, url: previewUrl, isExisting: false });
+        newIds.push(uploadedId);
         // Replace temp entry
         setItems((prev) =>
-          prev.map((x) => (x.id === tempId ? { id: uploaded.$id, url: previewUrl } : x))
+          prev.map((x) => (x.id === tempId ? { id: uploadedId, url: previewUrl } : x))
         );
         URL.revokeObjectURL(localUrl);
       } catch (err: any) {

@@ -132,7 +132,8 @@ export default function DashboardPage() {
           databases.listDocuments(DB_ID, LEADS_COLLECTION_ID, [Query.orderDesc("$createdAt"), Query.limit(100)]),
         ]);
 
-        const cars = carsRes.documents as unknown as (CarDoc & { price: number })[];
+        const allDocs = carsRes.documents as unknown as (CarDoc & { price: number; slug: string })[];
+        const cars = allDocs.filter((c) => !(c as any).slug?.startsWith("sell-"));
         const leads = leadsRes.documents as unknown as (LeadDoc & { status: string })[];
 
         setTotalCars(cars.length);

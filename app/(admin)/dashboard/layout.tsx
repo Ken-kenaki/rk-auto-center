@@ -8,6 +8,7 @@ import Image from "next/image";
 const NAV = [
   { href: "/dashboard", label: "Overview", icon: "dashboard" },
   { href: "/dashboard/cars", label: "Cars", icon: "directions_car" },
+  { href: "/dashboard/sales", label: "Sales", icon: "sell" },
   { href: "/dashboard/leads", label: "Leads", icon: "forum" },
   { href: "/dashboard/testimonials", label: "Testimonials", icon: "rate_review" },
   { href: "/dashboard/settings", label: "Settings", icon: "settings" },

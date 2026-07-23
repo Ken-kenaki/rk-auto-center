@@ -8,6 +8,8 @@ export async function POST(req: NextRequest) {
     try {
         const formData = await req.formData();
         const file = formData.get("file") as File;
+        const bucketId = (formData.get("bucketId") as string) || CAR_IMAGES_BUCKET_ID;
+
         if (!file || file.size === 0) {
             return NextResponse.json({ error: "No file provided" }, { status: 400 });
         }
@@ -15,7 +17,7 @@ export async function POST(req: NextRequest) {
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         const uploadedFile = await serverStorage.createFile(
-            CAR_IMAGES_BUCKET_ID,
+            bucketId,
             ID.unique(),
             InputFile.fromBuffer(buffer, file.name)
         );

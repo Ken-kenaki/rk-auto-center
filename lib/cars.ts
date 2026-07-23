@@ -20,6 +20,14 @@ export interface Car {
   description: string;
   engine: string;
   videoUrl?: string | null;
+  status?: string;
+  is_published?: boolean;
+  is_sale_submission?: boolean;
+  seller_name?: string;
+  seller_email?: string;
+  seller_phone?: string;
+  seller_city?: string;
+  createdAt?: string;
 }
 
 export const MOCK_CARS: Car[] = [
@@ -209,18 +217,18 @@ export async function fetchCarsFromAppwrite(): Promise<Car[]> {
       CARS_COLLECTION_ID,
       [Query.limit(100)]
     );
-    return response.documents.map((doc: any) => {
+    const mapped = response.documents.map((doc: any) => {
       const mappedImages = (doc.image_ids || []).map((imgId: string) => 
         imgId.startsWith("http") ? imgId : getFilePreviewUrl(imgId)
       );
       return {
         id: doc.$id,
-        slug: doc.slug,
+        slug: doc.slug || "",
         name: doc.name,
         variant: doc.variant || "",
         price: doc.price,
         mileageVal: doc.mileage,
-        mileage: `${doc.mileage.toLocaleString()} km`,
+        mileage: `${(doc.mileage || 0).toLocaleString()} km`,
         transmission: doc.transmission || "Automatic",
         fuel: doc.fuel || "Petrol",
         make: doc.make,
@@ -235,11 +243,78 @@ export async function fetchCarsFromAppwrite(): Promise<Car[]> {
         description: doc.description,
         engine: doc.engine || "",
         videoUrl: doc.video_url || null,
+        status: doc.status || "approved",
+        is_published: doc.is_published !== undefined ? doc.is_published : true,
+        is_sale_submission: (doc.slug || "").startsWith("sell-"),
+        seller_name: doc.seller_name || "",
+        seller_email: doc.seller_email || "",
+        seller_phone: doc.seller_phone || "",
+        seller_city: doc.seller_city || "",
+        createdAt: doc.$createdAt || "",
       };
     });
+    // Slug prefix "sell-" = sell-form submission → never show in car listings
+    return mapped.filter((c: Car) => !c.slug.startsWith("sell-"));
   } catch (error) {
     console.error("Failed to fetch cars from Appwrite:", error);
     return MOCK_CARS;
+  }
+}
+
+export async function fetchSalesSubmissionsFromAppwrite(): Promise<Car[]> {
+  try {
+    const response = await databases.listDocuments(
+      DB_ID,
+      CARS_COLLECTION_ID,
+      [Query.orderDesc("$createdAt"), Query.limit(100)]
+    );
+    const mapped = response.documents.map((doc: any) => {
+      const mappedImages = (doc.image_ids || []).map((imgId: string) => 
+        imgId.startsWith("http") ? imgId : getFilePreviewUrl(imgId)
+      );
+      
+      // Parse seller info from description if present
+      const descStr = doc.description || "";
+      const sellerMatch = descStr.match(/--- SELLER CONTACT INFO ---\s*\nName:\s*([^\n]*)\s*\nEmail:\s*([^\n]*)\s*\nPhone:\s*([^\n]*)\s*\nCity:\s*([^\n]*)/);
+      const cleanDesc = descStr.split("--- SELLER CONTACT INFO ---")[0].trim();
+
+      return {
+        id: doc.$id,
+        slug: doc.slug || "",
+        name: doc.name,
+        variant: doc.variant || "",
+        price: doc.price,
+        mileageVal: doc.mileage,
+        mileage: `${(doc.mileage || 0).toLocaleString()} km`,
+        transmission: doc.transmission || "Automatic",
+        fuel: doc.fuel || "Petrol",
+        make: doc.make,
+        model: doc.model,
+        year: doc.year,
+        type: doc.type || "SUV (5 Seater)",
+        badge: doc.badge || null,
+        condition: doc.condition || null,
+        featured: doc.featured || false,
+        image: mappedImages[0] || "",
+        images: mappedImages,
+        description: cleanDesc || descStr,
+        engine: doc.engine || "",
+        videoUrl: doc.video_url || null,
+        status: doc.status || "pending",
+        is_published: doc.is_published || false,
+        is_sale_submission: (doc.slug || "").startsWith("sell-"),
+        seller_name: sellerMatch ? sellerMatch[1] : (doc.seller_name || "N/A"),
+        seller_email: sellerMatch ? sellerMatch[2] : (doc.seller_email || "N/A"),
+        seller_phone: sellerMatch ? sellerMatch[3] : (doc.seller_phone || "N/A"),
+        seller_city: sellerMatch ? sellerMatch[4] : (doc.seller_city || "N/A"),
+        createdAt: doc.$createdAt || "",
+      };
+    });
+    // Only return sell-form submissions (identified by slug prefix "sell-")
+    return mapped.filter((c: Car) => c.slug.startsWith("sell-"));
+  } catch (error) {
+    console.error("Failed to fetch sales submissions from Appwrite:", error);
+    return [];
   }
 }
 
@@ -262,7 +337,7 @@ export async function fetchCarBySlugFromAppwrite(slug: string): Promise<Car | nu
       variant: doc.variant || "",
       price: doc.price,
       mileageVal: doc.mileage,
-      mileage: `${doc.mileage.toLocaleString()} km`,
+      mileage: `${(doc.mileage || 0).toLocaleString()} km`,
       transmission: doc.transmission || "Automatic",
       fuel: doc.fuel || "Petrol",
       make: doc.make,
@@ -277,6 +352,14 @@ export async function fetchCarBySlugFromAppwrite(slug: string): Promise<Car | nu
       description: doc.description,
       engine: doc.engine || "",
       videoUrl: doc.video_url || null,
+      status: doc.status || "approved",
+      is_published: doc.is_published !== undefined ? doc.is_published : true,
+      is_sale_submission: doc.is_sale_submission || false,
+      seller_name: doc.seller_name || "",
+      seller_email: doc.seller_email || "",
+      seller_phone: doc.seller_phone || "",
+      seller_city: doc.seller_city || "",
+      createdAt: doc.$createdAt || "",
     };
   } catch (error) {
     console.error(`Failed to fetch car by slug ${slug} from Appwrite:`, error);

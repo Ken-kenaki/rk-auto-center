@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { fetchCarsFromAppwrite, Car } from "@/lib/cars";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 // Mutations (update/delete) go through server API routes to bypass client-side permissions
 
 export default function CarsPage() {
@@ -10,6 +11,8 @@ export default function CarsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<Car | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => {
     fetchCarsFromAppwrite()
@@ -37,18 +40,32 @@ export default function CarsPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Delete this listing? This cannot be undone.")) return;
-    setCars((prev) => prev.filter((c) => c.id !== id));
-    const res = await fetch(`/api/cars/${id}`, { method: "DELETE" });
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleteLoading(true);
+    setCars((prev) => prev.filter((c) => c.id !== deleteTarget.id));
+    const res = await fetch(`/api/cars/${deleteTarget.id}`, { method: "DELETE" });
     if (!res.ok) {
       const data = await fetchCarsFromAppwrite();
       setCars(data);
     }
+    setDeleteLoading(false);
+    setDeleteTarget(null);
   };
 
   return (
     <div className="space-y-5">
+      {/* Confirm Delete Modal */}
+      <ConfirmModal
+        isOpen={!!deleteTarget}
+        onClose={() => !deleteLoading && setDeleteTarget(null)}
+        onConfirm={handleDelete}
+        title="Delete Listing"
+        message={`Are you sure you want to permanently delete "${deleteTarget?.name}"? This action cannot be undone.`}
+        confirmText="Delete Listing"
+        loading={deleteLoading}
+      />
+
       {error && (
         <div className="px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 bg-amber-50 text-amber-700">
           <span className="material-symbols-outlined text-[16px]">warning</span>
@@ -170,7 +187,7 @@ export default function CarsPage() {
                           <span className="material-symbols-outlined text-[17px]">edit</span>
                         </Link>
                         <button
-                          onClick={() => handleDelete(car.id)}
+                          onClick={() => setDeleteTarget(car)}
                           className="p-2 rounded-lg hover:bg-red-50 text-zinc-400 hover:text-red-500 transition-colors"
                         >
                           <span className="material-symbols-outlined text-[17px]">delete</span>

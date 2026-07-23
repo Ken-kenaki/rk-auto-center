@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { databases, storage } from "@/lib/appwrite";
+import { databases } from "@/lib/appwrite";
 import { ID } from "appwrite";
+import ImageUploader from "@/components/dashboard/ImageUploader";
 import {
   DB_ID,
   CARS_COLLECTION_ID,
@@ -72,6 +73,7 @@ export default function SellPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [uploadedImageIds, setUploadedImageIds] = useState<string[]>([]);
 
   // Search/Dropdown overlay states
   const [makeSearch, setMakeSearch] = useState("");
@@ -106,32 +108,27 @@ export default function SellPage() {
     } else {
       setLoading(true);
       try {
-        // 1. Upload files to Appwrite Storage
-        const uploadedImageIds: string[] = [];
-        for (const file of form.images) {
-          const response = await storage.createFile(
-            CAR_IMAGES_BUCKET_ID,
-            ID.unique(),
-            file
-          );
-          const fileUrl = `${APPWRITE_ENDPOINT}/storage/buckets/${CAR_IMAGES_BUCKET_ID}/files/${response.$id}/view?project=${APPWRITE_PROJECT_ID}`;
-          uploadedImageIds.push(fileUrl);
-        }
+        // 1. Vehicle photos uploaded in Step 3 via ImageUploader
+        const finalImageIds = [...uploadedImageIds];
 
         // Fallback placeholder image if none uploaded
-        if (uploadedImageIds.length === 0) {
-          uploadedImageIds.push("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600");
+        if (finalImageIds.length === 0) {
+          finalImageIds.push("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600");
         }
 
         // 2. Generate vehicle details
-        const slug = `${form.year}-${form.make.toLowerCase().replace(/\s+/g, "-")}-${form.model.toLowerCase().replace(/\s+/g, "-")}-${Math.random().toString(36).substring(2, 7)}`;
+        const slug = `sell-${form.year}-${form.make.toLowerCase().replace(/\s+/g, "-")}-${form.model.toLowerCase().replace(/\s+/g, "-")}-${Math.random().toString(36).substring(2, 7)}`;
         const priceNum = parseFloat(form.price.replace(/,/g, "")) || 0;
         const mileageNum = parseFloat(form.mileage.replace(/,/g, "")) || 0;
+
+        // Encode seller contact info into description field so it doesn't get rejected by Appwrite schema
+        const sellerInfoText = `\n\n--- SELLER CONTACT INFO ---\nName: ${form.name || "Anonymous Seller"}\nEmail: ${form.email || "N/A"}\nPhone: ${form.phone || "N/A"}\nCity: ${form.city || "Kathmandu, Nepal"}`;
+        const finalDescription = (form.description || "No description provided.") + sellerInfoText;
 
         const data = {
           name: `${form.year} ${form.make} ${form.model}`,
           slug: slug,
-          description: form.description || "No description provided.",
+          description: finalDescription,
           price: priceNum,
           make: form.make,
           model: form.model,
@@ -141,21 +138,23 @@ export default function SellPage() {
           transmission: form.transmission,
           drivetrain: "FWD",
           featured: false,
-          image_ids: uploadedImageIds,
+          image_ids: finalImageIds,
           video_url: form.videoUrl || "",
           variant: form.color || "Standard",
           fuel: form.fuel,
           type: "SUV (5 Seater)",
           badge: "New",
+          condition: form.condition || "Excellent",
         };
 
-        // 3. Save listing in Appwrite Database
-        await databases.createDocument(
-          DB_ID,
-          CARS_COLLECTION_ID,
-          ID.unique(),
-          data
-        );
+        // 3. Save listing in Appwrite Database via server API
+        const res = await fetch("/api/cars", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || "Submission failed.");
 
         setSubmitted(true);
       } catch (err: any) {
@@ -221,6 +220,7 @@ export default function SellPage() {
               phone: "",
               city: "Kathmandu, Nepal",
             });
+            setUploadedImageIds([]);
             setMakeSearch("");
             setModelSearch("");
           }}
@@ -550,22 +550,14 @@ export default function SellPage() {
 
             {step === 3 && (
               <div className="space-y-6">
-                <div className="rounded-2xl p-12 text-center transition-all cursor-pointer bg-gray-50 hover:bg-gray-100/50 group flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
-                    <span className="material-symbols-outlined text-[28px] text-red-600">cloud_upload</span>
-                  </div>
-                  <h3 className="font-extrabold text-lg mb-1" style={{ fontFamily: "Hanken Grotesk" }}>
-                    Drag &amp; Drop Vehicle Photos
-                  </h3>
-                  <p className="text-xs text-gray-500 mb-4 max-w-sm">
-                    High-resolution photos increase conversions. Add interior and exterior shots. Up to 15 images.
-                  </p>
-                  <button
-                    className="px-6 py-2.5 rounded-full font-bold text-white btn-press bg-blue-600 hover:bg-blue-700 transition-colors text-xs"
-                    type="button"
-                  >
-                    Browse Files
-                  </button>
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider mb-2 text-gray-400" style={{ fontFamily: "JetBrains Mono" }}>
+                    Vehicle Photos
+                  </label>
+                  <ImageUploader
+                    uploadedIds={uploadedImageIds}
+                    onChange={setUploadedImageIds}
+                  />
                 </div>
                 <div>
                   <label className="block text-[10px] font-bold uppercase tracking-wider mb-2 text-gray-400" style={{ fontFamily: "JetBrains Mono" }}>
