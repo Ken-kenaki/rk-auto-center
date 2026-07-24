@@ -46,7 +46,7 @@ const defaultSideImages: SideImage[] = [
 
 export function AboutHeroSection({
   word = "RK AUTO CENTER",
-  mainImageSrc = "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=1000",
+  mainImageSrc = "/404-hero.png",
   sideImages = defaultSideImages,
   tagline = (
     <>
@@ -151,7 +151,7 @@ export function AboutHeroSection({
                 ))}
               </div>
 
-              {/* Main Hero Image — Center */}
+              {/* Main Hero Image/Video — Center */}
               <div
                 className="relative overflow-hidden will-change-transform"
                 style={{
@@ -163,7 +163,15 @@ export function AboutHeroSection({
                   display: isMobile && imageProgress >= 0.98 ? "none" : "block",
                 }}
               >
-                <Image src={mainImageSrc} alt="Main hero display" fill sizes="100vw" className="object-cover" priority />
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                >
+                  <source src="/HERO-VIDEO.mp4" type="video/mp4" />
+                </video>
 
                 {/* Overlay text — fades out on scroll */}
                 <div

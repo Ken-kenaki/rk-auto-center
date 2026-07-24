@@ -46,7 +46,7 @@ export const DEFAULT_ABOUT_DATA: AboutPageData = {
   description: "Learn more about the legacy, philosophy, and client stories of RK Auto Center.",
   heroWord: "LEGACY",
   heroTagline: "Redefining the luxury automotive marketplace.<br />Curating state-of-the-art drives since 2016.",
-  heroMainImage: "/about-1.jpg",
+  heroMainImage: "/404-hero.png",
   heroSideImages: [
     {
       src: "/about-hero-1.jpg",

@@ -170,12 +170,17 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-[640px] md:min-h-[750px] flex flex-col justify-between overflow-hidden bg-black -mt-20 pt-28 pb-12 px-6">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-60"
-          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200')` }}
-        />
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-60 scale-105"
+        >
+          <source src="/HERO-VIDEO.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
       </div>
 

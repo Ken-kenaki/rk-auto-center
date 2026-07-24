@@ -8,6 +8,7 @@ import ConfirmModal from "@/components/ui/ConfirmModal";
 
 export default function CarsPage() {
   const [cars, setCars] = useState<Car[]>([]);
+  const [soldLoading, setSoldLoading] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
@@ -38,6 +39,21 @@ export default function CarsPage() {
       // revert on failure
       setCars((prev) => prev.map((c) => (c.id === id ? { ...c, featured: current } : c)));
     }
+  };
+
+  const toggleSold = async (id: string, isSold: boolean) => {
+    const newStatus = isSold ? "approved" : "sold";
+    setSoldLoading(id);
+    setCars((prev) => prev.map((c) => (c.id === id ? { ...c, badge: isSold ? null : "Sold" } : c)));
+    const res = await fetch(`/api/cars/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: newStatus }),
+    });
+    if (!res.ok) {
+      setCars((prev) => prev.map((c) => (c.id === id ? { ...c, badge: isSold ? "Sold" : null } : c)));
+    }
+    setSoldLoading(null);
   };
 
   const handleDelete = async () => {
@@ -107,7 +123,7 @@ export default function CarsPage() {
           <table className="w-full min-w-[680px]">
             <thead>
               <tr className="border-b border-zinc-100 bg-zinc-50/60">
-                {["Vehicle", "Price", "Mileage", "Type", "Featured", "Badge", ""].map((h) => (
+                {["Vehicle", "Price", "Mileage", "Type", "Featured", "Badge", "Status", ""].map((h) => (
                   <th
                     key={h}
                     className="px-5 py-3.5 text-left text-[11px] font-bold uppercase tracking-wider text-zinc-400"
@@ -122,14 +138,14 @@ export default function CarsPage() {
               {loading ? (
                 Array.from({ length: 5 }).map((_, i) => (
                   <tr key={i} className="border-b border-zinc-50">
-                    <td className="px-5 py-4" colSpan={7}>
+                    <td className="px-5 py-4" colSpan={8}>
                       <div className="h-5 bg-zinc-100 rounded animate-pulse w-3/4" />
                     </td>
                   </tr>
                 ))
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-16 text-sm text-zinc-400">
+                  <td colSpan={8} className="text-center py-16 text-sm text-zinc-400">
                     <span className="material-symbols-outlined text-[40px] block mb-2 opacity-20">search_off</span>
                     No vehicles match your search
                   </td>
@@ -178,8 +194,41 @@ export default function CarsPage() {
                         <span className="text-zinc-300 text-xs">—</span>
                       )}
                     </td>
+                    {/* Status Column */}
+                    <td className="px-5 py-4">
+                      <span
+                        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold ${
+                          car.badge === "Sold"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-green-50 text-green-700"
+                        }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: car.badge === "Sold" ? "#dc2626" : "#16a34a" }} />
+                        {car.badge === "Sold" ? "Sold" : "Available"}
+                      </span>
+                    </td>
+                    {/* Actions Column */}
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-1 justify-end">
+                        {/* Quick Sold Toggle */}
+                        <button
+                          onClick={() => toggleSold(car.id, car.badge === "Sold")}
+                          disabled={soldLoading === car.id}
+                          title={car.badge === "Sold" ? "Mark as Available" : "Mark as Sold"}
+                          className={`p-2 rounded-lg transition-colors text-xs font-bold flex items-center gap-1 ${
+                            car.badge === "Sold"
+                              ? "bg-red-50 text-red-600 hover:bg-red-100"
+                              : "hover:bg-orange-50 text-zinc-400 hover:text-orange-600"
+                          } disabled:opacity-40 disabled:cursor-not-allowed`}
+                        >
+                          {soldLoading === car.id ? (
+                            <span className="material-symbols-outlined text-[17px] animate-spin">progress_activity</span>
+                          ) : (
+                            <span className="material-symbols-outlined text-[17px]">
+                              {car.badge === "Sold" ? "undo" : "sell"}
+                            </span>
+                          )}
+                        </button>
                         <Link
                           href={`/dashboard/cars/${car.id}/edit`}
                           className="p-2 rounded-lg hover:bg-zinc-100 text-zinc-400 hover:text-zinc-700 transition-colors"

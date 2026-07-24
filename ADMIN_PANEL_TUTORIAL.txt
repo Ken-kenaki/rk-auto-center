@@ -1,0 +1,166 @@
+================================================================================
+                    RK AUTO CENTER - ADMIN PANEL USER TUTORIAL
+================================================================================
+Welcome to the step-by-step guide for managing the RK Auto Center portal.
+This guide details how to log in, navigate, manage vehicle inventory, track leads,
+record sales, edit website content, and update system settings.
+
+--------------------------------------------------------------------------------
+TABLE OF CONTENTS
+--------------------------------------------------------------------------------
+1. Logging In to the Admin Panel
+2. Main Dashboard Overview
+3. Car Inventory Management (/dashboard/cars)
+   - 3.1 Viewing All Cars
+   - 3.2 Adding a New Car Listing
+   - 3.3 Editing an Existing Car Listing
+   - 3.4 Deleting / Archiving a Car
+4. Leads & Customer Enquiries Management (/dashboard/leads)
+   - 4.1 Viewing & Filtering Leads
+   - 4.2 Updating Lead Status
+   - 4.3 Adding Contact Notes
+5. Sales & Transactions Management (/dashboard/sales)
+   - 5.1 Recording a New Sale
+   - 5.2 Generating Invoice / Receipt
+   - 5.3 Viewing Sales Analytics
+6. Client Testimonials Management (/dashboard/testimonials)
+   - 6.1 Adding / Approving Testimonials
+   - 6.2 Managing Google Review Embeds
+7. System Settings & Customization (/dashboard/settings)
+   - 7.1 Site Information & Contact Details
+   - 7.2 Admin User Accounts & Security
+   - 7.3 Appwrite Integration & Maintenance
+
+================================================================================
+1. LOGGING IN TO THE ADMIN PANEL
+================================================================================
+Step 1: Open your web browser and navigate to the admin portal:
+        URL: https://yourdomain.com/login (or http://localhost:3000/login when testing locally)
+Step 2: Enter your authorized Admin Email Address and Password.
+Step 3: Click "Sign In to Admin Portal".
+Step 4: Once authenticated, you will automatically be redirected to the Admin Dashboard.
+
+================================================================================
+2. MAIN DASHBOARD OVERVIEW (/dashboard)
+================================================================================
+The Dashboard home screen gives you a quick snapshot of business performance:
+- Total Inventory Count: Total cars active for sale vs. sold/reserved.
+- Monthly Leads: Total customer inquiries received this month via form/phone.
+- Monthly Sales Volume: Revenue generated from car sales.
+- Recent Inquiries Widget: Quick view of the latest customer messages requiring response.
+- Quick Actions Menu: One-click buttons to "Add New Car" or "Log New Sale".
+
+================================================================================
+3. CAR INVENTORY MANAGEMENT (/dashboard/cars)
+================================================================================
+Manage all vehicles listed on the RK Auto Center marketplace.
+
+3.1 Viewing All Cars:
+    - Click "Inventory" or "Cars" in the left sidebar menu.
+    - Use the search bar at the top to search by Brand, Model, Year, or Stock Number.
+    - Filter listings by status: "Available", "Pending", or "Sold".
+
+3.2 Adding a New Car Listing:
+    - Step 1: Click the "+ Add New Vehicle" button at the top right of the Cars page.
+    - Step 2: Fill in Basic Vehicle Information:
+              * Make / Brand (e.g., Toyota, Volkswagen, Hyundai)
+              * Model Name & Variant (e.g., Land Cruiser Prado TX)
+              * Manufacturing Year (e.g., 2022)
+              * Body Type (e.g., SUV, Sedan, Hatchback, Pickup Truck)
+              * Condition (New, Used, Certified Pre-Owned)
+    - Step 3: Enter Specs & Pricing:
+              * Listing Price (in NPR / Rs.)
+              * Mileage (Total Kilometers driven)
+              * Fuel Type (Petrol, Diesel, Electric, Hybrid)
+              * Transmission (Automatic / Manual)
+              * Engine Capacity (CC or kW)
+              * Registration Number & Ownership Details
+    - Step 4: Upload High-Resolution Photos:
+              * Click "Upload Images" and drag & drop vehicle photos.
+              * Set the main primary thumbnail photo (First image in gallery).
+    - Step 5: Vehicle Features & Description:
+              * Check off features (e.g., Sunroof, Leather Seats, 360 Camera, ABS).
+              * Write a detailed description for buyers.
+    - Step 6: Click "Publish Vehicle" to list it immediately on the public website.
+
+3.3 Editing an Existing Car Listing:
+    - Find the vehicle card or row in the inventory list.
+    - Click the "Edit" (pencil icon) button.
+    - Update prices, add/remove photos, or change specs.
+    - Click "Save Changes".
+
+3.4 Deleting / Archiving a Car:
+    - Click the "Delete" (trash icon) button on a vehicle row.
+    - Confirm the prompt: Select "Archive" to hide from public view, or "Permanent Delete".
+
+================================================================================
+4. LEADS & CUSTOMER ENQUIRIES MANAGEMENT (/dashboard/leads)
+================================================================================
+Track incoming phone calls, WhatsApp requests, trade-in forms, and contact inquiries.
+
+4.1 Viewing & Filtering Leads:
+    - Click "Leads" in the sidebar menu.
+    - View leads sorted chronologically (Newest first).
+    - Filter by Lead Type: "General Inquiry", "Test Drive Request", "Sell/Trade-In Request", or "Financing".
+
+4.2 Updating Lead Status:
+    - Click on any lead row to open the Lead Details drawer.
+    - Change status dropdown:
+      * "New" -> Unread message.
+      * "In Contact" -> Sales agent has reached out.
+      * "Scheduled Visit" -> Customer visiting showroom.
+      * "Converted" -> Deal closed.
+      * "Closed / Lost" -> Customer not interested.
+
+4.3 Adding Contact Notes:
+    - Under the customer profile, type internal team notes (e.g., "Client preferred white interior, calling back Thursday").
+    - Click "Save Note".
+
+================================================================================
+5. SALES & TRANSACTIONS MANAGEMENT (/dashboard/sales)
+================================================================================
+Record completed vehicle sales and track financial records.
+
+5.1 Recording a New Sale:
+    - Click "Sales" in the left sidebar menu.
+    - Click "+ Record New Sale".
+    - Select the Vehicle from the active inventory list (This marks the vehicle as "SOLD" automatically).
+    - Enter Buyer Information (Name, Phone Number, Citizenship ID/Pan).
+    - Enter Final Sale Price, Payment Mode (Cash, Bank Transfer, Finance), and Date.
+    - Click "Submit Sale".
+
+5.2 Generating Invoice / Receipt:
+    - On any completed sale row, click "Download Receipt / Invoice".
+    - Print or send the generated PDF directly to the buyer via email or WhatsApp.
+
+================================================================================
+6. CLIENT TESTIMONIALS MANAGEMENT (/dashboard/testimonials)
+================================================================================
+Manage customer reviews and feedback shown on the homepage and about page.
+
+6.1 Adding / Approving Testimonials:
+    - Click "Testimonials" in the sidebar menu.
+    - Click "+ Add Testimonial".
+    - Enter Client Name, Rating (1 to 5 stars), Review Text, and Client Photo.
+    - Toggle "Show on Homepage" to feature it.
+    - Click "Save".
+
+================================================================================
+7. SYSTEM SETTINGS & CUSTOMIZATION (/dashboard/settings)
+================================================================================
+Configure global site details and security settings.
+
+7.1 Site Information & Contact Details:
+    - Go to "Settings" -> "General".
+    - Update Showroom Phone Numbers, Email Address, Facebook Page URL, and Showroom Hours.
+    - Click "Update General Settings".
+
+7.2 Admin User Accounts & Security:
+    - Go to "Settings" -> "Team & Users".
+    - Click "Add New Admin" to invite team members.
+    - Change current admin password under "Security".
+
+--------------------------------------------------------------------------------
+Support & Maintenance:
+For technical support or issues with Appwrite database connectivity, contact the IT Administrator.
+================================================================================

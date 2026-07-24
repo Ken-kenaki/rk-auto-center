@@ -32,11 +32,18 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 }
 
-/** PATCH /api/cars/[id] — partial update (e.g. toggle featured) */
+/** PATCH /api/cars/[id] — partial update (e.g. toggle featured / sold) */
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const body = await req.json();
+
+    // "status" is not an Appwrite attribute — translate it to the "badge" field
+    if (body.status !== undefined) {
+      body.badge = body.status === "sold" ? "Sold" : null;
+      delete body.status;
+    }
+
     const data = sanitize(body);
     const doc = await serverDatabases.updateDocument(DB_ID, CARS_ID, id, data);
     return NextResponse.json({ success: true, doc });

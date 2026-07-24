@@ -75,9 +75,9 @@ export default function VisitPage() {
       <section className="relative overflow-hidden py-24 md:py-32 px-6" style={{ background: "var(--color-inverse-surface)" }}>
         {/* Background Image with Overlay */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity"
+          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&q=80&w=1600')`,
+            backgroundImage: `url('/rk-des.jpg')`,
           }}
         />
         <div

@@ -712,7 +712,16 @@ function BuyPageContent() {
                       </span>
                     )}
 
-                    {car.badge && (
+                    {/* SOLD overlay */}
+                    {car.badge === "Sold" && (
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+                        <span className="bg-red-600 text-white font-black text-lg tracking-widest px-6 py-2 rounded-lg shadow-xl uppercase rotate-[-12deg] border-2 border-white/30">
+                          SOLD
+                        </span>
+                      </div>
+                    )}
+
+                    {car.badge && car.badge !== "Sold" && (
                       <div
                         className="absolute top-3 right-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-sm"
                         style={{

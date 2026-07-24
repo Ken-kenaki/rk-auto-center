@@ -584,7 +584,7 @@ export default function Navbar() {
                 <div className="flex flex-col gap-3 text-left">
                   <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-gray-200">
                     <img
-                      src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=400"
+                      src="/rk-des.jpg"
                       alt="Featured Showroom"
                       className="object-cover w-full h-full transition-transform duration-300 group-hover/showroom:scale-105"
                     />
