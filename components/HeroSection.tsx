@@ -5,6 +5,18 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Car, fetchCarsFromAppwrite } from "@/lib/cars";
 import CountingNumber from "@/components/CountingNumber";
+import { getFilePreviewUrl } from "@/lib/utils";
+import { TESTIMONIALS_BUCKET_ID } from "@/lib/constants";
+
+const FALLBACK_FILE_IDS = [
+  "file-t-anish-shrestha",
+  "file-t-sujata-karki",
+  "file-t-dr--sandeep-pathak",
+  "file-t-prabesh-adhikari",
+  "file-t-melina-shakya",
+  "file-t-roshan-gurung",
+  "file-t-binita-bhandari",
+];
 
 /* ─── Filter Data (mirrors buy/page.tsx) ─── */
 const BRAND_MODELS_DATA: Record<string, string[]> = {
@@ -99,6 +111,39 @@ export default function HeroSection() {
     fetchCarsFromAppwrite().then(setCars).catch(console.error);
   }, []);
 
+  /* — Background slideshow state — */
+  const [bgImages, setBgImages] = useState<string[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    async function loadImages() {
+      try {
+        const res = await fetch("/api/testimonials");
+        if (res.ok) {
+          const data = await res.json();
+          const docs = data.documents || [];
+          const customIds = docs.map((d: any) => d.avatar_id).filter(Boolean);
+          const finalIds = customIds.length > 0 ? customIds : FALLBACK_FILE_IDS;
+
+          setBgImages(finalIds.map((id: string) => getFilePreviewUrl(id, TESTIMONIALS_BUCKET_ID, 1920)));
+        } else {
+          throw new Error("Failed");
+        }
+      } catch (err) {
+        setBgImages(FALLBACK_FILE_IDS.map((id) => getFilePreviewUrl(id, TESTIMONIALS_BUCKET_ID, 1920)));
+      }
+    }
+    loadImages();
+  }, []);
+
+  useEffect(() => {
+    if (bgImages.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % bgImages.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [bgImages]);
+
   /* — Filter state (mirrors buy page) — */
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -170,18 +215,26 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-[640px] md:min-h-[750px] flex flex-col justify-between overflow-hidden bg-black -mt-20 pt-28 pb-12 px-6">
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover opacity-60 scale-105"
-        >
-          <source src="/HERO-VIDEO.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+      {/* Background Slideshow */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-neutral-900">
+        <AnimatePresence>
+          {bgImages.length > 0 && (
+            <motion.div
+              key={currentImageIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url(${bgImages[currentImageIndex]})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 30%'
+              }}
+            />
+          )}
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80" />
       </div>
 
       {/* Card */}
