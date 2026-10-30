@@ -21,14 +21,22 @@ export async function POST(request: Request) {
         const protocol = host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https";
         const origin = `${protocol}://${host}`;
 
+        const apiKey = process.env.APPWRITE_API_KEY || "standard_d97e5f80121b839467b4533bf1463db822ae1096bd749f20152279d3654aa548810ef15f85f17647b9550c53301adaa215d69edfcef387cc887d7fffbc22d80677c441b7906fd2bf044a29e0b0e54e36d31b472a3eaabf18d90549bfdd656bfd66477d222f3c82fb20c3cad0c69aa166c0772e8bc1cd0a67a144cd7291358789";
+
+        const headers: Record<string, string> = {
+            "Content-Type": "application/json",
+            "X-Appwrite-Project": APPWRITE_PROJECT_ID,
+        };
+        if (apiKey) {
+            headers["X-Appwrite-Key"] = apiKey;
+        } else {
+            headers["Origin"] = origin;
+        }
+
         // Perform standard email session creation against Appwrite HTTP endpoint
         const response = await fetch(`${APPWRITE_ENDPOINT}/account/sessions/email`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-Appwrite-Project": APPWRITE_PROJECT_ID,
-                "Origin": origin,
-            },
+            headers,
             body: JSON.stringify({ email, password }),
         });
 

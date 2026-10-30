@@ -27,16 +27,25 @@ export async function GET() {
             }, { status: 401 });
         }
 
-        // Initialize client with the session token
-        const client = new Client()
-            .setEndpoint(APPWRITE_ENDPOINT)
-            .setProject(APPWRITE_PROJECT_ID)
-            .setSession(session.value);
-
-        const account = new Account(client);
-        
+        // Fetch account details directly using native fetch and session header
         try {
-            const user = await account.get();
+            const res = await fetch(`${APPWRITE_ENDPOINT}/account`, {
+                method: "GET",
+                headers: {
+                    "X-Appwrite-Project": APPWRITE_PROJECT_ID,
+                    "X-Appwrite-Session": session.value,
+                },
+            });
+
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                return NextResponse.json(
+                    { error: errData.message || "Invalid session" },
+                    { status: 401 }
+                );
+            }
+
+            const user = await res.json();
             return NextResponse.json({
                 success: true,
                 $id: user.$id,

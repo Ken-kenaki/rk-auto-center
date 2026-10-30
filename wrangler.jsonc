@@ -1,0 +1,33 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "rk-auto-center",
+	"compatibility_date": "2026-09-18",
+	"compatibility_flags": [
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"r2_buckets": [
+		{
+			"binding": "NEXT_INC_CACHE_R2_BUCKET",
+			"bucket_name": "rkauto-assets"
+		},
+		{
+			"bucket_name": "rkauto-assets",
+			"binding": "rkauto_assets",
+			"remote": true
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "rkauto_db",
+			"database_name": "rkauto-db",
+			"database_id": "9b4e9f02-2cf8-4848-bd4a-ee2e72e95160",
+			"remote": true
+		}
+	]
+}
+

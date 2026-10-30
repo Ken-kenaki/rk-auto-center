@@ -1,70 +1,59 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ID } from "node-appwrite";
-import { serverDatabases } from "@/lib/appwrite-server";
-import { DB_ID, TESTIMONIALS_COLLECTION_ID } from "@/lib/constants";
+import { d1 } from "@/lib/cloudflare/d1";
 
-const ALLOWED = ["name", "role", "quote", "avatar_id", "rating", "featured"];
+export const dynamic = "force-dynamic";
 
-function sanitize(data: Record<string, any>) {
-  const out: Record<string, any> = {};
-  for (const k of ALLOWED) {
-    if (data[k] !== undefined) {
-      if (k === "rating") {
-        out[k] = parseInt(data[k], 10) || 5;
-      } else if (k === "featured") {
-        out[k] = Boolean(data[k]);
-      } else {
-        out[k] = data[k];
-      }
-    }
-  }
-  return out;
-}
-
-/** GET /api/testimonials — list all testimonials */
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const response = await serverDatabases.listDocuments(
-      DB_ID,
-      TESTIMONIALS_COLLECTION_ID
-    );
-    return NextResponse.json({ success: true, documents: response.documents });
+    const { searchParams } = new URL(req.url);
+    const featured = searchParams.get("featured");
+
+    let sql = "SELECT * FROM testimonials";
+    let params: any[] = [];
+
+    if (featured === "true") {
+      sql += " WHERE featured = 1";
+    }
+    sql += " ORDER BY created_at DESC";
+
+    const rows = await d1.query<any>(sql, params);
+    const documents = rows.map((r) => ({
+      $id: r.id,
+      id: r.id,
+      ...r,
+      featured: Boolean(r.featured),
+      $createdAt: r.created_at,
+      $updatedAt: r.updated_at,
+    }));
+
+    return NextResponse.json({ total: documents.length, documents });
   } catch (err: any) {
-    console.error("Testimonials GET error:", err);
-    return NextResponse.json(
-      { error: err.message || "Failed to fetch testimonials" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: err.message || "Failed to fetch testimonials" }, { status: 500 });
   }
 }
 
-/** POST /api/testimonials — create a new testimonial */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const data = sanitize(body);
+    const id = `testimonial-${Date.now()}`;
 
-    if (!data.name || !data.role || !data.quote) {
-      return NextResponse.json(
-        { error: "Name, role, and quote are required." },
-        { status: 400 }
-      );
-    }
-
-    const docId = `t-${data.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}-${Date.now().toString(36)}`;
-    const doc = await serverDatabases.createDocument(
-      DB_ID,
-      TESTIMONIALS_COLLECTION_ID,
-      docId,
-      data
+    await d1.execute(
+      `INSERT INTO testimonials (id, name, role, quote, avatar_id, rating, featured)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [
+        id,
+        body.name,
+        body.role || "",
+        body.quote || "",
+        body.avatar_id || "",
+        body.rating || 5,
+        body.featured ? 1 : 0,
+      ]
     );
 
-    return NextResponse.json({ success: true, doc });
+    const doc = await d1.first("SELECT * FROM testimonials WHERE id = ?", [id]);
+    return NextResponse.json({ success: true, doc: { $id: id, id, ...doc } });
   } catch (err: any) {
-    console.error("Testimonials POST error:", err);
-    return NextResponse.json(
-      { error: err.message || "Failed to create testimonial" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: err.message || "Failed to create testimonial" }, { status: 500 });
   }
 }

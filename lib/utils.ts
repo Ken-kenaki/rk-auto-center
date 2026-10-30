@@ -16,8 +16,7 @@ export function getFilePreviewUrl(
     quality?: number
 ): string {
     if (!fileId) return "";
-    // Bypassing Appwrite image transformation limits (HTTP 402 error) on free tier by using /view endpoint instead of /preview
-    return `${APPWRITE_ENDPOINT}/storage/buckets/${bucketId}/files/${fileId}/view?project=${APPWRITE_PROJECT_ID}`;
+    return `/api/storage/preview?fileId=${encodeURIComponent(fileId)}`;
 }
 
 /**
@@ -25,7 +24,7 @@ export function getFilePreviewUrl(
  */
 export function getFileDownloadUrl(fileId: string): string {
     if (!fileId) return "";
-    return `${APPWRITE_ENDPOINT}/storage/buckets/${CAR_IMAGES_BUCKET_ID}/files/${fileId}/download?project=${APPWRITE_PROJECT_ID}`;
+    return `/api/storage/preview?fileId=${encodeURIComponent(fileId)}`;
 }
 
 /**
@@ -33,7 +32,7 @@ export function getFileDownloadUrl(fileId: string): string {
  */
 export function getFileViewUrl(fileId: string): string {
     if (!fileId) return "";
-    return `${APPWRITE_ENDPOINT}/storage/buckets/${CAR_IMAGES_BUCKET_ID}/files/${fileId}/view?project=${APPWRITE_PROJECT_ID}`;
+    return `/api/storage/preview?fileId=${encodeURIComponent(fileId)}`;
 }
 
 /**

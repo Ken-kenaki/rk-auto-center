@@ -16,16 +16,17 @@ const fuelIcon: Record<string, string> = {
 function FeaturedCard({ car, index }: { car: Car; index: number }) {
   const router = useRouter();
   const [imgIdx, setImgIdx] = useState(0);
+  const images = car.images && car.images.length > 0 ? car.images : (car.image ? [car.image] : []);
 
   const prev = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setImgIdx((i) => (i === 0 ? car.images.length - 1 : i - 1));
+    setImgIdx((i) => (i === 0 ? images.length - 1 : i - 1));
   };
   const next = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setImgIdx((i) => (i === car.images.length - 1 ? 0 : i + 1));
+    setImgIdx((i) => (i === images.length - 1 ? 0 : i + 1));
   };
 
   return (
@@ -39,7 +40,7 @@ function FeaturedCard({ car, index }: { car: Car; index: number }) {
     >
       {/* Image carousel area */}
       <div className="aspect-[16/10] relative overflow-hidden bg-gray-100">
-        {car.images.map((img, i) => (
+        {images.map((img, i) => (
           <img
             key={i}
             src={img}
@@ -54,7 +55,7 @@ function FeaturedCard({ car, index }: { car: Car; index: number }) {
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
 
         {/* Prev/Next arrows — visible on hover */}
-        {car.images.length > 1 && (
+        {images.length > 1 && (
           <>
             <button
               onClick={prev}
@@ -76,9 +77,9 @@ function FeaturedCard({ car, index }: { car: Car; index: number }) {
         )}
 
         {/* Dot indicators */}
-        {car.images.length > 1 && (
+        {images.length > 1 && (
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-            {car.images.map((_, i) => (
+            {images.map((_, i) => (
               <button
                 key={i}
                 onClick={(e) => {

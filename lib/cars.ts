@@ -212,6 +212,22 @@ import { getFilePreviewUrl } from "./utils";
 
 export async function fetchCarsFromAppwrite(): Promise<Car[]> {
   try {
+    const origin = typeof window !== "undefined"
+      ? ""
+      : (process.env.NEXT_PUBLIC_SITE_URL || "https://rk-auto-center.kenofficial588.workers.dev");
+    const res = await fetch(`${origin}/api/cars?limit=100`, { next: { revalidate: 60 } });
+    if (res.ok) {
+      const json = await res.json();
+      const docs = json.documents || [];
+      if (docs.length > 0) {
+        return docs.filter((c: Car) => !c.slug?.startsWith("sell-"));
+      }
+    }
+  } catch (err) {
+    console.warn("fetchCarsFromAppwrite error:", err);
+  }
+
+  try {
     const response = await databases.listDocuments(
       DB_ID,
       CARS_COLLECTION_ID,
@@ -253,7 +269,6 @@ export async function fetchCarsFromAppwrite(): Promise<Car[]> {
         createdAt: doc.$createdAt || "",
       };
     });
-    // Slug prefix "sell-" = sell-form submission → never show in car listings
     return mapped.filter((c: Car) => !c.slug.startsWith("sell-"));
   } catch (error) {
     console.error("Failed to fetch cars from Appwrite:", error);
@@ -273,7 +288,6 @@ export async function fetchSalesSubmissionsFromAppwrite(): Promise<Car[]> {
         imgId.startsWith("http") ? imgId : getFilePreviewUrl(imgId)
       );
       
-      // Parse seller info from description if present
       const descStr = doc.description || "";
       const sellerMatch = descStr.match(/--- SELLER CONTACT INFO ---\s*\nName:\s*([^\n]*)\s*\nEmail:\s*([^\n]*)\s*\nPhone:\s*([^\n]*)\s*\nCity:\s*([^\n]*)/);
       const cleanDesc = descStr.split("--- SELLER CONTACT INFO ---")[0].trim();
@@ -310,7 +324,6 @@ export async function fetchSalesSubmissionsFromAppwrite(): Promise<Car[]> {
         createdAt: doc.$createdAt || "",
       };
     });
-    // Only return sell-form submissions (identified by slug prefix "sell-")
     return mapped.filter((c: Car) => c.slug.startsWith("sell-"));
   } catch (error) {
     console.error("Failed to fetch sales submissions from Appwrite:", error);
@@ -319,6 +332,20 @@ export async function fetchSalesSubmissionsFromAppwrite(): Promise<Car[]> {
 }
 
 export async function fetchCarBySlugFromAppwrite(slug: string): Promise<Car | null> {
+  try {
+    const origin = typeof window !== "undefined"
+      ? ""
+      : (process.env.NEXT_PUBLIC_SITE_URL || "https://rk-auto-center.kenofficial588.workers.dev");
+    const res = await fetch(`${origin}/api/cars?slug=${encodeURIComponent(slug)}&limit=1`, { next: { revalidate: 60 } });
+    if (res.ok) {
+      const json = await res.json();
+      const doc = json.documents?.[0];
+      if (doc) return doc;
+    }
+  } catch (err) {
+    console.warn("fetchCarBySlug error:", err);
+  }
+
   try {
     const response = await databases.listDocuments(
       DB_ID,
